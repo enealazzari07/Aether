@@ -19,10 +19,16 @@
     "directories": {
       "buildResources": "build"
     },
-    "icon": "build/favicon.ico",
+    "icon": "favicon.ico",
+    "extraResources": [
+      {
+        "from": "build/favicon.ico",
+        "to": "favicon.ico"
+      }
+    ],
     "win": {
       "target": "nsis",
-      "icon": "build/favicon.ico"
+      "icon": "favicon.ico"
     },
     "nsis": {
       "oneClick": true,

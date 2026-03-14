@@ -6,6 +6,10 @@ const fs = require('fs');
 let win;
 let splash;
 
+if (process.platform === 'win32') {
+  app.setAppUserModelId('com.aether.browser');
+}
+
 let groqKeyCache = null;
 let groqKeyLoaded = false;
 let updaterWired = false;
@@ -95,6 +99,8 @@ function createAppIcon() {
   // Prefer shipped ICO/PNG resources (Windows taskbar + packaged build).
   try {
     const candidates = [
+      // Packaged builds: we copy the icon into process.resourcesPath via electron-builder extraResources.
+      ...(app.isPackaged ? [path.join(process.resourcesPath, 'favicon.ico')] : []),
       path.join(__dirname, 'build', 'favicon.ico'),
       path.join(__dirname, 'build', 'icon.ico'),
       path.join(__dirname, 'build', 'icon.png'),
