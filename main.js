@@ -47,7 +47,7 @@ function loadStoredGroqKey() {
 }
 
 function storeGroqKey(key) {
-  const k = String(key || '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').trim();
+  const k = String(key || '').trim();
   if (!k) throw new Error('Empty Groq API key.');
 
   const p = groqKeyFilePath();
