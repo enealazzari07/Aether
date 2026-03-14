@@ -4,6 +4,11 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag to release (e.g. v1.0.1). Defaults to the version in package.json."
+        required: false
 
 permissions:
   contents: write
@@ -23,6 +28,35 @@ jobs:
 
       - name: Install
         run: npm ci
+
+      - name: Resolve version tag
+        id: tag
+        shell: bash
+        run: |
+          INPUT="${{ github.event.inputs.version }}"
+          if [ -n "$INPUT" ]; then
+            TAG="$INPUT"
+          else
+            PKG_VERSION=$(node -p "require('./package.json').version")
+            TAG="v${PKG_VERSION}"
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push tag
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists, skipping creation"
+          else
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Publish
         run: npm run release
