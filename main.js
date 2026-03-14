@@ -105,18 +105,28 @@ function getGroqKeyStatus() {
   return { hasKey, source, encryptionAvailable };
 }
 
-function createAppIcon() {
-  // Prefer shipped ICO/PNG resources (Windows taskbar + packaged build).
+function getPreferredIconPath() {
   try {
     const candidates = [
-      // Packaged builds: we copy the icon into process.resourcesPath via electron-builder extraResources.
       ...(app.isPackaged ? [path.join(process.resourcesPath, 'favicon.ico')] : []),
       path.join(__dirname, 'build', 'favicon.ico'),
       path.join(__dirname, 'build', 'icon.ico'),
       path.join(__dirname, 'build', 'icon.png'),
     ];
     for (const p of candidates) {
-      if (!fs.existsSync(p)) continue;
+      if (fs.existsSync(p)) return p;
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
+function createAppIcon() {
+  // Prefer shipped ICO/PNG resources (Windows taskbar + packaged build).
+  try {
+    const p = getPreferredIconPath();
+    if (p) {
       const img = nativeImage.createFromPath(p);
       if (img && !img.isEmpty()) return img;
     }
@@ -172,13 +182,14 @@ function ensureBuildIconPng() {
 
 function createWindow() {
   // Erstelle das Hauptfenster, aber zeige es noch nicht an
+  const iconPath = getPreferredIconPath();
   const appIcon = createAppIcon();
   ensureBuildIconPng();
   win = new BrowserWindow({
     width: 1200,
     height: 800,
     show: false, // Wichtig: Erst anzeigen, wenn es bereit ist
-    icon: appIcon || undefined,
+    icon: iconPath || appIcon || undefined,
     titleBarStyle: 'hidden', // Native windows app look
     webPreferences: {
       nodeIntegration: false,

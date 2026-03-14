@@ -125,6 +125,10 @@ function init() {
     let tabCounter = 0;
     let activeTabId = null;
     let browserHistory = [];
+
+    const DEFAULT_TAB_ICON_DATA_URL = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20"/><path d="M12 2a15 15 0 0 0 0 20"/></svg>`
+    )}`;
     // Workspace + Favorites state (renderer-only; sessions are enforced via webview partition per tab).
     const workspaceIds = ['schule', 'freizeit', 'programmieren', 'fokus'];
     let activeWorkspaceId = 'freizeit';
@@ -209,7 +213,8 @@ function init() {
         const ws = tabEl.dataset.workspaceId || 'freizeit';
         const url = tabEl.dataset.url || 'about:blank';
         const title = (tabEl.querySelector('.tab-title') && tabEl.querySelector('.tab-title').textContent) ? tabEl.querySelector('.tab-title').textContent : 'New Tab';
-        const icon = tabEl.querySelector('.tab-icon') ? tabEl.querySelector('.tab-icon').getAttribute('src') : '';
+        const rawIcon = tabEl.querySelector('.tab-icon') ? tabEl.querySelector('.tab-icon').getAttribute('src') : '';
+        const icon = rawIcon && rawIcon !== DEFAULT_TAB_ICON_DATA_URL ? rawIcon : '';
         const pinned = tabEl.classList.contains('pinned');
         const asleep = tabEl.classList.contains('asleep') || tabEl.dataset.asleep === '1';
         const lastFocusedAtMs = Number(tabEl.dataset.lastFocusedAtMs || 0) || 0;
@@ -1321,10 +1326,7 @@ function init() {
                 titleEl.textContent = title || fallback;
             }
             if (tabId === activeTabId && topAddressBar) topAddressBar.value = url === 'about:blank' ? '' : url;
-            // Default: keep icon hidden unless we have a favicon.
-            if (iconEl && !iconEl.getAttribute('src')) {
-                iconEl.style.display = 'none';
-            }
+            if (iconEl && !iconEl.getAttribute('src')) iconEl.setAttribute('src', DEFAULT_TAB_ICON_DATA_URL);
             scheduleSaveAppState();
         }
         webview.addEventListener('did-finish-load', () => {
@@ -1339,13 +1341,12 @@ function init() {
             const tabEl = document.getElementById(tabId);
             if (!tabEl) return;
             const iconEl = tabEl.querySelector('.tab-icon');
-            const fav = Array.isArray(favicons) ? favicons[0] : null;
-            if (iconEl && fav) {
-                iconEl.setAttribute('src', fav);
-                iconEl.style.display = 'block';
-                tabEl.dataset.icon = fav;
-                scheduleSaveAppState();
-            }
+            if (!iconEl) return;
+            const fav = Array.isArray(favicons) ? favicons.find((u) => typeof u === 'string' && u.trim()) : null;
+            if (!fav) return;
+            iconEl.setAttribute('src', fav);
+            tabEl.dataset.icon = fav;
+            scheduleSaveAppState();
         });
         webview.addEventListener('did-navigate', () => {
             updateTabUI();
@@ -1427,7 +1428,7 @@ function init() {
         tab.dataset.workspaceId = ws;
         tab.dataset.url = url || 'about:blank';
         tab.dataset.lastFocusedAtMs = String(Number(opts.lastFocusedAtMs || Date.now()));
-        tab.innerHTML = `<img class="tab-icon" src="" alt=""><span class="tab-title">New Tab</span><span class="close-tab">×</span>`;
+        tab.innerHTML = `<img class="tab-icon" src="${DEFAULT_TAB_ICON_DATA_URL}" alt=""><span class="tab-title">New Tab</span><span class="close-tab">×</span>`;
         if (opts.pinned) tab.classList.add('pinned');
         if (isAsleep) {
             tab.classList.add('asleep');
@@ -1439,7 +1440,6 @@ function init() {
         const iconEl = tab.querySelector('.tab-icon');
         if (iconEl && opts.icon) {
             iconEl.setAttribute('src', opts.icon);
-            iconEl.style.display = 'block';
             tab.dataset.icon = opts.icon;
         }
         if (!isAsleep) createWebviewForTab(tabId, ws, url);
@@ -1640,12 +1640,6 @@ function init() {
             splashView.style.display = 'flex';
             homeNavBtn.classList.add('active');
             topAddressBar.value = '';
-            
-            const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
-            if (activeWebview) {
-                activeWebview.src = 'about:blank';
-                activeWebview.style.display = 'none';
-            }
         };
     }
     if (explorerNavBtn) {

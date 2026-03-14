@@ -308,11 +308,11 @@ input, textarea {
 }
 
 .sidebar.collapsed .nav-text {
-    opacity: 0;
+    display: none;
 }
 
 .sidebar.collapsed .workspace-text {
-    opacity: 0;
+    display: none;
 }
 
 .sidebar.collapsed .nav-item {
@@ -401,7 +401,7 @@ input, textarea {
     min-width: 16px;
     border-radius: 2px;
     pointer-events: none;
-    display: none; /* Standardmäßig ausblenden (für leere Seiten) */
+    display: block;
 }
 
 .tab-title {
