@@ -9,6 +9,7 @@ icon: build/favicon.ico
 win:
   target: nsis
   icon: build/favicon.ico
+  signAndEditExecutable: false
 
 nsis:
   oneClick: true
@@ -16,5 +17,3 @@ nsis:
 
 publish:
   provider: github
-  owner: ${env.GH_OWNER}
-  repo: ${env.GH_REPO}

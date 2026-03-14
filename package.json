@@ -1,7 +1,12 @@
 {
   "name": "aether-browser",
   "version": "1.0.1",
+  "description": "Aether Browser (Electron)",
   "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enealazzari07/Aether.git"
+  },
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --config electron-builder.local.yml",

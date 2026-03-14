@@ -9,6 +9,7 @@ icon: build/favicon.ico
 win:
   target: nsis
   icon: build/favicon.ico
+  signAndEditExecutable: false
 
 nsis:
   oneClick: true
