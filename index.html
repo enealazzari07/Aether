@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Browser</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Windows Title Bar -->
+    <div class="win-title-bar">
+        <div class="win-drag-area"></div>
+        <div class="win-controls-group">
+            <div class="win-btn" id="min-btn">
+                <svg width="10" height="1"><rect width="10" height="1" fill="currentColor"/></svg>
+            </div>
+            <div class="win-btn" id="max-btn">
+                <svg width="10" height="10" viewBox="0 0 10 10"><path d="M0,0v10h10V0H0z M9,9H1V1h8V9z" fill="currentColor"/></svg>
+            </div>
+            <div class="win-btn close" id="close-btn">
+                <svg width="10" height="10" viewBox="0 0 10 10"><path d="M10,1L9,0L5,4L1,0L0,1L4,5L0,9L1,10L5,6L9,10L10,9L6,5L10,1z" fill="currentColor"/></svg>
+            </div>
+        </div>
+    </div>
+    <div class="browser-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-toggle" id="sidebar-toggle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </div>
+                <h2>Aether</h2>
+            </div>
+            <div class="sidebar-content">
+                <div class="nav-item active" id="home-nav-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span class="nav-text">Home</span>
+                </div>
+                <div class="nav-item" id="workspace-nav-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"></rect><rect x="14" y="3" width="7" height="7" rx="2"></rect><rect x="3" y="14" width="7" height="7" rx="2"></rect><rect x="14" y="14" width="7" height="7" rx="2"></rect></svg>
+                    <span class="nav-text">Workspace</span>
+                </div>
+                <div class="nav-item" id="explorer-nav-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    <span class="nav-text">Universal Explorer</span>
+                </div>
+                <div class="nav-item" id="settings-nav-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span class="nav-text">Einstellungen</span>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <div class="main-stage">
+            <!-- Tabs Bar -->
+            <div class="tabs-container">
+                <div class="new-tab-btn" id="add-tab-btn">+</div>
+            </div>
+            <!-- Address Bar -->
+            <div class="app-header">
+                <div class="app-header-row">
+                    <div class="browser-nav-btns">
+                        <svg id="back-btn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        <svg id="reload-btn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                    </div>
+                    <div class="address-bar-capsule">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#999;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="top-address-bar" placeholder="Search or enter URL...">
+                    </div>
+                    <div class="history-toggle-btn" id="history-toggle-btn" title="Verlauf">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div class="ai-toggle-btn" id="ai-toggle-btn" title="Toggle Aether AI">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M7 5H3"/></svg>
+                    </div>
+                </div>
+                <div class="favorites-bar" id="favorites-bar" aria-label="Favoriten"></div>
+            </div>
+            <!-- Browser Viewport + Right Sidebar -->
+            <div class="viewport-wrapper">
+                <!-- Main Viewport Shell -->
+                <div class="viewport-shell">
+                    <div id="view-layer">
+                        <!-- Home View -->
+                        <div class="splash-view" id="splash-view">
+                            <div class="home-hero">
+                                <div class="home-brand" aria-label="Aether">
+                                    <svg class="home-logo" viewBox="0 0 120 120" width="56" height="56" aria-hidden="true">
+                                        <defs>
+                                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#FF8A5B;stop-opacity:1" />
+                                                <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+                                            </linearGradient>
+                                        </defs>
+                                        <g transform="rotate(-18 60 60)">
+                                            <circle cx="60" cy="60" r="28" fill="none" stroke="url(#logoGradient)" stroke-width="12" stroke-linecap="round" stroke-dasharray="142 40" />
+                                            <circle cx="60" cy="60" r="16" fill="none" stroke="url(#logoGradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="78 26" opacity="0.55" transform="rotate(90 60 60)" />
+                                        </g>
+                                    </svg>
+                                    <div class="home-wordmark">AETHER</div>
+                                </div>
+                                <form id="home-search-form" onsubmit="event.preventDefault();">
+                                    <div class="home-search-box">
+                                        <div class="home-search-top">
+                                            <svg class="home-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                            <input type="text" id="home-search-input" placeholder="Enter keywords to search" autofocus>
+                                        </div>
+                                        <div class="home-search-bottom">
+                                            <button class="home-search-chip" id="home-search-at" type="button" title="Shortcut">@</button>
+                                            <button class="home-search-chip" id="home-search-sliders" type="button" title="Options">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                                            </button>
+                                            <div class="home-search-spacer"></div>
+                                            <button class="home-search-iconbtn" id="home-search-gear" type="button" title="Settings">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
+                                            </button>
+                                            <button class="home-search-submit" id="home-search-submit" type="button" title="Search">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 5 7 7-7 7"></path></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div id="home-search-results" class="home-results-overlay hidden"></div>
+                            </div>
+                        </div>
+                        <!-- Explorer View (Universal Search Replacement) -->
+                        <div id="explorer-view" class="explorer-view hidden">
+                            <div class="explorer-header">
+                                <div class="explorer-top">
+                                    <h1>Universal Explorer</h1>
+                                    <button id="explorer-add-root" class="explorer-btn" type="button">Ordner hinzufügen</button>
+                                </div>
+                                <div class="explorer-search">
+                                    <input id="explorer-search-input" class="explorer-search-input" type="text" placeholder="Dateien, Tabs, Verlauf..." />
+                                    <button id="explorer-search-btn" class="explorer-btn primary" type="button">Suchen</button>
+                                </div>
+                                <div class="explorer-roots" id="explorer-roots" aria-label="Suchordner"></div>
+                            </div>
+                            <div id="explorer-results" class="search-results-container"></div>
+                        </div>
+                        <!-- Settings View -->
+                        <div id="settings-view" class="settings-view hidden">
+                            <div class="settings-content">
+                                <h1 class="settings-title">Einstellungen</h1>
+                                <div class="settings-group">
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
+                                                <span class="settings-label">Darstellung</span>
+                                                <p class="settings-description">Wähle zwischen einem hellen oder dunklen Design.</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <select id="theme-select" class="settings-select">
+                                                    <option value="light">Hell</option>
+                                                    <option value="dark">Dunkel</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
+                                                <span class="settings-label">Updates</span>
+                                                <p class="settings-description">Auto-Update Ã¼ber GitHub Releases (funktioniert nur in der installierten Build-Version).</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <div class="settings-inline">
+                                                    <button id="update-check-btn" class="settings-button" type="button">Nach Updates suchen</button>
+                                                    <button id="update-install-btn" class="settings-button" type="button" disabled>Installieren</button>
+                                                </div>
+                                                <div id="update-status" class="settings-hint">Update: unbekannt</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
+                                                <span class="settings-label">Standardsuchmaschine</span>
+                                                <p class="settings-description">Lege die Suchmaschine für die Adressleiste fest.</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <select id="search-engine-select" class="settings-select">
+                                                    <option value="google">Google</option>
+                                                    <option value="duckduckgo">DuckDuckGo</option>
+                                                    <option value="bing">Bing</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
+                                                <span class="settings-label">Browserdaten löschen</span>
+                                                <p class="settings-description">Lösche deinen Verlauf, Cookies und Cache.</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <button id="clear-data-btn" class="settings-button">Daten löschen</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
+                                                <span class="settings-label">Aether AI (API)</span>
+                                                <p class="settings-description">Optional: setze GROQ_API_KEY als Umgebungsvariable. Keys/Passwörter werden nicht im Browser gespeichert.</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <div class="settings-inline">
+                                                    <input id="groq-api-key-input" class="settings-input" type="password" placeholder="gsk_..." autocomplete="off" spellcheck="false" />
+                                                    <button id="groq-api-key-save" class="settings-button" type="button">Speichern</button>
+                                                    <button id="groq-api-key-clear" class="settings-button" type="button">Entfernen</button>
+                                                </div>
+                                                <div id="groq-api-key-status" class="settings-hint">AI: nicht konfiguriert</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
+                                                <span class="settings-label">OneNote (Schule)</span>
+                                                <p class="settings-description">Optional: OneNote über Microsoft Graph als Live-Kontext für KI. Passwort wird nie gespeichert; OAuth-Token idealerweise nur im RAM (Session).</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <button class="settings-button" disabled title="Noch nicht implementiert">Verbinden</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Workspace View -->
+                        <div id="workspace-view" class="workspace-view hidden">
+                            <div class="workspace-content">
+                                <div class="workspace-title-row">
+                                    <h1 class="workspace-title">Workspace</h1>
+                                    <div class="workspace-subtitle" id="workspace-subtitle">Freizeit</div>
+                                </div>
+
+                                <div class="workspace-grid" id="workspace-grid">
+                                    <button class="ws-card" data-workspace-id="schule" type="button">
+                                        <div class="ws-badge ws-schule">S</div>
+                                        <div class="ws-info">
+                                            <div class="ws-name">Schule</div>
+                                            <div class="ws-desc">KI hilft beim Lernen, Zusammenfassen, Recherchieren.</div>
+                                        </div>
+                                    </button>
+                                    <button class="ws-card" data-workspace-id="freizeit" type="button">
+                                        <div class="ws-badge ws-freizeit">F</div>
+                                        <div class="ws-info">
+                                            <div class="ws-name">Freizeit</div>
+                                            <div class="ws-desc">Alles Private, Social, Video.</div>
+                                        </div>
+                                    </button>
+                                    <button class="ws-card" data-workspace-id="programmieren" type="button">
+                                        <div class="ws-badge ws-prog">P</div>
+                                        <div class="ws-info">
+                                            <div class="ws-name">Programmieren</div>
+                                            <div class="ws-desc">Docs, Repo-Suche, Debug.</div>
+                                        </div>
+                                    </button>
+                                    <button class="ws-card" data-workspace-id="fokus" type="button">
+                                        <div class="ws-badge ws-fokus">!</div>
+                                        <div class="ws-info">
+                                            <div class="ws-name">Fokus</div>
+                                            <div class="ws-desc">Zeitlimit, Pausen erzwingen.</div>
+                                            <div class="ws-meta" id="focus-meta">max 180 min</div>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <div class="ws-panel" id="school-panel">
+                                    <div class="ws-panel-title">Schul-Assistent</div>
+                                    <div class="ws-panel-row">
+                                        <input id="school-ai-input" class="ws-panel-input" type="text" placeholder="Frage stellen oder Thema eingeben..." />
+                                        <button id="school-ai-ask" class="ws-panel-btn" type="button">KI fragen</button>
+                                    </div>
+                                    <div class="ws-panel-hint">Tipp: nutzt Live-Web-Recherche automatisch und antwortet auf Deutsch.</div>
+                                </div>
+
+                                <div class="ws-panel" id="focus-panel">
+                                    <div class="ws-panel-title">Fokus-Timer</div>
+                                    <div class="ws-panel-row">
+                                        <button class="ws-panel-chip" data-focus-min="25" type="button">25 min</button>
+                                        <button class="ws-panel-chip" data-focus-min="50" type="button">50 min</button>
+                                        <button class="ws-panel-chip" data-focus-min="180" type="button">180 min</button>
+                                        <div class="ws-panel-spacer"></div>
+                                        <button id="focus-start" class="ws-panel-btn" type="button">Start</button>
+                                    </div>
+                                    <div class="ws-panel-progress">
+                                        <div class="ws-panel-progress-bar" id="focus-progress-bar"></div>
+                                    </div>
+                                    <div class="ws-panel-hint" id="focus-hint">Noch nicht gestartet.</div>
+                                </div>
+
+                                <div class="ws-panel" id="tools-panel">
+                                    <div class="ws-panel-title">Tools</div>
+                                    <div class="ws-panel-row">
+                                        <button id="tool-summarize-page" class="ws-panel-btn" type="button">Seite zusammenfassen</button>
+                                        <button id="tool-spellcheck" class="ws-panel-btn" type="button">Rechtschreibung</button>
+                                        <button id="tool-mic-toggle" class="ws-panel-btn" type="button">Mic</button>
+                                        <button id="tool-summarize-mic" class="ws-panel-btn" type="button">Mic zusammenfassen</button>
+                                    </div>
+                                    <div class="ws-panel-hint" id="mic-status">Mic aus.</div>
+                                    <div class="ws-transcript" id="mic-transcript"></div>
+                                </div>
+
+                                <div class="ws-panel">
+                                    <div class="ws-panel-title">Kontext-Switching</div>
+                                    <div class="ws-panel-row">
+                                        <select id="move-tab-target" class="ws-panel-select">
+                                            <option value="schule">Schule</option>
+                                            <option value="freizeit">Freizeit</option>
+                                            <option value="programmieren">Programmieren</option>
+                                            <option value="fokus">Fokus</option>
+                                        </select>
+                                        <button id="move-tab-btn" class="ws-panel-btn" type="button">Aktuellen Tab verschieben</button>
+                                    </div>
+                                    <div class="ws-panel-hint">Erzeugt im Ziel-Workspace einen neuen Tab (Session bleibt sauber).</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="webviews-container">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Universal Sidebar Search -->
+        <div id="search-sidebar" class="search-sidebar hidden">
+            <div class="sidebar-header">
+                <h2>Universal Suche</h2>
+                <div id="close-search" style="cursor:pointer; opacity:0.7;">✕</div>
+            </div>
+            <div class="sidebar-search-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="universal-search-input" placeholder="Tabs, Verlauf, Dateien...">
+            </div>
+            <div class="search-permissions">
+                <label class="permission-toggle">
+                    <input type="checkbox" id="file-access-checkbox">
+                    <span>Lokale Dateien durchsuchen</span>
+                </label>
+            </div>
+            <div id="search-results" class="search-results-container">
+                <!-- Ergebnisse werden hier generiert -->
+            </div>
+        </div>
+        <!-- Right History Sidebar (Outside the white stage) -->
+        <div id="history-sidebar" class="history-sidebar hidden">
+            <div class="history-header">
+                <h2>Verlauf</h2>
+                <div class="history-header-actions">
+                    <div id="clear-history" title="Verlauf leeren" style="cursor: pointer; opacity: 0.7; margin-right: 8px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </div>
+                    <div id="close-history" style="cursor: pointer; opacity: 0.7;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </div>
+                </div>
+            </div>
+            <div id="history-list" class="history-list"></div>
+        </div>
+        
+        <!-- Right AI Sidebar (Outside the white stage) -->
+        <div id="ai-sidebar" class="ai-sidebar hidden">
+            <div class="ai-sidebar-resizer" id="ai-sidebar-resizer"></div>
+            <div class="ai-header">
+                <h2>Aether AI</h2>
+                <div id="close-ai">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+            </div>
+            <div id="ai-messages" class="ai-messages">
+                <div class="message bot">
+                    <div class="ai-welcome-text">Hello! I'm Aether AI. Wie kann ich dir heute helfen?</div>
+                    <div class="ai-suggestion-buttons">
+                        <button class="ai-suggestion-btn" data-command="Fasse diese Seite zusammen">Fasse diese Seite zusammen</button>
+                        <button class="ai-suggestion-btn" data-command="Recherchiere: Aktuelle Nachrichten">Recherchiere aktuelle Nachrichten</button>
+                        <button class="ai-suggestion-btn" data-command="Was ist Quantencomputing?">Erkläre Quantencomputing</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-input-wrapper">
+                <div id="ai-page-context-pill" class="ai-context-pill hidden">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"></path></svg>
+                    <span id="ai-page-context-text"></span>
+                    <span id="ai-page-context-clear" style="cursor:pointer; margin-left:4px; font-weight:bold;">&times;</span>
+                </div>
+                <div id="ai-context-pill" class="ai-context-pill hidden">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                    <span id="ai-context-text"></span>
+                    <span id="ai-context-clear" style="cursor:pointer; margin-left:4px; font-weight:bold;">&times;</span>
+                </div>
+                <div class="ai-input-box">
+                    <div class="ai-mode-btn" id="ai-mode-btn" title="Modus: Standard">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                    </div>
+                    <div class="ai-attach-btn" id="ai-attach-btn" title="Datei anhängen">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                    </div>
+                    <input type="file" id="ai-file-input" style="display: none;" accept=".txt,.json,.js,.css,.html,.md,.csv">
+                    <input type="text" id="ai-input" placeholder="Frag Aether...">
+                    <div class="ai-send-circle" id="ai-send">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </div>
+                </div>
+                <div id="ai-mode-popup" class="ai-mode-popup hidden" role="menu" aria-label="AI modes">
+                    <div class="ai-mode-option" role="menuitem" data-mode="standard">Standard</div>
+                    <div class="ai-mode-option" role="menuitem" data-mode="creative">Kreativ</div>
+                    <div class="ai-mode-option" role="menuitem" data-mode="precise">Präzise</div>
+                </div>
+                <div id="ai-mode-toast" class="ai-mode-toast hidden" role="status" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Custom HTML Context Menu -->
+    <div id="custom-context-menu" class="custom-context-menu hidden"></div>
+    <script src="script.js"></script>
+</body>
+</html>

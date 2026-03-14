@@ -1,0 +1,20 @@
+appId: com.aether.browser
+productName: Aether Browser
+
+directories:
+  buildResources: build
+
+icon: build/favicon.ico
+
+win:
+  target: nsis
+  icon: build/favicon.ico
+
+nsis:
+  oneClick: true
+  allowToChangeInstallationDirectory: false
+
+publish:
+  provider: github
+  owner: ${env.GH_OWNER}
+  repo: ${env.GH_REPO}

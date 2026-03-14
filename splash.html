@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aether</title>
+  <style>
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .card {
+      width: 210px;
+      height: 210px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid rgba(0,0,0,0.06);
+      backdrop-filter: blur(14px) saturate(140%);
+    }
+    .wordmark {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: rgba(29,29,31,0.9);
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      filter: drop-shadow(0 14px 18px rgba(0,0,0,0.10));
+    }
+  </style>
+</head>
+<body>
+  <div class="card" aria-label="Aether Splash">
+    <svg class="logo" viewBox="0 0 120 120" aria-hidden="true">
+      <defs>
+        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF8A5B" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#FF6B35" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      <g transform="rotate(-18 60 60)">
+        <circle cx="60" cy="60" r="28" fill="none" stroke="url(#g)" stroke-width="12" stroke-linecap="round" stroke-dasharray="142 40"/>
+        <circle cx="60" cy="60" r="16" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round" stroke-dasharray="78 26" opacity="0.55" transform="rotate(90 60 60)"/>
+      </g>
+    </svg>
+    <div class="wordmark">AETHER</div>
+  </div>
+</body>
+</html>
+
