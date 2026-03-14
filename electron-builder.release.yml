@@ -9,6 +9,11 @@ extraResources:
   - from: build/favicon.ico
     to: favicon.ico
 
+extraMetadata:
+  buildTag: ${env.BUILD_TAG}
+  buildSha: ${env.BUILD_SHA}
+  buildTime: ${env.BUILD_TIME}
+
 win:
   target: nsis
   icon: favicon.ico

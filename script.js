@@ -62,6 +62,7 @@ function init() {
     const updateCheckBtn = document.getElementById('update-check-btn');
     const updateInstallBtn = document.getElementById('update-install-btn');
     const updateStatusEl = document.getElementById('update-status');
+    const appVersionEl = document.getElementById('app-version');
     const explorerView = document.getElementById('explorer-view');
     const explorerResults = document.getElementById('explorer-results');
     const explorerSearchInput = document.getElementById('explorer-search-input');
@@ -1783,12 +1784,17 @@ function init() {
     }
 
     async function refreshVersionHint() {
-        if (!updateStatusEl) return;
         try {
             if (window.electronAPI && window.electronAPI.appVersion) {
                 const v = await window.electronAPI.appVersion();
                 const ver = v && v.version ? String(v.version) : '';
-                if (ver) setUpdateStatus(`Update: bereit (v${ver})`);
+                const tag = v && v.tag ? String(v.tag) : '';
+                const buildSha = v && v.buildSha ? String(v.buildSha) : '';
+                const displayTag = tag || (ver ? `v${ver}` : '');
+                if (appVersionEl && displayTag) {
+                    const shortSha = buildSha ? buildSha.slice(0, 7) : '';
+                    appVersionEl.textContent = shortSha ? `Version: ${displayTag} (${shortSha})` : `Version: ${displayTag}`;
+                }
             }
         } catch {
             // ignore

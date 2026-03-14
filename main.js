@@ -14,6 +14,16 @@ let groqKeyCache = null;
 let groqKeyLoaded = false;
 let updaterWired = false;
 
+function loadAppPackageJson() {
+  try {
+    const p = path.join(app.getAppPath(), 'package.json');
+    const raw = fs.readFileSync(p, 'utf8');
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
 function groqKeyFilePath() {
   return path.join(app.getPath('userData'), 'groq-api-key.dat');
 }
@@ -194,7 +204,13 @@ function createWindow() {
     updaterWired = true;
 
     // Always expose the current app version (useful in Settings / diagnostics).
-    ipcMain.handle('app:version', async () => ({ version: app.getVersion() }));
+    ipcMain.handle('app:version', async () => {
+      const pkg = loadAppPackageJson();
+      const tagRaw = pkg && typeof pkg.buildTag === 'string' ? pkg.buildTag.trim() : '';
+      const buildSha = pkg && typeof pkg.buildSha === 'string' ? pkg.buildSha.trim() : '';
+      const tag = tagRaw || `v${app.getVersion()}`;
+      return { version: app.getVersion(), tag, buildSha };
+    });
 
     // Avoid noisy errors in development; updates work only in packaged builds.
     if (!app.isPackaged) return;
