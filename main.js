@@ -127,6 +127,23 @@ function createWindow() {
     }
   });
 
+  win.webContents.setWindowOpenHandler((details) => {
+    return {
+      action: 'allow',
+      overrideBrowserWindowOptions: {
+        titleBarStyle: 'hidden',
+        icon: getAppIcon(),
+        autoHideMenuBar: true,
+        webPreferences: {
+          nodeIntegration: false,
+          contextIsolation: true,
+          webviewTag: true,
+          preload: path.join(__dirname, 'preload.js')
+        }
+      }
+    };
+  });
+
   win.loadFile('index.html');
 
   function sendUpdateStatus(payload) {
@@ -459,6 +476,18 @@ function createWindow() {
     }
   });
 
+  // Handler für Live-Suchvorschläge
+  ipcMain.handle('get-search-suggestions', async (event, query) => {
+    try {
+      const headers = { 'User-Agent': 'AetherBrowser/1.0 (Electron)' };
+      const resp = await fetch(`https://duckduckgo.com/ac/?q=${encodeURIComponent(query)}&type=list`, { headers });
+      const data = await resp.json();
+      return data[1] || [];
+    } catch (e) {
+      return [];
+    }
+  });
+
   // AI chat completion (server-side in Main Process; key never exposed to renderer)
   ipcMain.handle('ai-chat', async (_event, payload) => {
     const apiKey = getGroqKey();
@@ -472,9 +501,42 @@ function createWindow() {
     const body = {
       model: payload.model,
       messages: payload.messages,
-      max_tokens: payload.max_tokens ?? 1024,
       temperature: payload.temperature,
+      top_p: payload.top_p,
     };
+
+    if (payload.max_completion_tokens !== undefined) {
+      body.max_completion_tokens = payload.max_completion_tokens;
+    } else {
+      body.max_tokens = payload.max_tokens ?? 1024;
+    }
+
+    // Convert http(s) image URLs to base64 to avoid 403 errors from external servers
+    if (Array.isArray(body.messages)) {
+      for (const msg of body.messages) {
+        if (Array.isArray(msg.content)) {
+          for (const item of msg.content) {
+            if (item.type === 'image_url' && item.image_url && typeof item.image_url.url === 'string' && item.image_url.url.startsWith('http')) {
+              try {
+                const imgResp = await fetch(item.image_url.url, {
+                  headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
+                  }
+                });
+                if (imgResp.ok) {
+                  const buffer = await imgResp.arrayBuffer();
+                  const mime = imgResp.headers.get('content-type') || 'image/jpeg';
+                  item.image_url.url = `data:${mime};base64,${Buffer.from(buffer).toString('base64')}`;
+                }
+              } catch (e) {
+                console.error('Failed to fetch image for AI:', e);
+              }
+            }
+          }
+        }
+      }
+    }
 
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
@@ -503,6 +565,11 @@ function createWindow() {
   ipcMain.handle('groq-key:clear', async () => {
     clearGroqKey();
     return getGroqKeyStatus();
+  });
+
+  // App Metrics / RAM Usage
+  ipcMain.handle('get-process-metrics', async () => {
+    return app.getAppMetrics();
   });
 
   // Handler für das native Theme (Scrollbars, Webseiten pre-fers-color-scheme)

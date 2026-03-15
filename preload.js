@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openFile: (path) => ipcRenderer.send('open-file', path),
   pickFolder: () => ipcRenderer.invoke('pick-folder'),
   performSearch: (query) => ipcRenderer.invoke('perform-search', query),
+  getSearchSuggestions: (query) => ipcRenderer.invoke('get-search-suggestions', query),
   aiChat: (payload) => ipcRenderer.invoke('ai-chat', payload),
   setTheme: (theme) => ipcRenderer.send('set-theme', theme),
   groqKeyStatus: () => ipcRenderer.invoke('groq-key:status'),
@@ -25,4 +26,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   destroyWebContents: (webContentsId) => ipcRenderer.invoke('destroy-webcontents', webContentsId),
   loadChromeExtension: (dir) => ipcRenderer.invoke('load-chrome-extension', dir),
   clearBrowserData: () => ipcRenderer.invoke('clear-browser-data'),
+  getProcessMetrics: () => ipcRenderer.invoke('get-process-metrics'),
 });

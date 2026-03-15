@@ -466,6 +466,7 @@ input, textarea {
     padding: 0 12px;
     gap: 8px;
     -webkit-app-region: no-drag;
+    position: relative;
 }
 
 .favorites-bar {
@@ -560,6 +561,41 @@ input, textarea {
     cursor: text !important;
     user-select: text !important;
     -webkit-user-select: text !important;
+}
+
+.address-suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.06);
+    overflow: hidden;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+}
+
+.suggestion-item {
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #1d1d1f;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.suggestion-item:hover, .suggestion-item.selected {
+    background: rgba(0,0,0,0.05);
+}
+
+.suggestion-icon {
+    opacity: 0.5;
+    display: flex;
 }
 
 /* Top Right History Button */
@@ -1836,4 +1872,28 @@ webview {
     height: 1px;
     margin: 5px 12px;
     background: rgba(0,0,0,0.1);
+}
+
+/* Standalone Windows (Settings/Resources) */
+body.standalone-window .sidebar,
+body.standalone-window .app-header,
+body.standalone-window .tabs-container,
+body.standalone-window #webviews-container {
+    display: none !important;
+}
+
+body.standalone-window .main-stage {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    height: calc(100vh - 32px) !important;
+    flex: 1;
+}
+
+body.standalone-window .settings-view,
+body.standalone-window #resources-view,
+body.standalone-window #account-view {
+    height: 100% !important;
+    max-width: 100% !important;
+    padding: 30px 40px !important;
 }

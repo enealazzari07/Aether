@@ -24,7 +24,8 @@
     </div>
     <div class="browser-container">
         <!-- Left Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
             <div class="sidebar-header">
                 <div class="sidebar-toggle" id="sidebar-toggle">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -43,6 +44,17 @@
                 <div class="nav-item" id="explorer-nav-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                     <span class="nav-text">Universal Explorer</span>
+                </div>
+            </div>
+            </div>
+            <div class="sidebar-footer" style="padding-bottom: 12px;">
+                <div class="nav-item" id="account-nav-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span class="nav-text" id="account-nav-text">Account</span>
+                </div>
+                <div class="nav-item" id="resources-nav-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    <span class="nav-text">Ressourcen</span>
                 </div>
                 <div class="nav-item" id="settings-nav-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -66,6 +78,17 @@
                     <div class="address-bar-capsule">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#999;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <input type="text" id="top-address-bar" placeholder="Search or enter URL...">
+                        <div id="address-suggestions" class="address-suggestions hidden"></div>
+                    </div>
+                    <div id="global-focus-indicator" class="hidden" title="Fokus aktiv (Details im Workspace)" style="display: flex; align-items: center; gap: 6px; padding: 4px 10px; margin-right: 8px; border-radius: 14px; cursor: pointer;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span id="global-focus-time" style="font-size: 12px; font-weight: 700;">00:00</span>
+                    </div>
+                    <div class="history-toggle-btn downloads-toggle-btn hidden" id="downloads-toggle-btn" title="Downloads">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    </div>
+                    <div class="history-toggle-btn notes-toggle-btn" id="notes-toggle-btn" title="Notizen">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                     </div>
                     <div class="history-toggle-btn" id="history-toggle-btn" title="Verlauf">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -229,12 +252,70 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Resources View -->
+                        <div id="resources-view" class="settings-view hidden">
+                            <div class="settings-content">
+                                <h1 class="settings-title">Ressourcen-Monitor</h1>
+                            <div class="settings-card" style="margin-bottom: 24px; padding: 20px; background: rgba(10, 132, 255, 0.05); border-color: rgba(10, 132, 255, 0.2);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 18px; font-weight: 700;">Gesamter RAM-Verbrauch: <span id="total-ram-usage" style="color: #0a84ff;">0 MB</span></div>
+                                        <div style="font-size: 13px; color: var(--text-secondary, #86868b); margin-top: 4px;">Pausiert inaktive Tabs im Hintergrund, um Leistung freizugeben.</div>
+                                    </div>
+                                    <button id="optimize-ram-btn" class="explorer-btn primary" style="padding: 10px 20px; font-weight: 600; cursor: pointer; transition: all 0.2s;">Optimieren</button>
+                                </div>
+                            </div>
+                                <div class="settings-group" id="resources-list" style="display:flex; flex-direction:column; gap:12px;">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account View -->
+                        <div id="account-view" class="settings-view hidden">
+                            <div class="settings-content">
+                                <h1 class="settings-title">Aether Account</h1>
+                                
+                                <!-- Not Logged In -->
+                                <div id="login-section" class="settings-card" style="max-width: 400px; margin: 0 auto;">
+                                    <div style="text-align: center; margin-bottom: 20px;">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-color, #0a84ff);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        <h2 style="margin-top: 10px;">Einloggen</h2>
+                                        <p style="color: var(--text-secondary, #86868b); font-size: 13px;">Synchronisiere deine Tabs, Lesezeichen und Einstellungen.</p>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                                        <input type="text" id="login-username" class="settings-input" placeholder="Benutzername oder E-Mail" />
+                                        <input type="password" id="login-password" class="settings-input" placeholder="Passwort" />
+                                        <button id="login-btn" class="explorer-btn primary" style="width: 100%; padding: 12px; margin-top: 8px;">Anmelden</button>
+                                    </div>
+                                </div>
+
+                                <!-- Logged In -->
+                                <div id="profile-section" class="settings-card hidden" style="max-width: 450px; margin: 0 auto;">
+                                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+                                        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #0a84ff, #ff2a6d); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;" id="profile-avatar">A</div>
+                                        <div>
+                                            <h2 id="profile-name">Benutzername</h2>
+                                            <p style="color: var(--text-secondary, #86868b); font-size: 13px;">Aether Sync ist lokal aktiv.</p>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                                        <button id="logout-btn" class="settings-button" style="width: 100%; color: #ff3b30; border-color: rgba(255, 59, 48, 0.3);">Abmelden</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Workspace View -->
                         <div id="workspace-view" class="workspace-view hidden">
+                            <style>
+                                .am-btn { border: none !important; color: #fff !important; transition: transform 0.15s, filter 0.15s !important; }
+                                .am-btn:hover { transform: translateY(-1px); filter: brightness(1.15); }
+                            </style>
                             <div class="workspace-content">
                                 <div class="workspace-hero" style="text-align: center; margin-bottom: 40px;">
-                                    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 8px;">Workspace Modus</h1>
-                                    <p style="color: #86868b; font-size: 1.1rem;">Wechsle deinen Kontext. Tabs in inaktiven Workspaces werden sofort pausiert (0% CPU, kein Audio).</p>
+                                    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, #0a84ff, #ff2a6d); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Aether Mind</h1>
+                                    <p style="color: #86868b; font-size: 1.1rem;">Dein KI-nativer Co-Pilot. Interagiere direkt mit deinen Tabs und Inhalten.</p>
                                 </div>
                                 
                                 <div id="active-ws-banner" style="background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.2); padding: 16px 24px; border-radius: 16px; margin-bottom: 30px; display: flex; align-items: center; gap: 16px;">
@@ -277,54 +358,40 @@
                                     </button>
                                 </div>
 
-                                <div class="ws-panel" id="school-panel">
-                                    <div class="ws-panel-title">Schul-Assistent</div>
-                                    <div class="ws-panel-row">
-                                        <input id="school-ai-input" class="ws-panel-input" type="text" placeholder="Frage stellen oder Thema eingeben..." />
-                                        <button id="school-ai-ask" class="ws-panel-btn" type="button">KI fragen</button>
+                                <div class="ws-panel" id="smart-commands-panel">
+                                    <div class="ws-panel-title">Smart Commands (Aktionen)</div>
+                                    <div class="ws-panel-row" style="flex-wrap: wrap; gap: 12px;">
+                                        <button id="cmd-extract-dates" class="ws-panel-btn am-btn" style="background: linear-gradient(135deg, #007aff, #0056b3);" type="button">📅 Termine extrahieren</button>
+                                        <button id="cmd-find-imprint" class="ws-panel-btn am-btn" style="background: linear-gradient(135deg, #34c759, #248a3d);" type="button">✉️ Kontakt / Impressum</button>
+                                        <button id="cmd-analyze-costs" class="ws-panel-btn am-btn" style="background: linear-gradient(135deg, #af52de, #7a329e);" type="button">💰 Abo-Kosten analysieren</button>
                                     </div>
-                                    <div class="ws-panel-hint">Tipp: nutzt Live-Web-Recherche automatisch und antwortet auf Deutsch.</div>
+                                    <div class="ws-panel-hint">Führt die Aktion auf dem aktuell aktiven Tab aus und nutzt die KI zur sofortigen Analyse in der Sidebar.</div>
                                 </div>
 
-                                <div class="ws-panel" id="focus-panel">
-                                    <div class="ws-panel-title">Fokus-Timer</div>
-                                    <div class="ws-panel-row">
-                                        <button class="ws-panel-chip" data-focus-min="25" type="button">25 min</button>
-                                        <button class="ws-panel-chip" data-focus-min="50" type="button">50 min</button>
-                                        <button class="ws-panel-chip" data-focus-min="180" type="button">180 min</button>
-                                        <div class="ws-panel-spacer"></div>
-                                        <button id="focus-start" class="ws-panel-btn" type="button">Start</button>
+                                <div class="ws-panel" id="tab-context-panel">
+                                    <div class="ws-panel-title">Tab-Kontext-Bewusstsein</div>
+                                    <div class="ws-panel-row" style="flex-wrap: wrap; gap: 12px;">
+                                        <button id="cmd-summarize-all-tabs" class="ws-panel-btn am-btn" type="button" style="background: #1d1d1f;">Alle offenen Tabs zusammenfassen</button>
+                                        <button id="cmd-find-contradictions" class="ws-panel-btn am-btn" type="button" style="background: #1d1d1f;">Widersprüche in Tabs finden</button>
                                     </div>
-                                    <div class="ws-panel-progress">
-                                        <div class="ws-panel-progress-bar" id="focus-progress-bar"></div>
-                                    </div>
-                                    <div class="ws-panel-hint" id="focus-hint">Noch nicht gestartet.</div>
+                                    <div class="ws-panel-hint">Liest den Inhalt <b>aller</b> geladenen Tabs im aktuellen Workspace und aggregiert die Informationen.</div>
                                 </div>
 
-                                <div class="ws-panel" id="tools-panel">
-                                    <div class="ws-panel-title">Tools</div>
+                                <div class="ws-panel" id="cross-tab-panel">
+                                    <div class="ws-panel-title">Cross-Tab-Automatisierung</div>
                                     <div class="ws-panel-row">
-                                        <button id="tool-summarize-page" class="ws-panel-btn" type="button">Seite zusammenfassen</button>
-                                        <button id="tool-spellcheck" class="ws-panel-btn" type="button">Rechtschreibung</button>
-                                        <button id="tool-mic-toggle" class="ws-panel-btn" type="button">Mic</button>
-                                        <button id="tool-summarize-mic" class="ws-panel-btn" type="button">Mic zusammenfassen</button>
+                                        <input id="cross-tab-input" class="ws-panel-input" type="text" placeholder="z.B. Vergleiche Preis X auf allen Tabs..." style="flex: 1;" />
+                                        <button id="cmd-cross-tab-execute" class="ws-panel-btn am-btn" type="button" style="background: #ff2a6d;">Ausführen</button>
                                     </div>
-                                    <div class="ws-panel-hint" id="mic-status">Mic aus.</div>
-                                    <div class="ws-transcript" id="mic-transcript"></div>
+                                    <div class="ws-panel-hint">Agentic AI: Lass die KI selbstständig durch deine Tab-Inhalte iterieren.</div>
                                 </div>
 
-                                <div class="ws-panel">
-                                    <div class="ws-panel-title">Kontext-Switching</div>
-                                    <div class="ws-panel-row">
-                                        <select id="move-tab-target" class="ws-panel-select">
-                                            <option value="schule">Schule</option>
-                                            <option value="freizeit">Freizeit</option>
-                                            <option value="programmieren">Programmieren</option>
-                                            <option value="fokus">Fokus</option>
-                                        </select>
-                                        <button id="move-tab-btn" class="ws-panel-btn" type="button">Aktuellen Tab verschieben</button>
-                                    </div>
-                                    <div class="ws-panel-hint">Erzeugt im Ziel-Workspace einen neuen Tab (Session bleibt sauber).</div>
+                                <div class="ws-panel" style="border-color: rgba(52, 199, 89, 0.3); background: rgba(52, 199, 89, 0.05);">
+                                    <div class="ws-panel-title" style="color: #1c8c3c;">Lokaler Datenschutz & Ephemeral Memory</div>
+                                    <p style="font-size: 13px; color: #1d1d1f; line-height: 1.5; margin-bottom: 8px;">
+                                        Aether Mind wurde mit Fokus auf Privatsphäre entwickelt. PII-Stripping maskiert sensible Daten (wie Passwörter oder Mails) vor dem Senden an LLMs. Der KI-Verlauf in diesem Workspace existiert nur temporär im RAM.
+                                    </p>
+                                    <div class="ws-panel-hint" style="color: #1c8c3c; font-weight: 600;">Tracker-Radar ist aktiv. Keine Speicherung deines Surfverhaltens in der Cloud.</div>
                                 </div>
                             </div>
                         </div>
@@ -372,6 +439,35 @@
             <div id="history-list" class="history-list"></div>
         </div>
         
+        <!-- Right Downloads Sidebar -->
+        <div id="downloads-sidebar" class="history-sidebar hidden">
+            <div class="history-header">
+                <h2>Downloads</h2>
+                <div class="history-header-actions">
+                    <div id="close-downloads" style="cursor: pointer; opacity: 0.7;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </div>
+                </div>
+            </div>
+            <div id="downloads-list" style="padding: 12px; display:flex; flex-direction:column; gap:8px; overflow-y:auto;"></div>
+        </div>
+
+        <!-- Right Notes Sidebar -->
+        <div id="notes-sidebar" class="history-sidebar hidden">
+            <div class="history-header">
+                <h2>Notizen</h2>
+                <div class="history-header-actions">
+                    <div id="close-notes" style="cursor: pointer; opacity: 0.7;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; flex-direction:column; height:calc(100% - 60px); padding: 12px; box-sizing:border-box;">
+                <div id="notes-domain" style="font-size: 12px; color: var(--text-secondary, #86868b); margin-bottom: 8px; font-weight: 600;">Keine Webseite</div>
+                <textarea id="notes-textarea" style="flex:1; width:100%; border-radius: 8px; border: 1px solid var(--border-color, rgba(0,0,0,0.1)); padding: 8px; font-family: inherit; font-size: 14px; resize: none; outline: none; background: transparent; color: inherit;" placeholder="Notizen für diese Domain..."></textarea>
+            </div>
+        </div>
+        
         <!-- Right AI Sidebar (Outside the white stage) -->
         <div id="ai-sidebar" class="ai-sidebar hidden">
             <div class="ai-sidebar-resizer" id="ai-sidebar-resizer"></div>
@@ -408,6 +504,9 @@
                     </div>
                     <div class="ai-attach-btn" id="ai-attach-btn" title="Datei anhängen">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                    </div>
+                    <div class="ai-screenshot-btn" id="ai-screenshot-btn" title="Screenshot der aktuellen Seite anhängen">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                     </div>
                     <input type="file" id="ai-file-input" style="display: none;" accept=".txt,.json,.js,.css,.html,.md,.csv">
                     <input type="text" id="ai-input" placeholder="Frag Aether...">
