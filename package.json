@@ -1,6 +1,6 @@
 {
   "name": "aether-browser",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Aether Browser (Electron)",
   "main": "main.js",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --config electron-builder.local.yml",
+    "build": "electron-builder",
     "release": "electron-builder --config electron-builder.release.yml --publish always",
     "gen:icons": "node scripts/gen-icons.js"
   },
@@ -33,7 +33,6 @@
     "nsis": {
       "oneClick": true,
       "allowToChangeInstallationDirectory": false,
-      "installerGif": "build/installer.gif",
       "installerIcon": "build/favicon.ico",
       "uninstallerIcon": "build/favicon.ico",
       "uninstallDisplayName": "Aether Browser",
