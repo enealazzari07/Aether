@@ -1,6 +1,6 @@
 {
   "name": "aether-browser",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Aether Browser (Electron)",
   "main": "main.js",
   "repository": {
@@ -19,7 +19,7 @@
     "directories": {
       "buildResources": "build"
     },
-    "icon": "favicon.ico",
+    "icon": "build/favicon.ico",
     "extraResources": [
       {
         "from": "build/favicon.ico",
@@ -28,11 +28,16 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "favicon.ico"
+      "icon": "build/favicon.ico"
     },
     "nsis": {
       "oneClick": true,
-      "allowToChangeInstallationDirectory": false
+      "allowToChangeInstallationDirectory": false,
+      "installerGif": "build/installer.gif",
+      "installerIcon": "build/favicon.ico",
+      "uninstallerIcon": "build/favicon.ico",
+      "uninstallDisplayName": "Aether Browser",
+      "artifactName": "Aether-Browser-Setup-${version}.${ext}"
     }
   },
   "devDependencies": {

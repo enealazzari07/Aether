@@ -44,6 +44,209 @@
     });
 })();
 function init() {
+    // --- Umfassender Dark Mode Fix für alle UI-Elemente ---
+    if (!document.getElementById('aether-dark-theme-styles')) {
+        const style = document.createElement('style');
+        style.id = 'aether-dark-theme-styles';
+        style.textContent = `
+            /* Aether Force Dark Mode Overrides */
+            :root.theme-dark {
+                --bg-primary: #121212 !important; /* Outer window background */
+                --bg-secondary: #1a1a1a !important; /* Inner main stage */
+                --bg-tertiary: #272727 !important; /* Input fields, Cards */
+                --bg-hover: #333333 !important;
+                --text-primary: #f5f5f7 !important;
+                --text-secondary: #a1a1aa !important;
+                --border-color: rgba(255, 255, 255, 0.08) !important;
+                --accent-color: #0a84ff !important;
+            }
+            
+            /* Base Layers */
+            .theme-dark body, .theme-dark .sidebar, .theme-dark .win-title-bar, .theme-dark .history-sidebar, .theme-dark .ai-sidebar, .theme-dark .search-sidebar {
+                background-color: var(--bg-primary) !important;
+                color: var(--text-primary) !important;
+            }
+            
+            /* Main Stage */
+            .theme-dark .main-stage, .theme-dark .app-header, .theme-dark .tabs-container, .theme-dark .viewport-shell, .theme-dark .splash-view, .theme-dark .settings-view, .theme-dark .workspace-view, .theme-dark .explorer-view, .theme-dark #view-layer {
+                background-color: var(--bg-secondary) !important;
+                color: var(--text-primary) !important;
+            }
+            
+            /* Borders */
+            .theme-dark .workspace-title-row, .theme-dark .sidebar-header, .theme-dark .settings-title, .theme-dark .explorer-top {
+                border-color: var(--border-color) !important;
+            }
+
+            /* Inputs & Forms */
+            .theme-dark input, .theme-dark select, .theme-dark textarea, .theme-dark .explorer-search-input, .theme-dark .address-bar-capsule, .theme-dark .ai-input-box, .theme-dark .ws-panel-input, .theme-dark .ws-panel-select {
+                background-color: var(--bg-tertiary) !important;
+                color: var(--text-primary) !important;
+                border: 1px solid var(--border-color) !important;
+            }
+            .theme-dark input::placeholder, .theme-dark textarea::placeholder {
+                color: var(--text-secondary) !important;
+            }
+            
+            /* Tabs */
+            .theme-dark .tab {
+                background-color: var(--bg-primary) !important;
+                border: 1px solid var(--border-color) !important;
+                color: var(--text-secondary) !important;
+            }
+            .theme-dark .tab.active {
+                background-color: var(--bg-secondary) !important;
+                color: var(--text-primary) !important;
+                border-bottom: none !important;
+            }
+            
+            /* Cards, Panels & Popups */
+            .theme-dark .ws-card, .theme-dark .ws-panel, .theme-dark .settings-card, .theme-dark .message.bot, .theme-dark .search-result-item, .theme-dark .history-item, .theme-dark .home-search-box, .theme-dark .ai-mode-popup {
+                background-color: var(--bg-tertiary) !important;
+                border-color: var(--border-color) !important;
+                color: var(--text-primary) !important;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.3) !important;
+            }
+            
+            /* AI Messages */
+            .theme-dark .message.user {
+                background-color: var(--accent-color) !important;
+                color: #ffffff !important;
+                border-color: transparent !important;
+            }
+            
+            /* Hover Effects */
+            .theme-dark .nav-item:hover, .theme-dark .ws-panel-btn:hover, .theme-dark .settings-button:hover, .theme-dark .favorite-pill:hover, .theme-dark .tab:hover, .theme-dark .search-result-item:hover, .theme-dark .history-item:hover, .theme-dark .ai-mode-option:hover, .theme-dark .win-btn:hover, .theme-dark .sidebar-toggle:hover, .theme-dark .history-toggle-btn:hover, .theme-dark .ai-toggle-btn:hover, .theme-dark .browser-nav-btns svg:hover, .theme-dark .new-tab-btn:hover, .theme-dark .explorer-btn:hover {
+                background-color: var(--bg-hover) !important;
+            }
+            .theme-dark .win-btn.close:hover {
+                background-color: #e81123 !important;
+                color: #fff !important;
+            }
+            
+            /* Text Muting */
+            .theme-dark .settings-info .settings-description, .theme-dark .ws-desc, .theme-dark .history-url, .theme-dark .result-meta, .theme-dark .ws-panel-hint, .theme-dark .ws-meta {
+                color: var(--text-secondary) !important;
+            }
+            .theme-dark .nav-item.active {
+                color: var(--text-primary) !important;
+                background-color: var(--bg-tertiary) !important;
+            }
+            
+            /* Headings */
+            .theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark .settings-label, .theme-dark .ws-name, .theme-dark .ws-panel-title {
+                color: var(--text-primary) !important;
+            }
+            
+            /* Buttons & Chips */
+            .theme-dark .settings-button, .theme-dark .ws-panel-btn, .theme-dark .ws-panel-chip, .theme-dark .favorite-pill, .theme-dark .home-search-chip, .theme-dark .home-search-iconbtn, .theme-dark .home-search-submit, .theme-dark .explorer-btn {
+                background-color: var(--bg-tertiary) !important;
+                color: var(--text-primary) !important;
+                border: 1px solid var(--border-color) !important;
+            }
+            .theme-dark .explorer-btn.primary {
+                background: var(--accent-color) !important;
+                color: #fff !important;
+                border: none !important;
+            }
+            
+            /* Specific Text & Branding */
+            .theme-dark .home-wordmark, .theme-dark .workspace-title, .theme-dark .workspace-subtitle, .theme-dark .nav-text {
+                color: var(--text-primary) !important;
+            }
+            .theme-dark .close-tab {
+                color: var(--text-secondary) !important;
+            }
+            .theme-dark .close-tab:hover {
+                color: #ff4d4d !important;
+            }
+            
+            /* --- ICONS & SVGs --- */
+            /* Override hardcoded grays to use the text color of their parent */
+            .theme-dark svg[stroke="#86868b"], .theme-dark svg[stroke="#999"] {
+                stroke: currentColor !important;
+            }
+            .theme-dark svg[fill="#86868b"], .theme-dark svg[fill="#999"] {
+                fill: currentColor !important;
+            }
+            /* Override inline styles for icons */
+            .theme-dark svg[style*="color:#999"], .theme-dark svg[style*="color: #999"] {
+                color: var(--text-secondary) !important;
+            }
+            
+            /* Base window controls and icon buttons */
+            .theme-dark .win-btn, 
+            .theme-dark .browser-nav-btns svg, 
+            .theme-dark .history-toggle-btn, 
+            .theme-dark .ai-toggle-btn, 
+            .theme-dark .sidebar-toggle, 
+            .theme-dark #close-ai, 
+            .theme-dark #close-history, 
+            .theme-dark #clear-history {
+                color: var(--text-primary) !important;
+            }
+            
+            /* Secondary muted buttons */
+            .theme-dark .ai-attach-btn, .theme-dark .ai-mode-btn {
+                color: var(--text-secondary) !important;
+            }
+            .theme-dark .ai-attach-btn:hover, .theme-dark .ai-mode-btn:hover {
+                color: var(--text-primary) !important;
+            }
+            
+            /* Protect the gold star */
+            .theme-dark svg[stroke="#FFD700"] {
+                stroke: #FFD700 !important;
+            }
+            .theme-dark svg[fill="#FFD700"] {
+                fill: #FFD700 !important;
+            }
+            
+            /* Workspace Modernization */
+            .workspace-content {
+                max-width: 1000px !important;
+                margin: 0 auto !important;
+                padding: 40px 20px !important;
+            }
+            .ws-card {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                padding: 30px 20px !important;
+                border-radius: 20px !important;
+                transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+                border: 2px solid transparent !important;
+                background: var(--bg-tertiary) !important;
+            }
+            .ws-card.active {
+                border-color: var(--accent-color) !important;
+                transform: scale(1.03) !important;
+                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15) !important;
+            }
+            .theme-dark .ws-card.active {
+                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
+            }
+            .ws-badge {
+                width: 64px !important;
+                height: 64px !important;
+                border-radius: 50% !important;
+                font-size: 28px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                margin-bottom: 16px !important;
+                background: rgba(10, 132, 255, 0.1) !important;
+                color: var(--accent-color) !important;
+            }
+            
+            /* Make the default Tab icon white in dark mode */
+            .theme-dark img.tab-icon[src*="stroke=%2386868b"] {
+                filter: grayscale(1) brightness(2.5) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
     const homeNavBtn = document.getElementById('home-nav-btn');
     const aiToggleBtn = document.getElementById('ai-toggle-btn');
     const historyToggleBtn = document.getElementById('history-toggle-btn');
@@ -126,6 +329,39 @@ function init() {
     let activeTabId = null;
     let browserHistory = [];
 
+    const addressBarCapsule = document.querySelector('.address-bar-capsule');
+    if (addressBarCapsule && !document.getElementById('fav-star-btn')) {
+        const starBtn = document.createElement('div');
+        starBtn.id = 'fav-star-btn';
+        starBtn.style.cssText = 'cursor:pointer; margin-left:8px; color:#86868b; display:flex; align-items:center;';
+        addressBarCapsule.appendChild(starBtn);
+    }
+    function updateFavStar() {
+        const starBtn = document.getElementById('fav-star-btn');
+        if (!starBtn) return;
+        const wv = getActiveWebview();
+        let u = '';
+        try { if (wv && typeof wv.getURL === 'function') u = wv.getURL(); } catch(e) {}
+        if (!u && wv && wv.src) u = wv.src;
+        if (!u || u === 'about:blank' || u.includes('file://')) {
+            starBtn.style.display = 'none';
+            return;
+        }
+        starBtn.style.display = 'flex';
+        const isFav = favorites.some(f => f && f.url === u);
+        if (isFav) {
+            starBtn.style.color = '#FFD700';
+            starBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+            starBtn.title = 'Aus Favoriten entfernen';
+            starBtn.onclick = (e) => { e.stopPropagation(); removeFavorite(u); };
+        } else {
+            starBtn.style.color = '#86868b';
+            starBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+            starBtn.title = 'Zu Favoriten hinzufügen';
+            starBtn.onclick = (e) => { e.stopPropagation(); addCurrentPageToFavorites(); };
+        }
+    }
+
     const DEFAULT_TAB_ICON_DATA_URL = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20"/><path d="M12 2a15 15 0 0 0 0 20"/></svg>`
     )}`;
@@ -148,7 +384,13 @@ function init() {
     }
     try {
         const savedFavs = JSON.parse(localStorage.getItem('aether-favorites') || '[]');
-        if (Array.isArray(savedFavs)) favorites = savedFavs;
+        if (Array.isArray(savedFavs)) {
+            favorites = savedFavs.filter(f => {
+                if (!f || !f.url) return false;
+                const u = f.url.toLowerCase();
+                return !(u.includes('index.html') && (u.includes('file:') || u.includes('aether')));
+            });
+        }
     } catch (e) {
         favorites = [];
     }
@@ -212,7 +454,7 @@ function init() {
         const tabId = tabEl.id;
         const ws = tabEl.dataset.workspaceId || 'freizeit';
         const url = tabEl.dataset.url || 'about:blank';
-        const title = (tabEl.querySelector('.tab-title') && tabEl.querySelector('.tab-title').textContent) ? tabEl.querySelector('.tab-title').textContent : 'New Tab';
+        const title = (tabEl.querySelector('.tab-title') && tabEl.querySelector('.tab-title').textContent) ? tabEl.querySelector('.tab-title').textContent : 'Neuer Tab';
         const rawIcon = tabEl.querySelector('.tab-icon') ? tabEl.querySelector('.tab-icon').getAttribute('src') : '';
         const icon = rawIcon && rawIcon !== DEFAULT_TAB_ICON_DATA_URL ? rawIcon : '';
         const pinned = tabEl.classList.contains('pinned');
@@ -384,15 +626,19 @@ function init() {
     }
     function addCurrentPageToFavorites() {
         const activeWebview = getActiveWebview();
-        if (!activeWebview || !activeWebview.getURL) return;
-        const url = activeWebview.getURL();
-        if (!url || url === 'about:blank') return;
-        const title = activeWebview.getTitle ? (activeWebview.getTitle() || url) : url;
+        if (!activeWebview) return;
+        let url = '';
+        try { if (typeof activeWebview.getURL === 'function') url = activeWebview.getURL(); } catch(e) {}
+        if (!url && activeWebview.src) url = activeWebview.src;
+        if (!url || url === 'about:blank' || url.includes('file://')) return;
+        let title = url;
+        try { if (typeof activeWebview.getTitle === 'function') title = activeWebview.getTitle() || url; } catch(e) {}
         addFavorite(url, title);
     }
     function addFavorite(url, title) {
         const u = String(url || '').trim();
         if (!u || u === 'about:blank') return false;
+        if (u.toLowerCase().includes('index.html') && (u.toLowerCase().includes('file:') || u.toLowerCase().includes('aether'))) return false;
         if (favorites.some((f) => f && f.url === u)) return false;
         favorites.unshift({ title: title || u, url: u, addedAt: Date.now() });
         saveFavorites();
@@ -430,6 +676,7 @@ function init() {
             favoritesBar.appendChild(pill);
         }
         favoritesBar.classList.toggle('is-visible', true);
+    updateFavStar();
     }
     function setActiveWorkspace(nextWorkspaceId) {
         if (!workspaceIds.includes(nextWorkspaceId)) return;
@@ -443,6 +690,10 @@ function init() {
             const label = activeWorkspaceId.charAt(0).toUpperCase() + activeWorkspaceId.slice(1);
             workspaceSubtitle.textContent = label;
         }
+            const modernSubtitle = document.getElementById('workspace-subtitle-modern');
+            if (modernSubtitle) {
+                modernSubtitle.textContent = activeWorkspaceId.charAt(0).toUpperCase() + activeWorkspaceId.slice(1);
+            }
         // Popup/Toast inside AI area when switching "mode" (workspace).
         const wsLabel = activeWorkspaceId.charAt(0).toUpperCase() + activeWorkspaceId.slice(1);
         if (aiModeToast) showAiModeToast(`Workspace: ${wsLabel}`);
@@ -470,6 +721,11 @@ function init() {
                 const visible = ws === activeWorkspaceId;
                 t.style.display = visible ? '' : 'none';
                 if (visible && !firstVisibleTabId) firstVisibleTabId = t.id;
+                    
+                    // Aggressive Sleep-Logik: Friert sofort Hintergrund-Tabs ein (stoppt Audio/CPU)
+                    if (!visible && !t.classList.contains('asleep')) {
+                        sleepTab(t.id);
+                    }
             }
             const activeTabEl = activeTabId ? document.getElementById(activeTabId) : null;
             const activeVisible = activeTabEl && activeTabEl.style.display !== 'none';
@@ -941,6 +1197,22 @@ function init() {
             }
         });
     }
+
+    function getHistoryGroup(timestamp, now) {
+        const diff = now - timestamp;
+        if (diff < 60 * 60 * 1000) return 'Letzte Stunde';
+        const date = new Date(timestamp);
+        const today = new Date(now);
+        if (date.toDateString() === today.toDateString()) return 'Heute';
+        const yesterday = new Date(now);
+        yesterday.setDate(today.getDate() - 1);
+        if (date.toDateString() === yesterday.toDateString()) return 'Gestern';
+        const weekAgo = new Date(now);
+        weekAgo.setDate(today.getDate() - 7);
+        if (timestamp > weekAgo.getTime()) return 'Diese Woche';
+        return 'Älter';
+    }
+
     // Render history list
     function renderHistory() {
         if (!historyList) return;
@@ -950,13 +1222,35 @@ function init() {
             return;
         }
         const fragment = document.createDocumentFragment();
-        browserHistory.slice(0, 50).forEach((item) => {
-            const div = document.createElement('div');
-            div.className = 'history-item';
-            div.dataset.url = item.url; // Store URL in data attribute
-            div.innerHTML = `<div class="history-title">${item.title || item.url}</div><div class="history-url">${item.url}</div>`;
-            fragment.appendChild(div);
+        const now = Date.now();
+        const groups = {
+            'Letzte Stunde': [],
+            'Heute': [],
+            'Gestern': [],
+            'Diese Woche': [],
+            'Älter': []
+        };
+        browserHistory.slice(0, 100).forEach((item) => {
+            const groupName = getHistoryGroup(item.time || 0, now);
+            groups[groupName].push(item);
         });
+        for (const [groupName, items] of Object.entries(groups)) {
+            if (items.length === 0) continue;
+            const header = document.createElement('div');
+            header.style.cssText = 'padding: 12px 16px 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.6;';
+            header.textContent = groupName;
+            fragment.appendChild(header);
+            items.forEach((item) => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.dataset.url = item.url;
+                let domain = '';
+                try { domain = new URL(item.url).hostname; } catch(e) {}
+                const iconSrc = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=32` : DEFAULT_TAB_ICON_DATA_URL;
+                div.innerHTML = `<div style="display:flex; align-items:center; width:100%; gap:12px;"><img src="${iconSrc}" style="width:16px; height:16px; border-radius:3px; flex-shrink:0;" alt="" onerror="this.src='${DEFAULT_TAB_ICON_DATA_URL}'"><div style="min-width:0; flex:1;"><div class="history-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:500;">${item.title || item.url}</div><div class="history-url" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:0.85em; opacity:0.7;">${item.url}</div></div></div>`;
+                fragment.appendChild(div);
+            });
+        }
         historyList.appendChild(fragment); // Single append to the DOM
     }
     renderHistory();
@@ -1206,8 +1500,33 @@ function init() {
                     return;
                 }
             }
-            // C. Simple Browser Commands (no context gathering needed)
-            if (!options.imageDataUrl) {
+            // C. Screenshot Heuristic & Simple Commands
+            const attachedScreenshot = aiContextPill && aiContextPill.dataset ? aiContextPill.dataset.imageDataUrl : null;
+            if (!options.imageDataUrl && !attachedScreenshot) {
+                const needsScreenshot = lowerText.includes('screenshot') || 
+                                        lowerText.includes('was siehst du') || 
+                                        lowerText.includes('analysiere diese seite') ||
+                                        lowerText.includes('schau dir das an') ||
+                                        lowerText.includes('was steht hier');
+
+                if (needsScreenshot) {
+                    const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
+                    if (activeWebview && activeWebview.src !== 'about:blank' && activeWebview.style.display !== 'none') {
+                        const loadingId = 'loading-' + Date.now();
+                        appendMessage('bot', 'Erfasse den Bildschirm...', loadingId);
+                        try {
+                            const image = await activeWebview.capturePage();
+                            const imageUrl = image.toDataURL();
+                            return sendToAI(commandText, { isContinuation: true, imageDataUrl: imageUrl, loadingId });
+                        } catch (e) {
+                            console.error("Screenshot heuristic failed:", e);
+                            const loadingEl = document.getElementById(loadingId);
+                            if (loadingEl) loadingEl.textContent = 'Fehler beim Erfassen des Screenshots.';
+                            return;
+                        }
+                    }
+                }
+                
                 if (lowerText.startsWith('suche nach ') || lowerText.startsWith('suche ')) {
                     const query = commandText.substring(commandText.indexOf(' ') + 1);
                     appendMessage('bot', `Ich navigiere zur Suche für "${query}"...`);
@@ -1233,19 +1552,21 @@ function init() {
                     }
                     return;
                 }
-                if (lowerText.includes('analysiere diese seite')) {
-                    aiSidebar.classList.remove('hidden');
-                    analyzeActivePage(); // This uses screenshot, which is different from scanning text
-                    return;
-                }
             }
         }
         // --- Step 2: Build Final Prompt ---
         const loadingId = options.loadingId || 'loading-' + Date.now();
         let finalContext = options.context || '';
         const fileContent = aiContextPill?.dataset.fileContent;
-        if (aiContextPill && !aiContextPill.classList.contains('hidden') && fileContent) {
-            finalContext += `Nutze zusätzlich den folgenden Dateikontext:\n---\n${fileContent}\n---\n`;
+        const attachedScreenshot = aiContextPill?.dataset.imageDataUrl;
+
+        if (aiContextPill && !aiContextPill.classList.contains('hidden')) {
+            if (fileContent) {
+                finalContext += `Nutze zusätzlich den folgenden Dateikontext:\n---\n${fileContent}\n---\n`;
+            }
+            if (attachedScreenshot && !options.imageDataUrl) {
+                options.imageDataUrl = attachedScreenshot;
+            }
             if (aiContextClear) aiContextClear.click();
         }
         
@@ -1267,7 +1588,7 @@ function init() {
         try {
             let model, messages;
             if (options.imageDataUrl) {
-                model = 'llava-v1.5-7b-instruct-int8'; // Vision model
+                model = 'meta-llama/llama-4-scout-17b-16e-instruct'; // Upgraded Vision model
                 messages = [{
                     role: 'user',
                     content: [
@@ -1315,19 +1636,20 @@ function init() {
             const url = (webview.getURL && webview.getURL()) ? webview.getURL() : (webview.src || '');
             if (url) tabEl.dataset.url = url;
             if (titleEl) {
-                let fallback = 'New Tab';
-                if (url) {
+                let fallback = 'Neuer Tab';
+                if (url && url !== 'about:blank') {
                     try {
                         fallback = new URL(url).hostname || url;
                     } catch {
                         fallback = url;
                     }
                 }
-                titleEl.textContent = title || fallback;
+                titleEl.textContent = (url === 'about:blank') ? 'Neuer Tab' : (title || fallback);
             }
             if (tabId === activeTabId && topAddressBar) topAddressBar.value = url === 'about:blank' ? '' : url;
             if (iconEl && !iconEl.getAttribute('src')) iconEl.setAttribute('src', DEFAULT_TAB_ICON_DATA_URL);
             scheduleSaveAppState();
+            if (tabId === activeTabId) updateFavStar();
         }
         webview.addEventListener('did-finish-load', () => {
             updateTabUI();
@@ -1337,12 +1659,12 @@ function init() {
             updateTabUI();
             if (tabId === activeTabId) updatePageContext();
         });
-        webview.addEventListener('page-favicon-updated', (_event, favicons) => {
+        webview.addEventListener('page-favicon-updated', (event) => {
             const tabEl = document.getElementById(tabId);
             if (!tabEl) return;
             const iconEl = tabEl.querySelector('.tab-icon');
             if (!iconEl) return;
-            const fav = Array.isArray(favicons) ? favicons.find((u) => typeof u === 'string' && u.trim()) : null;
+            const fav = Array.isArray(event.favicons) ? event.favicons.find((u) => typeof u === 'string' && u.trim()) : null;
             if (!fav) return;
             iconEl.setAttribute('src', fav);
             tabEl.dataset.icon = fav;
@@ -1400,9 +1722,12 @@ function init() {
         } catch {
             webview.setAttribute('preload', 'webview-preload.js');
         }
-        webview.src = url || 'about:blank';
         webview.style.display = 'none';
         webviewsContainer.appendChild(webview);
+        
+        // Die URL (src) erst nach dem Einfügen in den DOM setzen, um ERR_ABORTED (-3) zu verhindern
+        webview.src = url || 'about:blank';
+
         webview.addEventListener('dom-ready', () => {
             // WebView methods can throw if the element was removed before dom-ready resolves.
             if (!webview.isConnected) return;
@@ -1428,7 +1753,7 @@ function init() {
         tab.dataset.workspaceId = ws;
         tab.dataset.url = url || 'about:blank';
         tab.dataset.lastFocusedAtMs = String(Number(opts.lastFocusedAtMs || Date.now()));
-        tab.innerHTML = `<img class="tab-icon" src="${DEFAULT_TAB_ICON_DATA_URL}" alt=""><span class="tab-title">New Tab</span><span class="close-tab">×</span>`;
+        tab.innerHTML = `<img class="tab-icon" src="${DEFAULT_TAB_ICON_DATA_URL}" alt=""><span class="tab-title">Neuer Tab</span><span class="close-tab">×</span>`;
         if (opts.pinned) tab.classList.add('pinned');
         if (isAsleep) {
             tab.classList.add('asleep');
@@ -1501,6 +1826,7 @@ function init() {
         }
         updatePageContext();
         scheduleSaveAppState();
+        updateFavStar();
     }
     function closeTab(tabId, opts = {}) {
         const tab = document.getElementById(tabId);
@@ -1688,6 +2014,7 @@ function init() {
         const savedTheme = localStorage.getItem('aether-theme') || 'light';
         if (themeSelect) themeSelect.value = savedTheme;
         document.documentElement.classList.toggle('theme-dark', savedTheme === 'dark');
+        if (window.electronAPI && window.electronAPI.setTheme) window.electronAPI.setTheme(savedTheme);
     } catch {
         // ignore
     }
@@ -1696,6 +2023,7 @@ function init() {
             const v = themeSelect.value === 'dark' ? 'dark' : 'light';
             try { localStorage.setItem('aether-theme', v); } catch { /* ignore */ }
             document.documentElement.classList.toggle('theme-dark', v === 'dark');
+            if (window.electronAPI && window.electronAPI.setTheme) window.electronAPI.setTheme(v);
         });
     }
     if (searchEngineSelect) {
@@ -1966,11 +2294,63 @@ function init() {
     function buildAndShowMenu(type, params) {
         const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
         if (!customContextMenu) return;
+        
+        if (!document.getElementById('aether-context-menu-styles')) {
+            const style = document.createElement('style');
+            style.id = 'aether-context-menu-styles';
+            style.textContent = `
+                #custom-context-menu {
+                    position: fixed !important;
+                    z-index: 999999 !important;
+                    background: rgba(255, 255, 255, 0.75) !important;
+                    backdrop-filter: blur(16px) saturate(180%) !important;
+                    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+                    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+                    border-radius: 12px !important;
+                    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2) !important;
+                    padding: 8px 0 !important;
+                    min-width: 240px !important;
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+                    font-size: 14px !important;
+                    color: #1d1d1f !important;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .theme-dark #custom-context-menu {
+                    background: rgba(30, 30, 30, 0.75) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+                    color: #f5f5f7 !important;
+                }
+                #custom-context-menu.hidden {
+                    display: none !important;
+                }
+                #custom-context-menu .context-menu-item {
+                    padding: 8px 20px !important;
+                    cursor: default !important;
+                    transition: background 0.1s !important;
+                }
+                #custom-context-menu .context-menu-item:hover {
+                    background: rgba(0, 122, 255, 0.8) !important;
+                    color: #ffffff !important;
+                }
+                #custom-context-menu .context-menu-separator {
+                    height: 1px !important;
+                    background: rgba(0, 0, 0, 0.1) !important;
+                    margin: 4px 0 !important;
+                }
+                .theme-dark #custom-context-menu .context-menu-separator {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
         let menuTemplate = [];
-        if (type === 'webview') {
-            if (params && params.pageURL && params.pageURL !== 'about:blank') {
+        if (type === 'webview' || type === 'app-ui') {
+            if (type === 'webview' && params && params.pageURL && params.pageURL !== 'about:blank') {
                 const url = String(params.pageURL);
-                const title = activeWebview && activeWebview.getTitle ? (activeWebview.getTitle() || url) : url;
+                let title = url;
+                try { if (activeWebview && typeof activeWebview.getTitle === 'function') title = activeWebview.getTitle() || url; } catch(e) {}
                 const isFav = favorites.some((f) => f && f.url === url);
                 menuTemplate.push({
                     label: isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen',
@@ -1989,50 +2369,54 @@ function init() {
                 menuTemplate.push({ type: 'separator' });
             }
             if (params.selectionText) {
-                menuTemplate.push({ label: 'Kopieren', action: () => { if (activeWebview) activeWebview.copy(); } });
+                menuTemplate.push({ label: 'Kopieren', action: () => { if (type === 'webview' && activeWebview) activeWebview.copy(); else navigator.clipboard.writeText(params.selectionText); } });
                 menuTemplate.push({ type: 'separator' });
                 menuTemplate.push({ label: 'Aether: Auswahl zusammenfassen', action: () => sendToAI(`Fasse zusammen: "${params.selectionText}"`) });
                 menuTemplate.push({ label: 'Aether: Auswahl erklären', action: () => sendToAI(`Erkläre: "${params.selectionText}"`) });
                 menuTemplate.push({ type: 'separator' });
             }
             if (params.isEditable) {
-                menuTemplate.push({ label: 'Rückgängig', action: () => activeWebview.undo() });
-                menuTemplate.push({ label: 'Wiederholen', action: () => activeWebview.redo() });
+                menuTemplate.push({ label: 'Rückgängig', action: () => { if (type === 'webview' && activeWebview) activeWebview.undo(); else document.execCommand('undo'); } });
+                menuTemplate.push({ label: 'Wiederholen', action: () => { if (type === 'webview' && activeWebview) activeWebview.redo(); else document.execCommand('redo'); } });
                 menuTemplate.push({ type: 'separator' });
-                menuTemplate.push({ label: 'Ausschneiden', action: () => activeWebview.cut() });
-                menuTemplate.push({ label: 'Kopieren', action: () => activeWebview.copy() });
-                menuTemplate.push({ label: 'Einfügen', action: () => activeWebview.paste() });
-                menuTemplate.push({ label: 'Alles auswählen', action: () => activeWebview.selectAll() });
+                menuTemplate.push({ label: 'Ausschneiden', action: () => { if (type === 'webview' && activeWebview) activeWebview.cut(); else { navigator.clipboard.writeText(params.selectionText || ''); document.execCommand('delete'); } } });
+                menuTemplate.push({ label: 'Kopieren', action: () => { if (type === 'webview' && activeWebview) activeWebview.copy(); else navigator.clipboard.writeText(params.selectionText || ''); } });
+                menuTemplate.push({ label: 'Einfügen', action: () => { 
+                    if (type === 'webview' && activeWebview) activeWebview.paste(); 
+                    else { 
+                        navigator.clipboard.readText().then(t => { 
+                            if (document.activeElement && typeof document.activeElement.setRangeText === 'function') { document.activeElement.setRangeText(t); document.activeElement.selectionStart += t.length; } 
+                            else document.execCommand('insertText', false, t); 
+                        }); 
+                    } 
+                }});
+                menuTemplate.push({ label: 'Alles auswählen', action: () => { if (type === 'webview' && activeWebview) activeWebview.selectAll(); else if (document.activeElement && document.activeElement.select) document.activeElement.select(); } });
                 menuTemplate.push({ type: 'separator' });
             }
-            if (!params.selectionText && !params.linkURL && !params.srcURL && !params.isEditable) {
-                if (activeWebview.canGoBack()) menuTemplate.push({ label: 'Zurück', action: () => activeWebview.goBack() });
-                if (activeWebview.canGoForward()) menuTemplate.push({ label: 'Vorwärts', action: () => activeWebview.goForward() });
-                menuTemplate.push({ label: 'Neu laden', action: () => activeWebview.reload() });
+            if (!params.selectionText && !params.linkURL && !params.srcURL && !params.isEditable && type === 'webview') {
+                if (activeWebview && activeWebview.canGoBack && activeWebview.canGoBack()) menuTemplate.push({ label: 'Zurück', action: () => activeWebview.goBack() });
+                if (activeWebview && activeWebview.canGoForward && activeWebview.canGoForward()) menuTemplate.push({ label: 'Vorwärts', action: () => activeWebview.goForward() });
+                if (activeWebview && activeWebview.reload) menuTemplate.push({ label: 'Neu laden', action: () => activeWebview.reload() });
                 menuTemplate.push({ type: 'separator' });
                 menuTemplate.push({ label: 'Aether: Diese Seite analysieren', action: () => analyzeActivePage() });
                 menuTemplate.push({ type: 'separator' });
-                menuTemplate.push({ label: 'Untersuchen', action: () => activeWebview.inspectElement(params.x, params.y) });
+                if (activeWebview && activeWebview.inspectElement) menuTemplate.push({ label: 'Untersuchen', action: () => activeWebview.inspectElement(params.x, params.y) });
+            }
+            if (type === 'app-ui' && !params.selectionText && !params.isEditable) {
+                menuTemplate.push({ label: 'Einstellungen öffnen', action: () => { if (settingsNavBtn) settingsNavBtn.click(); } });
             }
         }
 
         if (type === 'favorites-bar') {
             const wv = getActiveWebview();
             let url = null;
-            let title = null;
             try {
-                url = wv && wv.getURL ? wv.getURL() : null;
-                title = wv && wv.getTitle ? wv.getTitle() : null;
+                if (wv && typeof wv.getURL === 'function') url = wv.getURL();
+                if (!url && wv && wv.src) url = wv.src;
             } catch {
                 url = null;
-                title = null;
             }
-            if (url && url !== 'about:blank') {
-                const isFav = favorites.some((f) => f && f.url === url);
-                menuTemplate.push({
-                    label: isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen',
-                    action: () => (isFav ? removeFavorite(url) : addFavorite(url, title || url)),
-                });
+            if (url && url !== 'about:blank' && !url.includes('file://')) {
                 menuTemplate.push({ label: 'Adresse kopieren', action: () => navigator.clipboard.writeText(String(url)) });
             }
         }

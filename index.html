@@ -232,39 +232,47 @@
                         <!-- Workspace View -->
                         <div id="workspace-view" class="workspace-view hidden">
                             <div class="workspace-content">
-                                <div class="workspace-title-row">
-                                    <h1 class="workspace-title">Workspace</h1>
-                                    <div class="workspace-subtitle" id="workspace-subtitle">Freizeit</div>
+                                <div class="workspace-hero" style="text-align: center; margin-bottom: 40px;">
+                                    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 8px;">Workspace Modus</h1>
+                                    <p style="color: #86868b; font-size: 1.1rem;">Wechsle deinen Kontext. Tabs in inaktiven Workspaces werden sofort pausiert (0% CPU, kein Audio).</p>
+                                </div>
+                                
+                                <div id="active-ws-banner" style="background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.2); padding: 16px 24px; border-radius: 16px; margin-bottom: 30px; display: flex; align-items: center; gap: 16px;">
+                                    <div style="width: 12px; height: 12px; background: #0a84ff; border-radius: 50%; box-shadow: 0 0 10px #0a84ff;"></div>
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 1.1rem; color: #0a84ff;">Aktuell aktiv: <span id="workspace-subtitle-modern">Freizeit</span><span id="workspace-subtitle" style="display:none;">Freizeit</span></div>
+                                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 4px; color: inherit;">Alle Tabs ausserhalb dieses Workspaces sind im Ruhezustand eingefroren.</div>
+                                    </div>
                                 </div>
 
-                                <div class="workspace-grid" id="workspace-grid">
+                                <div class="workspace-grid" id="workspace-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
                                     <button class="ws-card" data-workspace-id="schule" type="button">
-                                        <div class="ws-badge ws-schule">S</div>
-                                        <div class="ws-info">
+                                        <div class="ws-badge ws-schule">📚</div>
+                                        <div class="ws-info" style="text-align: center; width: 100%;">
                                             <div class="ws-name">Schule</div>
-                                            <div class="ws-desc">KI hilft beim Lernen, Zusammenfassen, Recherchieren.</div>
+                                            <div class="ws-desc">Lernen, Recherche & Fokus</div>
                                         </div>
                                     </button>
                                     <button class="ws-card" data-workspace-id="freizeit" type="button">
-                                        <div class="ws-badge ws-freizeit">F</div>
-                                        <div class="ws-info">
+                                        <div class="ws-badge ws-freizeit">🎮</div>
+                                        <div class="ws-info" style="text-align: center; width: 100%;">
                                             <div class="ws-name">Freizeit</div>
-                                            <div class="ws-desc">Alles Private, Social, Video.</div>
+                                            <div class="ws-desc">Videos, Social & Gaming</div>
                                         </div>
                                     </button>
                                     <button class="ws-card" data-workspace-id="programmieren" type="button">
-                                        <div class="ws-badge ws-prog">P</div>
-                                        <div class="ws-info">
+                                        <div class="ws-badge ws-prog">💻</div>
+                                        <div class="ws-info" style="text-align: center; width: 100%;">
                                             <div class="ws-name">Programmieren</div>
-                                            <div class="ws-desc">Docs, Repo-Suche, Debug.</div>
+                                            <div class="ws-desc">Dev-Tools, Docs & Code</div>
                                         </div>
                                     </button>
                                     <button class="ws-card" data-workspace-id="fokus" type="button">
-                                        <div class="ws-badge ws-fokus">!</div>
-                                        <div class="ws-info">
+                                        <div class="ws-badge ws-fokus">⏱️</div>
+                                        <div class="ws-info" style="text-align: center; width: 100%;">
                                             <div class="ws-name">Fokus</div>
                                             <div class="ws-desc">Zeitlimit, Pausen erzwingen.</div>
-                                            <div class="ws-meta" id="focus-meta">max 180 min</div>
+                                            <div class="ws-meta" id="focus-meta" style="margin-top: 12px; background: rgba(10, 132, 255, 0.15); color: #0a84ff; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; display: inline-block;">max 180 min</div>
                                         </div>
                                     </button>
                                 </div>

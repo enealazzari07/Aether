@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   pickFolder: () => ipcRenderer.invoke('pick-folder'),
   performSearch: (query) => ipcRenderer.invoke('perform-search', query),
   aiChat: (payload) => ipcRenderer.invoke('ai-chat', payload),
+  setTheme: (theme) => ipcRenderer.send('set-theme', theme),
   groqKeyStatus: () => ipcRenderer.invoke('groq-key:status'),
   setGroqKey: (key) => ipcRenderer.invoke('groq-key:set', key),
   clearGroqKey: () => ipcRenderer.invoke('groq-key:clear'),

@@ -105,91 +105,19 @@ function getGroqKeyStatus() {
   return { hasKey, source, encryptionAvailable };
 }
 
-function getPreferredIconPath() {
-  try {
-    const candidates = [
-      ...(app.isPackaged ? [path.join(process.resourcesPath, 'favicon.ico')] : []),
-      path.join(__dirname, 'build', 'favicon.ico'),
-      path.join(__dirname, 'build', 'icon.ico'),
-      path.join(__dirname, 'build', 'icon.png'),
-    ];
-    for (const p of candidates) {
-      if (fs.existsSync(p)) return p;
-    }
-  } catch {
-    // ignore
-  }
-  return null;
-}
-
-function createAppIcon() {
-  // Prefer shipped ICO/PNG resources (Windows taskbar + packaged build).
-  try {
-    const p = getPreferredIconPath();
-    if (p) {
-      const img = nativeImage.createFromPath(p);
-      if (img && !img.isEmpty()) return img;
-    }
-  } catch {
-    // ignore and fall back to inline SVG
-  }
-
-  // Inline SVG so the repo doesn't need a binary icon file. For Windows taskbar packaging,
-  // provide an .ico via electron-builder; this is a good runtime fallback.
-  const svg = `
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 120 120">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF8A5B" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#FF6B35" stop-opacity="1"/>
-    </linearGradient>
-  </defs>
-  <g transform="rotate(-18 60 60)">
-    <circle cx="60" cy="60" r="44" fill="none" stroke="url(#g)" stroke-width="14" stroke-linecap="round" stroke-dasharray="210 66"/>
-    <circle cx="60" cy="60" r="28" fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round" stroke-dasharray="132 44" opacity="0.55" transform="rotate(90 60 60)"/>
-  </g>
-</svg>
-  `.trim();
-
-  try {
-    const dataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-    const img = nativeImage.createFromDataURL(dataUrl);
-    return img.isEmpty() ? null : img;
-  } catch {
-    return null;
-  }
-}
-
-function ensureBuildIconPng() {
-  // Helps electron-builder and Windows show a non-Electron icon without requiring a committed binary.
-  // We generate a PNG from the same SVG at runtime if missing.
-  try {
-    const buildDir = path.join(__dirname, 'build');
-    const iconPath = path.join(buildDir, 'icon.png');
-    if (fs.existsSync(iconPath)) return iconPath;
-    if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir, { recursive: true });
-    const img = createAppIcon();
-    if (!img) return null;
-    const png = img.toPNG();
-    if (!png || !png.length) return null;
-    fs.writeFileSync(iconPath, png);
-    return iconPath;
-  } catch (e) {
-    console.error('ensureBuildIconPng failed:', e);
-    return null;
-  }
+function getAppIcon() {
+  return app.isPackaged 
+    ? path.join(process.resourcesPath, 'favicon.ico') 
+    : path.join(__dirname, 'build', 'favicon.ico');
 }
 
 function createWindow() {
   // Erstelle das Hauptfenster, aber zeige es noch nicht an
-  const iconPath = getPreferredIconPath();
-  const appIcon = createAppIcon();
-  ensureBuildIconPng();
   win = new BrowserWindow({
     width: 1200,
     height: 800,
     show: false, // Wichtig: Erst anzeigen, wenn es bereit ist
-    icon: iconPath || appIcon || undefined,
+    icon: getAppIcon(),
     titleBarStyle: 'hidden', // Native windows app look
     webPreferences: {
       nodeIntegration: false,
@@ -576,6 +504,12 @@ function createWindow() {
     clearGroqKey();
     return getGroqKeyStatus();
   });
+
+  // Handler für das native Theme (Scrollbars, Webseiten pre-fers-color-scheme)
+  ipcMain.on('set-theme', (event, theme) => {
+    nativeTheme.themeSource = theme;
+  });
+
   // Neuer, vereinheitlichter Handler für alle Kontextmenüs
   ipcMain.on('show-context-menu', (event, type, params) => {
     const win = BrowserWindow.fromWebContents(event.sender);
@@ -586,9 +520,32 @@ function createWindow() {
   });
 }
 
+app.on('web-contents-created', (event, contents) => {
+  contents.on('context-menu', (e, params) => {
+    if (win && !win.isDestroyed()) {
+      const { screen } = require('electron');
+      const cursor = screen.getCursorScreenPoint();
+      const winBounds = win.getBounds();
+      
+      // Berechne die relativen Koordinaten zum Fenster
+      let relativeX = cursor.x - winBounds.x;
+      let relativeY = cursor.y - winBounds.y;
+      
+      // Fallback, falls die Werte ausserhalb der direkten Fensterkanten berechnet werden
+      if (relativeX < 0) relativeX = params.x || 0;
+      if (relativeY < 0) relativeY = params.y || 0;
+      
+      const enrichedParams = Object.assign({}, params, {
+        x: relativeX, y: relativeY, menuX: relativeX, menuY: relativeY
+      });
+      win.webContents.send('show-custom-context-menu', 'webview', enrichedParams);
+    }
+  });
+});
+
 app.whenReady().then(() => {
-  // Force light theme for all web contents
-  nativeTheme.themeSource = 'light';
+  // Standardmäßig System-Theme verwenden, wird später vom Renderer überschrieben
+  nativeTheme.themeSource = 'system';
   
   // Erstelle den Splash-Screen
   splash = new BrowserWindow({
@@ -598,6 +555,7 @@ app.whenReady().then(() => {
     frame: false,
     alwaysOnTop: true,
     center: true,
+    icon: getAppIcon(),
   });
   splash.loadFile(path.join(__dirname, 'splash.html'));
   
