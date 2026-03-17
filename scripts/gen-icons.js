@@ -29,11 +29,11 @@ const svgBuffer = Buffer.from(`
 
 async function generateIcons() {
   try {
-    console.log('🎨 Generiere hochauflösendes PNG-Icon...');
+    console.log('🎨 Generiere hochauflösendes PNG-Icon (1024x1024 für macOS)...');
     const pngPath = path.join(BUILD_DIR, 'icon.png');
     
     await sharp(svgBuffer)
-      .resize(256, 256)
+      .resize(1024, 1024)
       .png()
       .toFile(pngPath);
 
@@ -43,7 +43,7 @@ async function generateIcons() {
     const icoBuffer = await pngToIco(pngPath);
     fs.writeFileSync(icoPath, icoBuffer);
     
-    console.log('✅ Erfolg! favicon.ico wurde im "build"-Ordner erstellt.');
+    console.log('✅ Erfolg! icon.png (1024x1024) und favicon.ico wurden im "build"-Ordner erstellt.');
   } catch (error) {
     console.error('❌ Fehler bei der Generierung:', error);
   }
