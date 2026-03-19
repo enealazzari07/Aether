@@ -68,9 +68,17 @@ function init() {
             }
             
             /* Main Stage */
-            .theme-dark .main-stage, .theme-dark .app-header, .theme-dark .tabs-container, .theme-dark .viewport-shell, .theme-dark .splash-view, .theme-dark .settings-view, .theme-dark .workspace-view, .theme-dark .explorer-view, .theme-dark #view-layer {
+            .theme-dark .main-stage, .theme-dark .app-header, .theme-dark .tabs-container, .theme-dark .viewport-shell, .theme-dark .splash-view, .theme-dark .settings-view, .theme-dark .workspace-view, .theme-dark .explorer-view, .theme-dark #view-layer, .theme-dark #news-view {
                 background-color: var(--bg-secondary) !important;
                 color: var(--text-primary) !important;
+            }
+            
+            /* AI Sidebar Header & Footer Blur in Dark Mode */
+            .theme-dark .ai-header, .theme-dark .ai-input-wrapper {
+                background: rgba(26, 26, 26, 0.65) !important;
+                backdrop-filter: blur(16px) saturate(150%) !important;
+                -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+                border: none !important;
             }
             
             /* Borders */
@@ -101,7 +109,7 @@ function init() {
             }
             
             /* Cards, Panels & Popups */
-            .theme-dark .ws-card, .theme-dark .ws-panel, .theme-dark .settings-card, .theme-dark .message.bot, .theme-dark .search-result-item, .theme-dark .history-item, .theme-dark .home-search-box, .theme-dark .ai-mode-popup, .theme-dark .address-suggestions {
+            .theme-dark .ws-card, .theme-dark .ws-panel, .theme-dark .settings-card, .theme-dark .search-result-item, .theme-dark .history-item, .theme-dark .home-search-box, .theme-dark .ai-mode-popup, .theme-dark .address-suggestions {
                 background-color: var(--bg-tertiary) !important;
                 border-color: var(--border-color) !important;
                 color: var(--text-primary) !important;
@@ -109,10 +117,25 @@ function init() {
             }
             
             /* AI Messages */
+            .message {
+                border: none !important;
+                border-bottom: none !important;
+                border-radius: 18px !important;
+                padding: 12px 16px !important;
+                margin-bottom: 12px !important;
+                line-height: 1.5 !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+            }
+            .theme-dark .message.bot {
+                background-color: var(--bg-tertiary) !important;
+                color: var(--text-primary) !important;
+                border-bottom-left-radius: 4px !important;
+            }
             .theme-dark .message.user {
                 background-color: var(--accent-color) !important;
                 color: #ffffff !important;
                 border-color: transparent !important;
+                border-bottom-right-radius: 4px !important;
             }
             
             /* Hover Effects */
@@ -251,37 +274,49 @@ function init() {
             /* AI Box Modernization */
             .ai-input-box {
                 border-radius: 16px !important;
-                padding: 6px 12px !important;
+                padding: 6px 6px 6px 14px !important;
                 box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
                 border: 1px solid rgba(0,0,0,0.08) !important;
                 background-color: #ffffff !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 8px !important;
             }
-            .ai-input-box input[type="text"] {
+            .ai-input-box input[type="text"], .ai-input-box textarea {
                 border: none !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 outline: none !important;
+                flex: 1 !important;
+                min-width: 0 !important;
+                color: inherit !important;
             }
             .ai-send-circle {
-                background: transparent !important;
-                color: #86868b !important;
+                background: #e5e5ea !important;
+                color: #1d1d1f !important;
                 border-radius: 8px !important;
                 width: 32px !important;
                 height: 32px !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                box-shadow: none !important;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
                 cursor: pointer !important;
-                transition: all 0.2s !important;
+                transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+                flex-shrink: 0 !important;
             }
             .ai-send-circle:hover {
-                background: rgba(0, 0, 0, 0.05) !important;
-                color: #1d1d1f !important;
+                transform: scale(1.05) !important;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+                background: #d1d1d6 !important;
+            }
+            .theme-dark .ai-send-circle {
+                background: #3a3a3c !important;
+                color: #ffffff !important;
             }
             .theme-dark .ai-send-circle:hover {
-                background: rgba(255, 255, 255, 0.1) !important;
-                color: var(--text-primary) !important;
+                background: #48484a !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
             }
             
             /* Audio Indicator */
@@ -306,6 +341,14 @@ function init() {
                 color: #ff3b30 !important;
                 opacity: 1 !important;
             }
+
+            /* Modern Scrollbars */
+            ::-webkit-scrollbar { width: 14px; height: 14px; }
+            ::-webkit-scrollbar-track { background: transparent; }
+            ::-webkit-scrollbar-thumb { background-color: rgba(134, 134, 139, 0.4); border-radius: 10px; border: 4px solid transparent; background-clip: padding-box; }
+            ::-webkit-scrollbar-thumb:hover { background-color: rgba(134, 134, 139, 0.6); }
+            .theme-dark ::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.2); }
+            .theme-dark ::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.3); }
         `;
         document.head.appendChild(style);
     }
@@ -315,9 +358,7 @@ function init() {
     const globalFocusIndicator = document.getElementById('global-focus-indicator');
     const globalFocusTime = document.getElementById('global-focus-time');
     const historyToggleBtn = document.getElementById('history-toggle-btn');
-    const explorerNavBtn = document.getElementById('explorer-nav-btn');
-    const accountNavBtn = document.getElementById('account-nav-btn');
-    const accountNavText = document.getElementById('account-nav-text');
+    const newsNavBtn = document.getElementById('news-nav-btn');
     const settingsNavBtn = document.getElementById('settings-nav-btn');
     const resourcesNavBtn = document.getElementById('resources-nav-btn');
     const workspaceNavBtn = document.getElementById('workspace-nav-btn');
@@ -326,6 +367,9 @@ function init() {
     const themeSelect = document.getElementById('theme-select');
     const searchEngineSelect = document.getElementById('search-engine-select');
     const clearDataBtn = document.getElementById('clear-data-btn');
+    const importBrowserSelect = document.getElementById('import-browser-select');
+    const importBrowserBtn = document.getElementById('import-browser-btn');
+    const importStatus = document.getElementById('import-status');
     const groqApiKeyInput = document.getElementById('groq-api-key-input');
     const groqApiKeySaveBtn = document.getElementById('groq-api-key-save');
     const groqApiKeyClearBtn = document.getElementById('groq-api-key-clear');
@@ -338,21 +382,7 @@ function init() {
     const resourcesList = document.getElementById('resources-list');
     const totalRamUsageEl = document.getElementById('total-ram-usage');
     const optimizeRamBtn = document.getElementById('optimize-ram-btn');
-    const explorerView = document.getElementById('explorer-view');
-    const explorerResults = document.getElementById('explorer-results');
-    const explorerSearchInput = document.getElementById('explorer-search-input');
-    const explorerSearchBtn = document.getElementById('explorer-search-btn');
-    const explorerAddRootBtn = document.getElementById('explorer-add-root');
-    const explorerRootsEl = document.getElementById('explorer-roots');
-    const accountView = document.getElementById('account-view');
-    const loginSection = document.getElementById('login-section');
-    const profileSection = document.getElementById('profile-section');
-    const loginUsername = document.getElementById('login-username');
-    const loginPassword = document.getElementById('login-password');
-    const loginBtn = document.getElementById('login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-    const profileName = document.getElementById('profile-name');
-    const profileAvatar = document.getElementById('profile-avatar');
+    const newsView = document.getElementById('news-view');
     const workspaceView = document.getElementById('workspace-view');
     const aiSidebar = document.getElementById('ai-sidebar');
     const historySidebar = document.getElementById('history-sidebar');
@@ -423,6 +453,68 @@ function init() {
     const cmdFindContradictions = document.getElementById('cmd-find-contradictions');
     const crossTabInput = document.getElementById('cross-tab-input');
     const cmdCrossTabExecute = document.getElementById('cmd-cross-tab-execute');
+
+    // --- Eigenes Logo im AI Sidebar Header einfügen ---
+    if (aiSidebar) {
+        const aiHeaderTitle = aiSidebar.querySelector('.ai-header h2');
+        if (aiHeaderTitle && !document.getElementById('ai-custom-logo')) {
+            aiHeaderTitle.style.display = 'flex';
+            aiHeaderTitle.style.alignItems = 'center';
+            aiHeaderTitle.style.gap = '10px';
+
+            if (!document.getElementById('ai-orb-styles')) {
+                const style = document.createElement('style');
+                style.id = 'ai-orb-styles';
+                style.textContent = `
+                    @keyframes aetherOrbColors {
+                        0% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                        100% { background-position: 0% 50%; }
+                    }
+                    .aether-glass-orb {
+                        width: 26px;
+                        height: 26px;
+                        border-radius: 50%;
+                        background: linear-gradient(270deg, rgba(10, 132, 255, 0.7), rgba(255, 55, 120, 0.7), rgba(185, 90, 235, 0.7), rgba(10, 132, 255, 0.7));
+                        background-size: 300% 300%;
+                        animation: aetherOrbColors 5s ease infinite;
+                        position: relative;
+                        flex-shrink: 0;
+                        box-shadow: 0 4px 12px rgba(10, 132, 255, 0.25), inset 0 0 8px rgba(255, 255, 255, 0.6);
+                        backdrop-filter: blur(8px);
+                        -webkit-backdrop-filter: blur(8px);
+                    }
+                    .aether-glass-orb::before {
+                        content: '';
+                        position: absolute;
+                        top: 12%; left: 18%;
+                        width: 35%; height: 25%;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.85);
+                        transform: rotate(-40deg);
+                        filter: blur(0.5px);
+                        pointer-events: none;
+                    }
+                    .aether-glass-orb::after {
+                        content: '';
+                        position: absolute;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        border-radius: 50%;
+                        background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                                    radial-gradient(circle at 75% 75%, transparent 40%, rgba(20, 30, 60, 0.2) 100%);
+                        box-shadow: inset -2px -2px 6px rgba(20, 30, 60, 0.2), inset 2px 2px 8px rgba(255, 255, 255, 0.8);
+                        pointer-events: none;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            const logo = document.createElement('div');
+            logo.id = 'ai-custom-logo';
+            logo.className = 'aether-glass-orb';
+            aiHeaderTitle.insertBefore(logo, aiHeaderTitle.firstChild);
+        }
+    }
 
     let tabCounter = 0;
     let activeTabId = null;
@@ -771,15 +863,6 @@ function init() {
             t.className = 'fav-title';
             t.textContent = fav.title || fav.url;
             pill.appendChild(t);
-            const rm = document.createElement('span');
-            rm.className = 'fav-remove';
-            rm.textContent = '×';
-            rm.title = 'Entfernen';
-            rm.addEventListener('click', (e) => {
-                e.stopPropagation();
-                removeFavorite(fav.url);
-            });
-            pill.appendChild(rm);
             favoritesBar.appendChild(pill);
         }
         favoritesBar.classList.toggle('is-visible', true);
@@ -1486,18 +1569,22 @@ function init() {
     function resetViews(keepWebview = false) {
         if (splashView) splashView.style.display = 'none';
         if (settingsView) settingsView.classList.add('hidden');
-        if (accountView) accountView.classList.add('hidden');
         if (resourcesView) resourcesView.classList.add('hidden');
-        if (explorerView) explorerView.classList.add('hidden');
         if (workspaceView) workspaceView.classList.add('hidden');
+        if (newsView) newsView.classList.add('hidden');
         if (aiSidebar) aiSidebar.classList.add('hidden');
         if (historySidebar) historySidebar.classList.add('hidden');
+        
+        if (!keepWebview) {
+            if (aiSidebar) aiSidebar.classList.add('hidden');
+            if (historySidebar) historySidebar.classList.add('hidden');
+        }
+        
         if (homeNavBtn) homeNavBtn.classList.remove('active');
         if (workspaceNavBtn) workspaceNavBtn.classList.remove('active');
-        if (explorerNavBtn) explorerNavBtn.classList.remove('active');
         if (settingsNavBtn) settingsNavBtn.classList.remove('active');
-        if (accountNavBtn) accountNavBtn.classList.remove('active');
         if (resourcesNavBtn) resourcesNavBtn.classList.remove('active');
+        if (newsNavBtn) newsNavBtn.classList.remove('active');
         
         if (!keepWebview) {
             const webviews = document.querySelectorAll('webview');
@@ -1547,6 +1634,7 @@ function init() {
             aiMessages.appendChild(msgDiv);
             aiMessages.scrollTop = aiMessages.scrollHeight;
         }
+        return msgDiv;
     }
     // --- AI Mode Selection ---
     const aiModes = ['standard', 'creative', 'precise'];
@@ -1663,9 +1751,9 @@ function init() {
         });
     }
     const systemPrompts = {
-        standard: 'Du bist Aether AI, ein intelligenter Browser-Assistent, der auch Befehle wie "suche nach", "verlauf löschen" oder "analysiere diese seite" ausführen kann. Antworte IMMER auf Deutsch, kurz und prägnant.',
-        creative: 'Du bist Aether AI, ein kreativer und gesprächiger Browser-Assistent. Deine Antworten sind ausführlich, ideenreich und du denkst gerne auch mal um die Ecke. Du kannst auch Befehle ausführen. Antworte IMMER auf Deutsch.',
-        precise: 'Du bist Aether AI, ein hochpräziser und faktenbasierter Browser-Assistent. Deine Antworten sind extrem kurz, auf den Punkt und enthalten nur die angefragten Informationen. Du führst auch Befehle aus. Antworte IMMER auf Deutsch.'
+        standard: 'Du bist Aether AI, der hochintelligente und tief in den Browser integrierte Co-Pilot.\n\nDU KANNST DEN BROWSER STEUERN:\nWenn der Nutzer dich bittet, Aktionen auszuführen, antworte natürlich und füge am Ende Tags ein:\n- Leeren neuen Tab öffnen: [ACTION:NEW_TAB]\n- Aktuellen Tab schließen: [ACTION:CLOSE_TAB]\n- Verlauf löschen: [ACTION:CLEAR_HISTORY]\n- Browser optimieren: [ACTION:OPTIMIZE_RAM]\n- Dark Mode: [ACTION:DARK_MODE]\n- Light Mode: [ACTION:LIGHT_MODE]\n\nWICHTIG FÜR WEBSEITEN (SUGGEST vs. OPEN):\n1. Webseiten VORSCHLAGEN: Nutze zwingend am Ende [SUGGEST_LINK:https://url.com|Seitenname]. Der Browser rendert diese als schicke Buttons unter deiner Nachricht. Bevorzuge dies bei Recherchen und Links.\n2. Webseiten DIREKT ÖFFNEN: Nutze [ACTION:OPEN_TAB:https://url.com] WIRKLICH NUR, wenn der Nutzer explizit sagt "öffne...", "gehe zu..." oder "erstelle einen tab".\n\n1. Suche stets aktuell. 2. Keine langen Erklärungen.',
+        creative: 'Du bist Aether AI, ein kreativer Browser-Assistent. Befehle wie [ACTION:NEW_TAB], [ACTION:CLOSE_TAB] etc. per Tags am Ende ausführen. Tabs DIREKT öffnen ([ACTION:OPEN_TAB:url]) NUR auf ausdrücklichen Befehl! Wenn du Links nur vorschlägst, nutze IMMER [SUGGEST_LINK:https://url.com|Titel], damit sie als Buttons unter der Nachricht erscheinen. Antworte ausführlich auf Deutsch.',
+        precise: 'Du bist Aether AI, ein präziser Assistent. Befehle über Tags: [ACTION:NEW_TAB], [ACTION:CLOSE_TAB]. Webseiten NUR direkt öffnen ([ACTION:OPEN_TAB:url]), wenn explizit gefordert. Zum Vorschlagen von Links nutze zwingend [SUGGEST_LINK:https://url.com|Titel]. Kurze Fakten auf Deutsch.'
     };
     // AI Messaging & Command Execution
     async function sendToAI(text, options = {}) {
@@ -1753,26 +1841,10 @@ function init() {
                 if (lowerText.startsWith('suche nach ') || lowerText.startsWith('suche ')) {
                     const query = commandText.substring(commandText.indexOf(' ') + 1);
                     appendMessage('bot', `Ich navigiere zur Suche für "${query}"...`);
+                    const botReply = `Ich navigiere zur Suche für "${query}"...`;
+                    appendMessage('bot', botReply);
+                    if (typeof aiChatHistory !== 'undefined') aiChatHistory.push({ role: 'assistant', content: botReply });
                     navigate(query);
-                    return;
-                }
-                if (lowerText.includes('verlauf löschen')) {
-                    clearHistoryBtn.click();
-                    appendMessage('bot', 'Dein Browserverlauf wurde gelöscht.');
-                    return;
-                }
-                if (lowerText.includes('neuer tab')) {
-                    createTab();
-                    appendMessage('bot', 'Ein neuer Tab wurde geöffnet.');
-                    return;
-                }
-                if (lowerText.includes('schließe tab') || lowerText.includes('tab schliessen')) {
-                    if (document.querySelectorAll('.tab').length > 1) {
-                        closeTab(activeTabId);
-                        appendMessage('bot', 'Der aktive Tab wurde geschlossen.');
-                    } else {
-                        appendMessage('bot', 'Der letzte Tab kann nicht geschlossen werden.');
-                    }
                     return;
                 }
             }
@@ -1810,21 +1882,26 @@ function init() {
         // --- Step 3: Send to API ---
         try {
             let model, messages;
+            const historyToUse = (typeof aiChatHistory !== 'undefined') ? aiChatHistory.slice(-11, -1) : [];
             if (options.imageDataUrl) {
-                model = 'meta-llama/llama-4-scout-17b-16e-instruct'; // Upgraded Vision model
-                messages = [{
-                    role: 'user',
-                    content: [
-                        { type: 'text', text: commandText },
-                        { type: 'image_url', image_url: { url: options.imageDataUrl } }
-                    ]
-                }];
+                model = 'auto'; // Wird im Main-Prozess dynamisch gewählt (Vision)
+                messages = [
+                    ...historyToUse,
+                    {
+                        role: 'user',
+                        content: [
+                            { type: 'text', text: commandText },
+                            { type: 'image_url', image_url: { url: options.imageDataUrl } }
+                        ]
+                    }
+                ];
             } else {
-                model = 'llama-3.3-70b-versatile'; // Text model
+                model = 'auto'; // Wird im Main-Prozess dynamisch gewählt (Günstigstes Text-Modell)
                 const selectedMode = aiModes[currentAiModeIndex] || 'standard';
                 const systemPrompt = systemPrompts[selectedMode] || systemPrompts.standard;
                 messages = [
                     { 'role': 'system', 'content': systemPrompt },
+                    ...historyToUse,
                     { 'role': 'user', 'content': commandText }
                 ];
             }
@@ -1832,13 +1909,70 @@ function init() {
                 model,
                 messages,
                 max_completion_tokens: 1024,
-                temperature: 1,
+                temperature: 0.3,
                 top_p: 1
             });
-            const botMessage = data?.choices?.[0]?.message?.content || 'Keine Antwort erhalten.';
+            let botMessage = data?.choices?.[0]?.message?.content || 'Keine Antwort erhalten.';
             const finalLoadingEl = document.getElementById(loadingId);
             if (finalLoadingEl) finalLoadingEl.remove();
-            appendMessage('bot', botMessage);
+            
+            // --- Aktions-Tags analysieren und live ausführen ---
+            const actionRegex = /\[ACTION:([A-Z_]+)(?::([^\]]+))?\]/g;
+            let match;
+            while ((match = actionRegex.exec(botMessage)) !== null) {
+                const actionCmd = match[1];
+                const actionArg = match[2] ? match[2].trim() : null;
+                
+                if (actionCmd === 'NEW_TAB') createTab();
+                else if (actionCmd === 'OPEN_TAB' && actionArg) createTab(actionArg, { switchTo: false });
+                else if (actionCmd === 'CLOSE_TAB') {
+                    if (document.querySelectorAll('.tab').length > 1) closeTab(activeTabId);
+                }
+                else if (actionCmd === 'CLEAR_HISTORY' && clearHistoryBtn) clearHistoryBtn.click();
+                else if (actionCmd === 'OPTIMIZE_RAM' && optimizeRamBtn) optimizeRamBtn.click();
+                else if (actionCmd === 'DARK_MODE' && themeSelect) {
+                    themeSelect.value = 'dark';
+                    themeSelect.dispatchEvent(new Event('change'));
+                }
+                else if (actionCmd === 'LIGHT_MODE' && themeSelect) {
+                    themeSelect.value = 'light';
+                    themeSelect.dispatchEvent(new Event('change'));
+                }
+            }
+            // Die Tags aus der sichtbaren Bot-Nachricht entfernen
+            botMessage = botMessage.replace(/\[ACTION:[A-Z_]+(?::[^\]]+)?\]/g, '').trim();
+
+            // Suggest-Tags auswerten und entfernen
+            const suggestRegex = /\[SUGGEST_LINK:([^|\]]+)(?:\|([^\]]+))?\]/gi;
+            let suggestMatch;
+            const suggestedLinks = [];
+            while ((suggestMatch = suggestRegex.exec(botMessage)) !== null) {
+                const linkUrl = suggestMatch[1].trim();
+                const linkTitle = suggestMatch[2] ? suggestMatch[2].trim() : linkUrl;
+                suggestedLinks.push({ url: linkUrl, title: linkTitle });
+            }
+            botMessage = botMessage.replace(/\[SUGGEST_LINK:[^\]]+\]/gi, '').trim();
+
+            if (typeof aiChatHistory !== 'undefined') aiChatHistory.push({ role: 'assistant', content: botMessage });
+
+            const msgDiv = appendMessage('bot', botMessage);
+            
+            if (suggestedLinks.length > 0 && msgDiv) {
+                const linksContainer = document.createElement('div');
+                linksContainer.style.cssText = 'display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-color, rgba(0,0,0,0.1));';
+                suggestedLinks.forEach(link => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.style.cssText = 'background: rgba(10,132,255,0.1); border: 1px solid rgba(10,132,255,0.2); color: var(--accent-color, #0a84ff); padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;';
+                    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> ${link.title}`;
+                    btn.onmouseenter = () => { btn.style.background = 'rgba(10,132,255,0.2)'; btn.style.transform = 'translateY(-1px)'; };
+                    btn.onmouseleave = () => { btn.style.background = 'rgba(10,132,255,0.1)'; btn.style.transform = 'translateY(0)'; };
+                    btn.onclick = () => createTab(link.url);
+                    linksContainer.appendChild(btn);
+                });
+                msgDiv.appendChild(linksContainer);
+                if (aiMessages) aiMessages.scrollTop = aiMessages.scrollHeight;
+            }
         } catch (error) {
             console.error("AI Error:", error);
             const finalLoadingEl = document.getElementById(loadingId);
@@ -2158,10 +2292,10 @@ function init() {
         }
         if (!opts.skipSave) scheduleSaveAppState();
     }
-    function sleepTab(tabId) {
+    function sleepTab(tabId, force = false) {
         const tabEl = document.getElementById(tabId);
         if (!tabEl) return false;
-        if ((tabEl.dataset.workspaceId || 'freizeit') === activeWorkspaceId) return false;
+        if (!force && (tabEl.dataset.workspaceId || 'freizeit') === activeWorkspaceId) return false;
         if (tabEl.classList.contains('asleep') || tabEl.dataset.asleep === '1') return false;
         const wv = document.querySelector(`webview[data-tab-id="${tabId}"]`);
         if (!wv) {
@@ -2211,6 +2345,13 @@ function init() {
         });
 
         tabsContainer.addEventListener('click', (e) => {
+            const closeBtn = e.target.closest('.close-tab');
+            if (closeBtn) {
+                e.stopPropagation();
+                const tab = e.target.closest('.tab');
+                if (tab) closeTab(tab.id);
+                return;
+            }
             const audioBtn = e.target.closest('.tab-audio-indicator');
             if (audioBtn) {
                 e.stopPropagation();
@@ -2222,16 +2363,6 @@ function init() {
                         wv.setAudioMuted(isMuted);
                         updateAudioIcon(audioBtn, isMuted);
                     }
-                }
-                return;
-            }
-
-            const closeBtn = e.target.closest('.close-tab');
-            if (closeBtn) {
-                const tab = e.target.closest('.tab');
-                if (tab) {
-                    e.stopPropagation();
-                    closeTab(tab.id);
                 }
                 return;
             }
@@ -2331,8 +2462,8 @@ function init() {
             let count = 0;
             for (const t of tabs) {
                 if (t.id !== activeTabId && !t.classList.contains('asleep')) {
-                    sleepTab(t.id);
-                    count++;
+                    const success = sleepTab(t.id, true);
+                    if (success) count++;
                 }
             }
             const oldText = optimizeRamBtn.textContent;
@@ -2343,48 +2474,6 @@ function init() {
                 optimizeRamBtn.style.background = '';
             }, 2000);
         });
-    }
-
-    // --- Account System (Lokales Mock-Login) ---
-    function updateAccountUi() {
-        const storedUser = localStorage.getItem('aether-account');
-        if (storedUser) {
-            if (accountNavText) accountNavText.textContent = storedUser;
-            if (loginSection) loginSection.classList.add('hidden');
-            if (profileSection) profileSection.classList.remove('hidden');
-            if (profileName) profileName.textContent = storedUser;
-            if (profileAvatar) profileAvatar.textContent = storedUser.charAt(0).toUpperCase();
-        } else {
-            if (accountNavText) accountNavText.textContent = 'Account';
-            if (loginSection) loginSection.classList.remove('hidden');
-            if (profileSection) profileSection.classList.add('hidden');
-        }
-    }
-    updateAccountUi();
-
-    if (accountNavBtn) {
-        accountNavBtn.onclick = () => {
-            resetViews();
-            if (accountView) accountView.classList.remove('hidden');
-            accountNavBtn.classList.add('active');
-        };
-    }
-    if (loginBtn) {
-        loginBtn.onclick = () => {
-            const user = loginUsername ? loginUsername.value.trim() : '';
-            if (user) {
-                localStorage.setItem('aether-account', user);
-                updateAccountUi();
-                if (loginUsername) loginUsername.value = '';
-                if (loginPassword) loginPassword.value = '';
-            }
-        };
-    }
-    if (logoutBtn) {
-        logoutBtn.onclick = () => {
-            localStorage.removeItem('aether-account');
-            updateAccountUi();
-        };
     }
 
     if (addTabBtn) {
@@ -2400,13 +2489,12 @@ function init() {
             topAddressBar.value = '';
         };
     }
-    if (explorerNavBtn) {
-        explorerNavBtn.onclick = () => {
+    if (newsNavBtn) {
+        newsNavBtn.onclick = () => {
             resetViews();
-            if (explorerView) explorerView.classList.remove('hidden');
-            explorerNavBtn.classList.add('active');
-            renderExplorerRoots();
-            if (explorerSearchInput) explorerSearchInput.focus();
+            if (newsView) newsView.classList.remove('hidden');
+            newsNavBtn.classList.add('active');
+            loadNewsFeeds();
         };
     }
     if (settingsNavBtn) {
@@ -2464,6 +2552,28 @@ function init() {
             const v = ['google', 'duckduckgo', 'bing'].includes(searchEngineSelect.value) ? searchEngineSelect.value : 'google';
             searchEngine = v;
             try { localStorage.setItem('aether-search-engine', v); } catch { /* ignore */ }
+        });
+    }
+
+    // Browser Data Import (Passwords/Bookmarks)
+    if (importBrowserBtn) {
+        importBrowserBtn.addEventListener('click', async () => {
+            const browser = importBrowserSelect ? importBrowserSelect.value : 'chrome';
+            if (importStatus) { importStatus.textContent = 'Importiere Daten, bitte warten...'; importStatus.style.color = 'inherit'; }
+            importBrowserBtn.disabled = true;
+            try {
+                if (window.electronAPI && window.electronAPI.importBrowserData) {
+                    const count = await window.electronAPI.importBrowserData(browser);
+                    if (importStatus) { importStatus.textContent = `Erfolgreich! ${count} Passwörter sicher im Aether Vault verschlüsselt.`; importStatus.style.color = '#34c759'; }
+                } else {
+                    if (importStatus) { importStatus.textContent = 'Fehler: API nicht verfügbar. Hast du preload.js aktualisiert?'; importStatus.style.color = '#ff3b30'; }
+                }
+            } catch (e) {
+                console.error("Import Error:", e);
+                if (importStatus) { importStatus.textContent = `Fehler: ${e.message}`; importStatus.style.color = '#ff3b30'; }
+            } finally {
+                importBrowserBtn.disabled = false;
+            }
         });
     }
 
@@ -2670,32 +2780,6 @@ function init() {
             renderHistory();
         };
     }
-    // Universal Explorer controls
-    if (explorerAddRootBtn) {
-        explorerAddRootBtn.addEventListener('click', async () => {
-            try {
-                const dir = window.electronAPI && window.electronAPI.pickFolder ? await window.electronAPI.pickFolder() : null;
-                if (!dir) return;
-                if (!explorerRoots.includes(dir)) explorerRoots.unshift(dir);
-                explorerRoots = explorerRoots.slice(0, 8);
-                saveExplorerRoots();
-                renderExplorerRoots();
-            } catch (e) {
-                console.error('explorer-add-root failed:', e);
-            }
-        });
-    }
-    if (explorerSearchInput) {
-        explorerSearchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === 'NumpadEnter') {
-                e.preventDefault();
-                runExplorerSearch(explorerSearchInput.value);
-            }
-        });
-    }
-    if (explorerSearchBtn && explorerSearchInput) {
-        explorerSearchBtn.addEventListener('click', () => runExplorerSearch(explorerSearchInput.value));
-    }
     // Input Event Listeners
     const addressSuggestions = document.getElementById('address-suggestions');
     let suggestionSelectedIndex = -1;
@@ -2899,6 +2983,11 @@ function init() {
             if (!resourceMonitorInterval) resourceMonitorInterval = setInterval(renderResources, 2000);
         }
     }
+
+    const hideContextMenu = () => {
+        if (customContextMenu) customContextMenu.classList.add('hidden');
+    };
+
     // --- Custom Context Menu ---
     function buildAndShowMenu(type, params) {
         const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
@@ -3069,15 +3158,23 @@ function init() {
         if (type === 'favorite-pill') {
             const url = params && params.url ? String(params.url) : '';
             if (url) {
-                menuTemplate.push({ label: 'In neuem Tab Ã¶ffnen', action: () => createTab(url) });
+                menuTemplate.push({ label: 'In neuem Tab öffnen', action: () => createTab(url) });
                 menuTemplate.push({ label: 'Adresse kopieren', action: () => navigator.clipboard.writeText(url) });
                 menuTemplate.push({ type: 'separator' });
                 menuTemplate.push({ label: 'Aus Favoriten entfernen', action: () => removeFavorite(url) });
             }
         }
 
+        if (type === 'news-feed') {
+            menuTemplate.push({ label: 'Feed entfernen', action: params.removeAction });
+        }
+
         if (menuTemplate.length === 0) return;
-        const hideContextMenu = () => customContextMenu.classList.add('hidden');
+        
+        document.removeEventListener('click', hideContextMenu);
+        document.removeEventListener('contextmenu', hideContextMenu);
+        window.removeEventListener('blur', hideContextMenu);
+
         customContextMenu.innerHTML = '';
         const fragment = document.createDocumentFragment();
         for (const item of menuTemplate) {
@@ -3140,6 +3237,106 @@ function init() {
     if (window.electronAPI && window.electronAPI.onShowCustomContextMenu) {
         window.electronAPI.onShowCustomContextMenu((type, params) => buildAndShowMenu(type, params));
     }
+
+    // --- News Implementation ---
+    async function loadNewsFeeds() {
+        const sourcesList = document.getElementById('news-sources-list');
+        const articlesGrid = document.getElementById('news-articles-grid');
+        if (!sourcesList || !articlesGrid) return;
+        
+        let sources = JSON.parse(localStorage.getItem('aether-news-sources') || '[]');
+        if (sources.length === 0) {
+            sources = [
+                { name: 'SRF News', url: 'https://www.srf.ch/news/bnf/rss/1646' },
+                { name: 'Tagesschau', url: 'https://www.tagesschau.de/xml/rss2' }
+            ];
+            localStorage.setItem('aether-news-sources', JSON.stringify(sources));
+        }
+
+        sourcesList.innerHTML = '';
+        sources.forEach((src, idx) => {
+            const pill = document.createElement('div');
+            pill.className = 'favorite-pill';
+            pill.innerHTML = `<span class="fav-title">${src.name}</span>`;
+            pill.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                buildAndShowMenu('news-feed', {
+                    x: e.clientX,
+                    y: e.clientY,
+                    removeAction: () => {
+                        sources.splice(idx, 1);
+                        localStorage.setItem('aether-news-sources', JSON.stringify(sources));
+                        loadNewsFeeds();
+                    }
+                });
+            });
+            sourcesList.appendChild(pill);
+        });
+
+        articlesGrid.innerHTML = '<div style="color: var(--text-secondary);">Lade News...</div>';
+        
+        let allArticles = [];
+        for (const src of sources) {
+            try {
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(src.url)}`;
+                const resp = await fetch(apiUrl);
+                const data = await resp.json();
+                if (data && data.status === 'ok') {
+                    data.items.forEach(item => {
+                        allArticles.push({
+                            srcName: src.name,
+                            title: item.title,
+                            link: item.link,
+                            timestamp: new Date(item.pubDate).getTime() || 0,
+                            desc: item.description,
+                            imgUrl: item.thumbnail || (item.enclosure && item.enclosure.link) || ''
+                        });
+                    });
+                }
+            } catch (e) {
+                console.error("News fetch error:", e);
+            }
+        }
+        
+        allArticles.sort((a, b) => b.timestamp - a.timestamp);
+        
+        articlesGrid.innerHTML = '';
+        if (allArticles.length === 0) {
+            articlesGrid.innerHTML = '<div style="color: var(--text-secondary);">Keine Artikel gefunden oder Fehler beim Laden.</div>';
+            return;
+        }
+
+        allArticles.slice(0, 40).forEach(art => {
+            const card = document.createElement('div');
+            card.className = 'settings-card';
+            card.style.cssText = 'padding: 16px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; transition: transform 0.2s, box-shadow 0.2s;';
+            card.onmouseenter = () => card.style.transform = 'translateY(-2px)';
+            card.onmouseleave = () => card.style.transform = 'translateY(0)';
+            let imgHtml = art.imgUrl ? `<img src="${art.imgUrl}" style="width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 8px;" onerror="this.style.display='none'">` : '';
+            const tmp = document.createElement('div'); tmp.innerHTML = art.desc;
+            const cleanDesc = tmp.textContent || tmp.innerText || "";
+            const snippet = cleanDesc.length > 120 ? cleanDesc.substring(0, 120) + '...' : cleanDesc;
+            let timeStr = art.timestamp ? new Date(art.timestamp).toLocaleString([], {day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit'}) : '';
+            card.innerHTML = `${imgHtml}<div style="font-size: 11px; color: var(--accent-color); font-weight: 700; text-transform: uppercase;">${art.srcName}</div><div style="font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.3;">${art.title}</div><div style="font-size: 12px; color: var(--text-secondary);">${timeStr}</div><div style="font-size: 13px; color: var(--text-secondary); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${snippet}</div>`;
+            card.addEventListener('click', () => { if (art.link) createTab(art.link); });
+            articlesGrid.appendChild(card);
+        });
+    }
+
+    document.body.addEventListener('click', (e) => {
+        if (e.target.id === 'news-add-source-btn') {
+            const url = document.getElementById('news-source-url').value.trim();
+            const name = document.getElementById('news-source-name').value.trim() || 'News Feed';
+            if (url) {
+                const sources = JSON.parse(localStorage.getItem('aether-news-sources') || '[]');
+                sources.push({ name, url });
+                localStorage.setItem('aether-news-sources', JSON.stringify(sources));
+                document.getElementById('news-source-url').value = '';
+                document.getElementById('news-source-name').value = '';
+                loadNewsFeeds();
+            }
+        }
+    });
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

@@ -2,6 +2,9 @@ const { app, BrowserWindow, ipcMain, Menu, shell, nativeTheme, nativeImage, safe
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
+const { execSync } = require('child_process');
+const { Groq } = require('groq-sdk');
 
 let win;
 let splash;
@@ -13,6 +16,8 @@ if (process.platform === 'win32') {
 let groqKeyCache = null;
 let groqKeyLoaded = false;
 let updaterWired = false;
+let groqModelsCache = null;
+let groqModelsCacheTime = 0;
 
 function loadAppPackageJson() {
   try {
@@ -93,7 +98,7 @@ function clearGroqKey() {
 }
 
 function getGroqKey() {
-  return process.env.GROQ_API_KEY || loadStoredGroqKey();
+  return "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"; // Nur zum Testen!
 }
 
 function getGroqKeyStatus() {
@@ -103,6 +108,31 @@ function getGroqKeyStatus() {
   const source = env ? 'env' : (stored ? 'stored' : null);
   const encryptionAvailable = !!(safeStorage && safeStorage.isEncryptionAvailable && safeStorage.isEncryptionAvailable());
   return { hasKey, source, encryptionAvailable };
+}
+
+// --- Secure Aether Vault (Lokaler, verschlüsselter Passwort-Manager) ---
+function getVaultPath() {
+  return path.join(app.getPath('userData'), 'aether-vault.enc');
+}
+
+function loadAetherVault() {
+  try {
+    const p = getVaultPath();
+    if (!fs.existsSync(p)) return { passwords: [], bookmarks: [] };
+    const encrypted = fs.readFileSync(p);
+    const decrypted = safeStorage.decryptString(encrypted);
+    return JSON.parse(decrypted);
+  } catch (e) {
+    console.error("Fehler beim Laden des Vaults:", e);
+    return { passwords: [], bookmarks: [] };
+  }
+}
+
+function saveAetherVault(dataObj) {
+  if (!safeStorage.isEncryptionAvailable()) throw new Error('OS Level Encryption nicht verfügbar.');
+  const jsonStr = JSON.stringify(dataObj);
+  const encrypted = safeStorage.encryptString(jsonStr);
+  fs.writeFileSync(getVaultPath(), encrypted);
 }
 
 function getAppIcon() {
@@ -241,90 +271,6 @@ function createWindow() {
     win.close();
   });
 
-  // Handler für die Dateisuche im Universal Explorer
-  // payload: string OR { query: string, roots?: string[] }
-  ipcMain.handle('search-local-files', async (_event, payload) => {
-    const results = [];
-    const maxResults = 20;
-
-    const query = typeof payload === 'string'
-      ? payload
-      : (payload && typeof payload === 'object' && payload.query) ? String(payload.query) : '';
-
-    const roots = (payload && typeof payload === 'object' && Array.isArray(payload.roots))
-      ? payload.roots
-      : [app.getPath('documents')];
-
-    const q = String(query || '').trim().toLowerCase();
-    if (!q) return [];
-
-    const isSafeRoot = (p) => {
-      try {
-        if (!p || typeof p !== 'string') return false;
-        const resolved = path.resolve(p);
-        if (!path.isAbsolute(resolved)) return false;
-        return fs.existsSync(resolved);
-      } catch {
-        return false;
-      }
-    };
-
-    const safeRoots = roots.filter(isSafeRoot).slice(0, 8);
-
-    const walk = async (dir, depth) => {
-      if (results.length >= maxResults) return;
-      if (depth > 6) return;
-      let entries;
-      try {
-        entries = await fs.promises.readdir(dir, { withFileTypes: true });
-      } catch {
-        return;
-      }
-      for (const ent of entries) {
-        if (results.length >= maxResults) return;
-        const name = ent.name;
-        const full = path.join(dir, name);
-        if (name.toLowerCase().includes(q)) {
-          results.push({
-            title: name,
-            path: full,
-            type: ent.isDirectory() ? 'folder' : 'file'
-          });
-        }
-        if (ent.isDirectory()) {
-          const lower = name.toLowerCase();
-          if (lower === 'node_modules' || lower === '.git') continue;
-          await walk(full, depth + 1);
-        }
-      }
-    };
-
-    try {
-      for (const root of safeRoots) {
-        await walk(root, 0);
-        if (results.length >= maxResults) break;
-      }
-    } catch (e) {
-      console.error("Fehler beim Lesen der Dateien:", e);
-    }
-    return results;
-  });
-
-  ipcMain.on('open-file', (event, filePath) => {
-    shell.openPath(filePath);
-  });
-
-  ipcMain.handle('pick-folder', async () => {
-    try {
-      const res = await dialog.showOpenDialog(win, { properties: ['openDirectory'] });
-      if (res.canceled || !res.filePaths || !res.filePaths[0]) return null;
-      return res.filePaths[0];
-    } catch (e) {
-      console.error('pick-folder failed:', e);
-      return null;
-    }
-  });
-
   ipcMain.handle('destroy-webcontents', async (_event, id) => {
     try {
       const wcId = Number(id);
@@ -385,6 +331,102 @@ function createWindow() {
       }
     }
     return cleared;
+  });
+
+  // Handler für den Import von Browser-Daten (Passwörter & Lesezeichen)
+  ipcMain.handle('import-browser-data', async (event, browser) => {
+    if (process.platform !== 'win32') {
+      throw new Error("Dieser Import funktioniert derzeit sicherheitsbedingt nur unter Windows.");
+    }
+
+    let initSqlJs;
+    try {
+      initSqlJs = require('sql.js');
+    } catch (e) {
+      throw new Error("Fehlendes Modul. Bitte führe 'npm install sql.js' aus.");
+    }
+
+    const localAppData = process.env.LOCALAPPDATA;
+    const appData = process.env.APPDATA;
+    let userDataPath = '';
+
+    if (browser === 'chrome') userDataPath = path.join(localAppData, 'Google', 'Chrome', 'User Data');
+    else if (browser === 'opera') userDataPath = path.join(appData, 'Opera Software', 'Opera Stable');
+    else throw new Error("Browser nicht unterstützt.");
+
+    const localStatePath = path.join(userDataPath, 'Local State');
+    const loginDataPath = browser === 'chrome' ? path.join(userDataPath, 'Default', 'Login Data') : path.join(userDataPath, 'Login Data');
+
+    if (!fs.existsSync(localStatePath) || !fs.existsSync(loginDataPath)) {
+      throw new Error(`Die Datenbanken für ${browser} wurden nicht gefunden.`);
+    }
+
+    // 1. Chrome Master-Key extrahieren und nativ über unsichtbares PowerShell (DPAPI) entschlüsseln
+    const localState = JSON.parse(fs.readFileSync(localStatePath, 'utf8'));
+    const encryptedKeyBuf = Buffer.from(localState.os_crypt.encrypted_key, 'base64').slice(5); // "DPAPI" Präfix entfernen
+    const b64In = encryptedKeyBuf.toString('base64');
+    
+    // Wir lassen Windows die Entschlüsselung machen
+    const psScript = `
+      Add-Type -AssemblyName System.Security;
+      try {
+          $enc = [Convert]::FromBase64String('${b64In}');
+          $dec = [System.Security.Cryptography.ProtectedData]::Unprotect($enc, $null, [System.Security.Cryptography.DataProtectionScope]::CurrentUser);
+          [Convert]::ToBase64String($dec);
+      } catch { Write-Output ""; }
+    `;
+    const psScriptB64 = Buffer.from(psScript, 'utf16le').toString('base64');
+    const psResult = execSync(`powershell -NoProfile -ExecutionPolicy Bypass -EncodedCommand ${psScriptB64}`).toString().trim();
+    
+    if (!psResult) throw new Error("Fehler beim Entschlüsseln des Master-Keys.");
+    const masterKey = Buffer.from(psResult, 'base64');
+
+    // 2. Datenbank-Lock umgehen, indem wir sie temporär kopieren
+    const tempDbPath = path.join(app.getPath('temp'), `aether_temp_logins_${Date.now()}.sqlite`);
+    fs.copyFileSync(loginDataPath, tempDbPath);
+
+    // 3. Datenbank sicher mit WebAssembly einlesen (ohne C++ Compiler-Zwang)
+    const SQL = await initSqlJs();
+    const dbBuffer = fs.readFileSync(tempDbPath);
+    const db = new SQL.Database(dbBuffer);
+    const stmt = db.prepare('SELECT origin_url, username_value, password_value FROM logins');
+    
+    const vault = loadAetherVault();
+    let importedCount = 0;
+
+    while (stmt.step()) {
+      const row = stmt.getAsObject();
+      if (!row.password_value) continue;
+      
+      const pwdBuf = Buffer.from(row.password_value);
+      if (pwdBuf.length < 31) continue; // Zu kurz für einen gültigen Chrome-Key
+
+      try {
+        const iv = pwdBuf.slice(3, 15);
+        const payload = pwdBuf.slice(15, pwdBuf.length - 16);
+        const authTag = pwdBuf.slice(pwdBuf.length - 16);
+
+        const decipher = crypto.createDecipheriv('aes-256-gcm', masterKey, iv);
+        decipher.setAuthTag(authTag);
+        let decrypted = decipher.update(payload, null, 'utf8') + decipher.final('utf8');
+
+        // Wenn erfolgreich entschlüsselt, ab in unseren sicheren Aether Vault
+        vault.passwords.push({
+          url: row.origin_url,
+          username: row.username_value,
+          password: decrypted,
+          importedAt: Date.now()
+        });
+        importedCount++;
+      } catch (err) { /* Beschädigte Rows überspringen */ }
+    }
+
+    stmt.free();
+    db.close();
+    try { fs.unlinkSync(tempDbPath); } catch(e) {} // Spuren beseitigen
+
+    saveAetherVault(vault);
+    return importedCount;
   });
 
   // Handler für die Websuche
@@ -495,77 +537,70 @@ function createWindow() {
       throw new Error('Missing Groq API key (set it in Settings or via GROQ_API_KEY).');
     }
     if (!payload || typeof payload !== 'object') {
-      throw new Error('Invalid ai-chat payload.');
+      throw new Error('Invalid payload for AI chat completion.');
     }
 
-    const body = {
-      model: payload.model,
-      messages: payload.messages,
-      temperature: payload.temperature,
-      top_p: payload.top_p,
-    };
+    const groq = new Groq({ apiKey });
 
-    if (payload.max_completion_tokens !== undefined) {
-      body.max_completion_tokens = payload.max_completion_tokens;
-    } else {
-      body.max_tokens = payload.max_tokens ?? 1024;
-    }
-
-    // Convert http(s) image URLs to base64 to avoid 403 errors from external servers
-    if (Array.isArray(body.messages)) {
-      for (const msg of body.messages) {
-        if (Array.isArray(msg.content)) {
-          for (const item of msg.content) {
-            if (item.type === 'image_url' && item.image_url && typeof item.image_url.url === 'string' && item.image_url.url.startsWith('http')) {
-              try {
-                const imgResp = await fetch(item.image_url.url, {
-                  headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                    'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
-                  }
-                });
-                if (imgResp.ok) {
-                  const buffer = await imgResp.arrayBuffer();
-                  const mime = imgResp.headers.get('content-type') || 'image/jpeg';
-                  item.image_url.url = `data:${mime};base64,${Buffer.from(buffer).toString('base64')}`;
-                }
-              } catch (e) {
-                console.error('Failed to fetch image for AI:', e);
-              }
+    try {
+      // --- Dynamische Modell-Auswahl ---
+      let isVision = false;
+      if (Array.isArray(payload.messages)) {
+        for (const msg of payload.messages) {
+          if (Array.isArray(msg.content)) {
+            for (const part of msg.content) {
+              if (part.type === 'image_url') isVision = true;
             }
           }
         }
       }
+
+      // Cache die Modellliste für 1 Stunde, um die Performance hoch zu halten
+      if (!groqModelsCache || (Date.now() - groqModelsCacheTime > 3600000)) {
+        const modelsList = await groq.models.list();
+        groqModelsCache = modelsList.data || [];
+        groqModelsCacheTime = Date.now();
+      }
+
+      let selectedModel = payload.model;
+      if (!selectedModel || selectedModel === 'auto' || selectedModel.includes('meta-llama')) {
+        if (isVision) {
+          const visionModels = groqModelsCache.filter(m => m.id.includes('vision'));
+          selectedModel = visionModels.length > 0 ? visionModels.sort((a, b) => a.id.localeCompare(b.id))[0].id : 'llama-3.2-11b-vision-preview';
+        } else {
+          // Filtere auf günstige, extrem schnelle Text-Modelle (8b / instant) für Live-Daten
+          const textModels = groqModelsCache.filter(m => !m.id.includes('vision') && !m.id.includes('whisper') && (m.id.includes('llama') || m.id.includes('mixtral')));
+          const cheapModel = textModels.find(m => m.id.includes('8b') || m.id.includes('instant'));
+          selectedModel = cheapModel ? cheapModel.id : (textModels[0] ? textModels[0].id : 'llama-3.1-8b-instant');
+        }
+      }
+
+      const chatCompletion = await groq.chat.completions.create({
+        model: selectedModel,
+        messages: payload.messages,
+        temperature: payload.temperature ?? 0.3,
+        max_completion_tokens: payload.max_completion_tokens ?? payload.max_tokens ?? 1024,
+        top_p: payload.top_p ?? 1,
+        stream: true,
+        stop: null
+      });
+
+      let fullContent = '';
+      for await (const chunk of chatCompletion) {
+        fullContent += chunk.choices[0]?.delta?.content || '';
+      }
+
+      return {
+        choices: [{ message: { content: fullContent } }]
+      };
+    } catch (error) {
+      throw new Error(`AI request failed: ${error.message}`);
     }
-
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-
-    const json = await resp.json().catch(() => ({}));
-    if (!resp.ok) {
-      const msg = json && json.error && json.error.message ? json.error.message : `HTTP ${resp.status}`;
-      throw new Error(`AI request failed: ${msg}`);
-    }
-
-    return json;
   });
 
-  // Groq API key management (stored user-local in app data; never returned to renderer)
   ipcMain.handle('groq-key:status', async () => getGroqKeyStatus());
-  ipcMain.handle('groq-key:set', async (_event, key) => {
-    storeGroqKey(key);
-    return getGroqKeyStatus();
-  });
-  ipcMain.handle('groq-key:clear', async () => {
-    clearGroqKey();
-    return getGroqKeyStatus();
-  });
+  ipcMain.handle('groq-key:set', async (_event, key) => storeGroqKey(key));
+  ipcMain.handle('groq-key:clear', async () => clearGroqKey());
 
   // App Metrics / RAM Usage
   ipcMain.handle('get-process-metrics', async () => {

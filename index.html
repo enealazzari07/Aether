@@ -41,17 +41,13 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"></rect><rect x="14" y="3" width="7" height="7" rx="2"></rect><rect x="3" y="14" width="7" height="7" rx="2"></rect><rect x="14" y="14" width="7" height="7" rx="2"></rect></svg>
                     <span class="nav-text">Workspace</span>
                 </div>
-                <div class="nav-item" id="explorer-nav-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                    <span class="nav-text">Universal Explorer</span>
+                <div class="nav-item" id="news-nav-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16l-2 2Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 10h8"></path><path d="M10 14h8"></path><path d="M10 18h4"></path></svg>
+                    <span class="nav-text">News</span>
                 </div>
             </div>
             </div>
             <div class="sidebar-footer" style="padding-bottom: 12px;">
-                <div class="nav-item" id="account-nav-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                    <span class="nav-text" id="account-nav-text">Account</span>
-                </div>
                 <div class="nav-item" id="resources-nav-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                     <span class="nav-text">Ressourcen</span>
@@ -146,20 +142,18 @@
                                 <div id="home-search-results" class="home-results-overlay hidden"></div>
                             </div>
                         </div>
-                        <!-- Explorer View (Universal Search Replacement) -->
-                        <div id="explorer-view" class="explorer-view hidden">
-                            <div class="explorer-header">
-                                <div class="explorer-top">
-                                    <h1>Universal Explorer</h1>
-                                    <button id="explorer-add-root" class="explorer-btn" type="button">Ordner hinzufügen</button>
+                        <!-- News View -->
+                        <div id="news-view" class="main-stage hidden" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; background: var(--bg-secondary);">
+                            <div style="padding: 40px 40px 120px 40px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; min-height: 100%;">
+                                <h1 style="margin-bottom: 20px;">News Feed</h1>
+                                <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                                    <input type="text" id="news-source-url" placeholder="RSS Feed URL (z.B. https://www.srf.ch/news/bnf/rss/1646)" class="ws-panel-input" style="flex:1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary);">
+                                    <input type="text" id="news-source-name" placeholder="Name (z.B. SRF)" class="ws-panel-input" style="width: 150px; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-tertiary); color: var(--text-primary);">
+                                    <button id="news-add-source-btn" class="explorer-btn primary" style="padding: 10px 20px; border-radius: 8px; cursor: pointer;">Feed Hinzufügen</button>
                                 </div>
-                                <div class="explorer-search">
-                                    <input id="explorer-search-input" class="explorer-search-input" type="text" placeholder="Dateien, Tabs, Verlauf..." />
-                                    <button id="explorer-search-btn" class="explorer-btn primary" type="button">Suchen</button>
-                                </div>
-                                <div class="explorer-roots" id="explorer-roots" aria-label="Suchordner"></div>
+                                <div id="news-sources-list" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px;"></div>
+                                <div id="news-articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;"></div>
                             </div>
-                            <div id="explorer-results" class="search-results-container"></div>
                         </div>
                         <!-- Settings View -->
                         <div id="settings-view" class="settings-view hidden">
@@ -241,6 +235,24 @@
                                     <div class="settings-card">
                                         <div class="settings-row">
                                             <div class="settings-info">
+                                                <span class="settings-label">Daten importieren</span>
+                                                <p class="settings-description">Importiere Lesezeichen und Passwörter aus anderen Browsern. Alles wird strikt verschlüsselt und nur lokal auf deinem PC im Aether Vault abgelegt.</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <div class="settings-inline">
+                                                    <select id="import-browser-select" class="settings-select">
+                                                        <option value="chrome">Google Chrome</option>
+                                                        <option value="opera">Opera</option>
+                                                    </select>
+                                                    <button id="import-browser-btn" class="settings-button">Importieren</button>
+                                                </div>
+                                                <div id="import-status" class="settings-hint"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
                                                 <span class="settings-label">OneNote (Schule)</span>
                                                 <p class="settings-description">Optional: OneNote über Microsoft Graph als Live-Kontext für KI. Passwort wird nie gespeichert; OAuth-Token idealerweise nur im RAM (Session).</p>
                                             </div>
@@ -267,41 +279,6 @@
                             </div>
                                 <div class="settings-group" id="resources-list" style="display:flex; flex-direction:column; gap:12px;">
                                     <!-- Populated dynamically -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Account View -->
-                        <div id="account-view" class="settings-view hidden">
-                            <div class="settings-content">
-                                <h1 class="settings-title">Aether Account</h1>
-                                
-                                <!-- Not Logged In -->
-                                <div id="login-section" class="settings-card" style="max-width: 400px; margin: 0 auto;">
-                                    <div style="text-align: center; margin-bottom: 20px;">
-                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-color, #0a84ff);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                        <h2 style="margin-top: 10px;">Einloggen</h2>
-                                        <p style="color: var(--text-secondary, #86868b); font-size: 13px;">Synchronisiere deine Tabs, Lesezeichen und Einstellungen.</p>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                                        <input type="text" id="login-username" class="settings-input" placeholder="Benutzername oder E-Mail" />
-                                        <input type="password" id="login-password" class="settings-input" placeholder="Passwort" />
-                                        <button id="login-btn" class="explorer-btn primary" style="width: 100%; padding: 12px; margin-top: 8px;">Anmelden</button>
-                                    </div>
-                                </div>
-
-                                <!-- Logged In -->
-                                <div id="profile-section" class="settings-card hidden" style="max-width: 450px; margin: 0 auto;">
-                                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
-                                        <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #0a84ff, #ff2a6d); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;" id="profile-avatar">A</div>
-                                        <div>
-                                            <h2 id="profile-name">Benutzername</h2>
-                                            <p style="color: var(--text-secondary, #86868b); font-size: 13px;">Aether Sync ist lokal aktiv.</p>
-                                        </div>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                                        <button id="logout-btn" class="settings-button" style="width: 100%; color: #ff3b30; border-color: rgba(255, 59, 48, 0.3);">Abmelden</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -511,7 +488,7 @@
                     <input type="file" id="ai-file-input" style="display: none;" accept=".txt,.json,.js,.css,.html,.md,.csv">
                     <input type="text" id="ai-input" placeholder="Frag Aether...">
                     <div class="ai-send-circle" id="ai-send">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
                     </div>
                 </div>
                 <div id="ai-mode-popup" class="ai-mode-popup hidden" role="menu" aria-label="AI modes">
