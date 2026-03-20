@@ -44,3 +44,38 @@ document.addEventListener('contextmenu', (event) => {
 
   ipcRenderer.sendToHost('webview-context-menu', data);
 });
+
+// Smart Autofill - Triggered when clicking into a login field
+document.addEventListener('focusin', async (event) => {
+  const target = event.target;
+  if (!target || target.tagName !== 'INPUT') return;
+
+  const type = target.type.toLowerCase();
+  if (type !== 'password' && type !== 'text' && type !== 'email') return;
+
+  const form = target.closest('form');
+  const pwInput = type === 'password' ? target : (form ? form.querySelector('input[type="password"]') : null);
+  const unInput = form ? form.querySelector('input[type="text"], input[type="email"]') : (type !== 'password' ? target : null);
+
+  if (!pwInput) return; // Autofill nur, wenn ein Passwortfeld im Kontext existiert
+
+  if (pwInput.dataset.aetherChecked) return;
+  pwInput.dataset.aetherChecked = 'true';
+  if (unInput) unInput.dataset.aetherChecked = 'true';
+
+  try {
+    const creds = await ipcRenderer.invoke('request-autofill');
+    if (creds && creds.password) {
+      if (unInput && creds.username && !unInput.value) {
+        unInput.value = creds.username;
+        unInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      if (pwInput && creds.password && !pwInput.value) {
+        pwInput.value = creds.password;
+        pwInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+  } catch (err) {
+    // silently ignore errors to not break web pages
+  }
+});

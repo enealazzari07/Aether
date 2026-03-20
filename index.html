@@ -37,10 +37,6 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
                     <span class="nav-text">Home</span>
                 </div>
-                <div class="nav-item" id="workspace-nav-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"></rect><rect x="14" y="3" width="7" height="7" rx="2"></rect><rect x="3" y="14" width="7" height="7" rx="2"></rect><rect x="14" y="14" width="7" height="7" rx="2"></rect></svg>
-                    <span class="nav-text">Workspace</span>
-                </div>
                 <div class="nav-item" id="news-nav-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16l-2 2Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 10h8"></path><path d="M10 14h8"></path><path d="M10 18h4"></path></svg>
                     <span class="nav-text">News</span>
@@ -75,10 +71,6 @@
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#999;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <input type="text" id="top-address-bar" placeholder="Search or enter URL...">
                         <div id="address-suggestions" class="address-suggestions hidden"></div>
-                    </div>
-                    <div id="global-focus-indicator" class="hidden" title="Fokus aktiv (Details im Workspace)" style="display: flex; align-items: center; gap: 6px; padding: 4px 10px; margin-right: 8px; border-radius: 14px; cursor: pointer;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <span id="global-focus-time" style="font-size: 12px; font-weight: 700;">00:00</span>
                     </div>
                     <div class="history-toggle-btn downloads-toggle-btn hidden" id="downloads-toggle-btn" title="Downloads">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
@@ -235,8 +227,9 @@
                                     <div class="settings-card">
                                         <div class="settings-row">
                                             <div class="settings-info">
-                                                <span class="settings-label">Daten importieren</span>
-                                                <p class="settings-description">Importiere Lesezeichen und Passwörter aus anderen Browsern. Alles wird strikt verschlüsselt und nur lokal auf deinem PC im Aether Vault abgelegt.</p>
+                                                <span class="settings-label">Chrome-Daten importieren</span>
+                                                <p class="settings-description">Dies überträgt Cookies, Logins und den Verlauf direkt in diesen Browser. Alles wird strikt verschlüsselt und lokal im Aether Vault abgelegt.</p>
+                                                <p class="settings-hint" style="color: #ff3b30; text-align: left; margin-top: 8px;">Achtung: Dein Chrome-Browser muss geschlossen sein, während diese App läuft, da beide nicht gleichzeitig auf denselben Profilordner zugreifen können.</p>
                                             </div>
                                             <div class="settings-control">
                                                 <div class="settings-inline">
@@ -247,6 +240,17 @@
                                                     <button id="import-browser-btn" class="settings-button">Importieren</button>
                                                 </div>
                                                 <div id="import-status" class="settings-hint"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-card">
+                                        <div class="settings-row">
+                                            <div class="settings-info">
+                                                <span class="settings-label">Clips</span>
+                                                <p class="settings-description">Hintergrundaufnahme des Bildschirms, um jederzeit rückwirkend Clips zu speichern.</p>
+                                            </div>
+                                            <div class="settings-control">
+                                                <button id="main-settings-clip-toggle" class="settings-button" type="button">Aktivieren</button>
                                             </div>
                                         </div>
                                     </div>
@@ -279,96 +283,6 @@
                             </div>
                                 <div class="settings-group" id="resources-list" style="display:flex; flex-direction:column; gap:12px;">
                                     <!-- Populated dynamically -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Workspace View -->
-                        <div id="workspace-view" class="workspace-view hidden">
-                            <style>
-                                .am-btn { border: none !important; color: #fff !important; transition: transform 0.15s, filter 0.15s !important; }
-                                .am-btn:hover { transform: translateY(-1px); filter: brightness(1.15); }
-                            </style>
-                            <div class="workspace-content">
-                                <div class="workspace-hero" style="text-align: center; margin-bottom: 40px;">
-                                    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, #0a84ff, #ff2a6d); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Aether Mind</h1>
-                                    <p style="color: #86868b; font-size: 1.1rem;">Dein KI-nativer Co-Pilot. Interagiere direkt mit deinen Tabs und Inhalten.</p>
-                                </div>
-                                
-                                <div id="active-ws-banner" style="background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.2); padding: 16px 24px; border-radius: 16px; margin-bottom: 30px; display: flex; align-items: center; gap: 16px;">
-                                    <div style="width: 12px; height: 12px; background: #0a84ff; border-radius: 50%; box-shadow: 0 0 10px #0a84ff;"></div>
-                                    <div>
-                                        <div style="font-weight: 600; font-size: 1.1rem; color: #0a84ff;">Aktuell aktiv: <span id="workspace-subtitle-modern">Freizeit</span><span id="workspace-subtitle" style="display:none;">Freizeit</span></div>
-                                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 4px; color: inherit;">Alle Tabs ausserhalb dieses Workspaces sind im Ruhezustand eingefroren.</div>
-                                    </div>
-                                </div>
-
-                                <div class="workspace-grid" id="workspace-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
-                                    <button class="ws-card" data-workspace-id="schule" type="button">
-                                        <div class="ws-badge ws-schule">📚</div>
-                                        <div class="ws-info" style="text-align: center; width: 100%;">
-                                            <div class="ws-name">Schule</div>
-                                            <div class="ws-desc">Lernen, Recherche & Fokus</div>
-                                        </div>
-                                    </button>
-                                    <button class="ws-card" data-workspace-id="freizeit" type="button">
-                                        <div class="ws-badge ws-freizeit">🎮</div>
-                                        <div class="ws-info" style="text-align: center; width: 100%;">
-                                            <div class="ws-name">Freizeit</div>
-                                            <div class="ws-desc">Videos, Social & Gaming</div>
-                                        </div>
-                                    </button>
-                                    <button class="ws-card" data-workspace-id="programmieren" type="button">
-                                        <div class="ws-badge ws-prog">💻</div>
-                                        <div class="ws-info" style="text-align: center; width: 100%;">
-                                            <div class="ws-name">Programmieren</div>
-                                            <div class="ws-desc">Dev-Tools, Docs & Code</div>
-                                        </div>
-                                    </button>
-                                    <button class="ws-card" data-workspace-id="fokus" type="button">
-                                        <div class="ws-badge ws-fokus">⏱️</div>
-                                        <div class="ws-info" style="text-align: center; width: 100%;">
-                                            <div class="ws-name">Fokus</div>
-                                            <div class="ws-desc">Zeitlimit, Pausen erzwingen.</div>
-                                            <div class="ws-meta" id="focus-meta" style="margin-top: 12px; background: rgba(10, 132, 255, 0.15); color: #0a84ff; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; display: inline-block;">max 180 min</div>
-                                        </div>
-                                    </button>
-                                </div>
-
-                                <div class="ws-panel" id="smart-commands-panel">
-                                    <div class="ws-panel-title">Smart Commands (Aktionen)</div>
-                                    <div class="ws-panel-row" style="flex-wrap: wrap; gap: 12px;">
-                                        <button id="cmd-extract-dates" class="ws-panel-btn am-btn" style="background: linear-gradient(135deg, #007aff, #0056b3);" type="button">📅 Termine extrahieren</button>
-                                        <button id="cmd-find-imprint" class="ws-panel-btn am-btn" style="background: linear-gradient(135deg, #34c759, #248a3d);" type="button">✉️ Kontakt / Impressum</button>
-                                        <button id="cmd-analyze-costs" class="ws-panel-btn am-btn" style="background: linear-gradient(135deg, #af52de, #7a329e);" type="button">💰 Abo-Kosten analysieren</button>
-                                    </div>
-                                    <div class="ws-panel-hint">Führt die Aktion auf dem aktuell aktiven Tab aus und nutzt die KI zur sofortigen Analyse in der Sidebar.</div>
-                                </div>
-
-                                <div class="ws-panel" id="tab-context-panel">
-                                    <div class="ws-panel-title">Tab-Kontext-Bewusstsein</div>
-                                    <div class="ws-panel-row" style="flex-wrap: wrap; gap: 12px;">
-                                        <button id="cmd-summarize-all-tabs" class="ws-panel-btn am-btn" type="button" style="background: #1d1d1f;">Alle offenen Tabs zusammenfassen</button>
-                                        <button id="cmd-find-contradictions" class="ws-panel-btn am-btn" type="button" style="background: #1d1d1f;">Widersprüche in Tabs finden</button>
-                                    </div>
-                                    <div class="ws-panel-hint">Liest den Inhalt <b>aller</b> geladenen Tabs im aktuellen Workspace und aggregiert die Informationen.</div>
-                                </div>
-
-                                <div class="ws-panel" id="cross-tab-panel">
-                                    <div class="ws-panel-title">Cross-Tab-Automatisierung</div>
-                                    <div class="ws-panel-row">
-                                        <input id="cross-tab-input" class="ws-panel-input" type="text" placeholder="z.B. Vergleiche Preis X auf allen Tabs..." style="flex: 1;" />
-                                        <button id="cmd-cross-tab-execute" class="ws-panel-btn am-btn" type="button" style="background: #ff2a6d;">Ausführen</button>
-                                    </div>
-                                    <div class="ws-panel-hint">Agentic AI: Lass die KI selbstständig durch deine Tab-Inhalte iterieren.</div>
-                                </div>
-
-                                <div class="ws-panel" style="border-color: rgba(52, 199, 89, 0.3); background: rgba(52, 199, 89, 0.05);">
-                                    <div class="ws-panel-title" style="color: #1c8c3c;">Lokaler Datenschutz & Ephemeral Memory</div>
-                                    <p style="font-size: 13px; color: #1d1d1f; line-height: 1.5; margin-bottom: 8px;">
-                                        Aether Mind wurde mit Fokus auf Privatsphäre entwickelt. PII-Stripping maskiert sensible Daten (wie Passwörter oder Mails) vor dem Senden an LLMs. Der KI-Verlauf in diesem Workspace existiert nur temporär im RAM.
-                                    </p>
-                                    <div class="ws-panel-hint" style="color: #1c8c3c; font-weight: 600;">Tracker-Radar ist aktiv. Keine Speicherung deines Surfverhaltens in der Cloud.</div>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu, shell, nativeTheme, nativeImage, safeStorage, dialog, session, webContents } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, shell, nativeTheme, nativeImage, safeStorage, dialog, session, webContents, desktopCapturer, globalShortcut } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const fs = require('fs');
@@ -247,13 +247,6 @@ function createWindow() {
   // Remove default menu
   win.setMenu(null);
 
-  // Open DevTools on F12
-  win.webContents.on('before-input-event', (event, input) => {
-    if (input.key === 'F12' && input.type === 'keyDown') {
-      win.webContents.toggleDevTools();
-    }
-  });
-
   // IPC listeners for window controls
   ipcMain.on('minimize-app', () => {
     win.minimize();
@@ -290,47 +283,68 @@ function createWindow() {
     const extDir = typeof dir === 'string' ? dir : '';
     if (!extDir) throw new Error('No extension directory provided.');
 
-    const parts = [
-      'persist:aether-ws-schule',
-      'persist:aether-ws-freizeit',
-      'persist:aether-ws-programmieren',
-      'persist:aether-ws-fokus',
-    ];
-
-    const loaded = [];
-    for (const p of parts) {
-      try {
-        const s = session.fromPartition(p);
-        const ext = await s.loadExtension(extDir, { allowFileAccess: true });
-        loaded.push({ partition: p, id: ext.id, name: ext.name });
-      } catch (e) {
-        loaded.push({ partition: p, error: String(e && e.message ? e.message : e) });
-      }
+    try {
+      const ext = await session.defaultSession.loadExtension(extDir, { allowFileAccess: true });
+      return [{ partition: 'default', id: ext.id, name: ext.name }];
+    } catch (e) {
+      return [{ partition: 'default', error: String(e && e.message ? e.message : e) }];
     }
-    return loaded;
   });
 
   ipcMain.handle('clear-browser-data', async () => {
-    const parts = [
-      null, // defaultSession
-      'persist:aether-ws-schule',
-      'persist:aether-ws-freizeit',
-      'persist:aether-ws-programmieren',
-      'persist:aether-ws-fokus',
-    ];
-
-    const cleared = [];
-    for (const p of parts) {
-      try {
-        const s = p ? session.fromPartition(p) : session.defaultSession;
-        await s.clearCache();
-        await s.clearStorageData();
-        cleared.push({ partition: p || 'default', ok: true });
-      } catch (e) {
-        cleared.push({ partition: p || 'default', ok: false, error: String(e && e.message ? e.message : e) });
-      }
+    try {
+      await session.defaultSession.clearCache();
+      await session.defaultSession.clearStorageData();
+      return [{ partition: 'default', ok: true }];
+    } catch (e) {
+      return [{ partition: 'default', ok: false, error: String(e && e.message ? e.message : e) }];
     }
-    return cleared;
+  });
+
+  // Handler für automatisches Ausfüllen von Passwörtern (Autofill)
+  ipcMain.handle('request-autofill', async (event) => {
+    const wc = event.sender;
+    const url = wc.getURL();
+    if (!url || !url.startsWith('http')) return null;
+
+    try {
+      const origin = new URL(url).origin;
+      const vault = loadAetherVault();
+      if (!vault || !vault.passwords) return null;
+
+      const matches = vault.passwords.filter(p => {
+        try { return new URL(p.url).origin === origin; } catch { return false; }
+      });
+
+      if (matches.length > 0) {
+        matches.sort((a, b) => (b.importedAt || 0) - (a.importedAt || 0));
+        return { username: matches[0].username, password: matches[0].password };
+      }
+    } catch (e) { return null; }
+    return null;
+  });
+
+  // Handler für das Privatsphäre-Add-on (Google Blocking)
+  ipcMain.handle('toggle-privacy-filter', (event, active) => {
+    if (active) {
+      const filter = {
+        urls: [
+          '*://*.google-analytics.com/*',
+          '*://*.doubleclick.net/*',
+          '*://*.googletagmanager.com/*',
+          '*://*.googleadservices.com/*'
+        ]
+      };
+      session.defaultSession.webRequest.onBeforeRequest(filter, (details, callback) => {
+        if (win && !win.isDestroyed()) {
+          win.webContents.send('tracker-blocked', details.url);
+        }
+        callback({ cancel: true }); // Blockiert die Tracker-Aufrufe
+      });
+    } else {
+      session.defaultSession.webRequest.onBeforeRequest(null); // Entfernt den Filter
+    }
+    return true;
   });
 
   // Handler für den Import von Browser-Daten (Passwörter & Lesezeichen)
@@ -427,6 +441,79 @@ function createWindow() {
 
     saveAetherVault(vault);
     return importedCount;
+  });
+
+  // --- Gaming Clips: Background Recording IPCs ---
+  ipcMain.handle('select-folder', async () => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(win, {
+      title: 'Speicherort für Clips wählen',
+      properties: ['openDirectory']
+    });
+    if (!canceled && filePaths.length > 0) return filePaths[0];
+    return null;
+  });
+
+  ipcMain.handle('get-screen-source', async () => {
+    const sources = await desktopCapturer.getSources({ types: ['screen'] });
+    // Nimmt standardmäßig den ersten Bildschirm auf
+    return sources.length > 0 ? sources[0].id : null;
+  });
+
+  ipcMain.handle('save-clip', async (event, payload) => {
+    const { buffer, folder, filename } = payload;
+    if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
+    const fullPath = path.join(folder, filename);
+    fs.writeFileSync(fullPath, Buffer.from(buffer));
+    return fullPath;
+  });
+
+  ipcMain.handle('save-clip-chunk', async (event, payload) => {
+    const { buffer, folder, filename, append } = payload;
+    if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
+    const fullPath = path.join(folder, filename);
+    if (append) {
+      fs.appendFileSync(fullPath, Buffer.from(buffer));
+    } else {
+      fs.writeFileSync(fullPath, Buffer.from(buffer));
+    }
+    return fullPath;
+  });
+
+  ipcMain.handle('delete-file', async (event, filePath) => {
+    try {
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+      return true;
+    } catch(e) {
+      return false;
+    }
+  });
+
+  ipcMain.handle('share-file', async (event, filePath) => {
+    shell.showItemInFolder(filePath);
+  });
+
+  // Globale Shortcuts für Klips verwalten
+  let currentClipShortcut = null;
+  ipcMain.on('set-clip-shortcut', (event, accelerator) => {
+    if (currentClipShortcut) {
+      globalShortcut.unregister(currentClipShortcut);
+    }
+    if (accelerator) {
+      try {
+        globalShortcut.register(accelerator, () => {
+          if (win && !win.isDestroyed()) {
+            win.webContents.executeJavaScript(`
+              if (window.clipModeActive && typeof window.takeClip === 'function') {
+                window.takeClip();
+              }
+            `).catch(() => {});
+          }
+        });
+        currentClipShortcut = accelerator;
+      } catch (e) {
+        console.error('Failed to register global shortcut:', e);
+      }
+    }
   });
 
   // Handler für die Websuche
@@ -623,6 +710,13 @@ function createWindow() {
 }
 
 app.on('web-contents-created', (event, contents) => {
+  // F12-Listener für alle WebContents (Hauptfenster + Webviews), damit Klips auch in Spielen gehen
+  contents.on('before-input-event', (e, input) => {
+    if (input.key === 'F12' && input.type === 'keyDown') {
+      contents.toggleDevTools();
+    }
+  });
+
   contents.on('context-menu', (e, params) => {
     if (win && !win.isDestroyed()) {
       const { screen } = require('electron');
@@ -643,6 +737,15 @@ app.on('web-contents-created', (event, contents) => {
       win.webContents.send('show-custom-context-menu', 'webview', enrichedParams);
     }
   });
+});
+
+// Optional: Zertifikatsfehler abfangen
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+  // Wenn du abgelaufene Zertifikate (wie net_error -201) trotzdem laden lassen willst, 
+  // entferne die Kommentare vor den nächsten zwei Zeilen:
+  
+  // event.preventDefault();
+  // callback(true);
 });
 
 app.whenReady().then(() => {
@@ -675,4 +778,8 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
 });

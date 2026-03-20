@@ -68,7 +68,7 @@ function init() {
             }
             
             /* Main Stage */
-            .theme-dark .main-stage, .theme-dark .app-header, .theme-dark .tabs-container, .theme-dark .viewport-shell, .theme-dark .splash-view, .theme-dark .settings-view, .theme-dark .workspace-view, .theme-dark .explorer-view, .theme-dark #view-layer, .theme-dark #news-view {
+            .theme-dark .main-stage, .theme-dark .app-header, .theme-dark .tabs-container, .theme-dark .viewport-shell, .theme-dark .splash-view, .theme-dark .settings-view, .theme-dark .explorer-view, .theme-dark #view-layer, .theme-dark #news-view {
                 background-color: var(--bg-secondary) !important;
                 color: var(--text-primary) !important;
             }
@@ -82,12 +82,12 @@ function init() {
             }
             
             /* Borders */
-            .theme-dark .workspace-title-row, .theme-dark .sidebar-header, .theme-dark .settings-title, .theme-dark .explorer-top {
+            .theme-dark .sidebar-header, .theme-dark .settings-title, .theme-dark .explorer-top {
                 border-color: var(--border-color) !important;
             }
 
             /* Inputs & Forms */
-            .theme-dark input, .theme-dark select, .theme-dark textarea, .theme-dark .explorer-search-input, .theme-dark .address-bar-capsule, .theme-dark .ai-input-box, .theme-dark .ws-panel-input, .theme-dark .ws-panel-select {
+            .theme-dark input, .theme-dark select, .theme-dark textarea, .theme-dark .explorer-search-input, .theme-dark .address-bar-capsule, .theme-dark .ai-input-box {
                 background-color: var(--bg-tertiary) !important;
                 color: var(--text-primary) !important;
                 border: 1px solid var(--border-color) !important;
@@ -109,7 +109,7 @@ function init() {
             }
             
             /* Cards, Panels & Popups */
-            .theme-dark .ws-card, .theme-dark .ws-panel, .theme-dark .settings-card, .theme-dark .search-result-item, .theme-dark .history-item, .theme-dark .home-search-box, .theme-dark .ai-mode-popup, .theme-dark .address-suggestions {
+            .theme-dark .settings-card, .theme-dark .search-result-item, .theme-dark .history-item, .theme-dark .home-search-box, .theme-dark .ai-mode-popup, .theme-dark .address-suggestions {
                 background-color: var(--bg-tertiary) !important;
                 border-color: var(--border-color) !important;
                 color: var(--text-primary) !important;
@@ -139,7 +139,7 @@ function init() {
             }
             
             /* Hover Effects */
-            .theme-dark .nav-item:hover, .theme-dark .ws-panel-btn:hover, .theme-dark .settings-button:hover, .theme-dark .favorite-pill:hover, .theme-dark .tab:hover, .theme-dark .search-result-item:hover, .theme-dark .history-item:hover, .theme-dark .ai-mode-option:hover, .theme-dark .win-btn:hover, .theme-dark .sidebar-toggle:hover, .theme-dark .history-toggle-btn:hover, .theme-dark .ai-toggle-btn:hover, .theme-dark .notes-toggle-btn:hover, .theme-dark .downloads-toggle-btn:hover, .theme-dark .browser-nav-btns svg:hover, .theme-dark .new-tab-btn:hover, .theme-dark .explorer-btn:hover, .theme-dark .suggestion-item:hover, .theme-dark .suggestion-item.selected {
+            .theme-dark .nav-item:hover, .theme-dark .settings-button:hover, .theme-dark .favorite-pill:hover, .theme-dark .tab:hover, .theme-dark .search-result-item:hover, .theme-dark .history-item:hover, .theme-dark .ai-mode-option:hover, .theme-dark .win-btn:hover, .theme-dark .sidebar-toggle:hover, .theme-dark .history-toggle-btn:hover, .theme-dark .ai-toggle-btn:hover, .theme-dark .notes-toggle-btn:hover, .theme-dark .downloads-toggle-btn:hover, .theme-dark .browser-nav-btns svg:hover, .theme-dark .new-tab-btn:hover, .theme-dark .explorer-btn:hover, .theme-dark .suggestion-item:hover, .theme-dark .suggestion-item.selected {
                 background-color: var(--bg-hover) !important;
             }
             .theme-dark .win-btn.close:hover {
@@ -148,7 +148,7 @@ function init() {
             }
             
             /* Text Muting */
-            .theme-dark .settings-info .settings-description, .theme-dark .ws-desc, .theme-dark .history-url, .theme-dark .result-meta, .theme-dark .ws-panel-hint, .theme-dark .ws-meta {
+            .theme-dark .settings-info .settings-description, .theme-dark .history-url, .theme-dark .result-meta {
                 color: var(--text-secondary) !important;
             }
             .theme-dark .nav-item.active {
@@ -157,12 +157,12 @@ function init() {
             }
             
             /* Headings */
-            .theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark .settings-label, .theme-dark .ws-name, .theme-dark .ws-panel-title {
+            .theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark .settings-label {
                 color: var(--text-primary) !important;
             }
             
             /* Buttons & Chips */
-            .theme-dark .settings-button, .theme-dark .ws-panel-btn, .theme-dark .ws-panel-chip, .theme-dark .favorite-pill, .theme-dark .home-search-chip, .theme-dark .home-search-iconbtn, .theme-dark .home-search-submit, .theme-dark .explorer-btn {
+            .theme-dark .settings-button, .theme-dark .favorite-pill, .theme-dark .home-search-chip, .theme-dark .home-search-iconbtn, .theme-dark .home-search-submit, .theme-dark .explorer-btn {
                 background-color: var(--bg-tertiary) !important;
                 color: var(--text-primary) !important;
                 border: 1px solid var(--border-color) !important;
@@ -174,7 +174,7 @@ function init() {
             }
             
             /* Specific Text & Branding */
-            .theme-dark .home-wordmark, .theme-dark .workspace-title, .theme-dark .workspace-subtitle, .theme-dark .nav-text {
+            .theme-dark .home-wordmark, .theme-dark .nav-text {
                 color: var(--text-primary) !important;
             }
             .theme-dark .close-tab {
@@ -227,43 +227,6 @@ function init() {
             }
             .theme-dark svg[fill="#FFD700"] {
                 fill: #FFD700 !important;
-            }
-            
-            /* Workspace Modernization */
-            .workspace-content {
-                max-width: 1000px !important;
-                margin: 0 auto !important;
-                padding: 40px 20px !important;
-            }
-            .ws-card {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                padding: 30px 20px !important;
-                border-radius: 20px !important;
-                transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-                border: 2px solid transparent !important;
-                background: var(--bg-tertiary) !important;
-            }
-            .ws-card.active {
-                border-color: var(--accent-color) !important;
-                transform: scale(1.03) !important;
-                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15) !important;
-            }
-            .theme-dark .ws-card.active {
-                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
-            }
-            .ws-badge {
-                width: 64px !important;
-                height: 64px !important;
-                border-radius: 50% !important;
-                font-size: 28px !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                margin-bottom: 16px !important;
-                background: rgba(10, 132, 255, 0.1) !important;
-                color: var(--accent-color) !important;
             }
             
             /* Make the default Tab icon white in dark mode */
@@ -349,19 +312,21 @@ function init() {
             ::-webkit-scrollbar-thumb:hover { background-color: rgba(134, 134, 139, 0.6); }
             .theme-dark ::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.2); }
             .theme-dark ::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.3); }
+
+            .blocked-tracker-item { background: rgba(0,0,0,0.03); }
+            .theme-dark .blocked-tracker-item { background: rgba(255,255,255,0.05); }
+            .blocked-tracker-badge { background: rgba(0,0,0,0.05); color: var(--text-secondary); }
+            .theme-dark .blocked-tracker-badge { background: rgba(255,255,255,0.1); color: var(--text-secondary); }
         `;
         document.head.appendChild(style);
     }
 
     const homeNavBtn = document.getElementById('home-nav-btn');
     const aiToggleBtn = document.getElementById('ai-toggle-btn');
-    const globalFocusIndicator = document.getElementById('global-focus-indicator');
-    const globalFocusTime = document.getElementById('global-focus-time');
     const historyToggleBtn = document.getElementById('history-toggle-btn');
     const newsNavBtn = document.getElementById('news-nav-btn');
     const settingsNavBtn = document.getElementById('settings-nav-btn');
     const resourcesNavBtn = document.getElementById('resources-nav-btn');
-    const workspaceNavBtn = document.getElementById('workspace-nav-btn');
     const splashView = document.getElementById('splash-view');
     const settingsView = document.getElementById('settings-view');
     const themeSelect = document.getElementById('theme-select');
@@ -383,7 +348,6 @@ function init() {
     const totalRamUsageEl = document.getElementById('total-ram-usage');
     const optimizeRamBtn = document.getElementById('optimize-ram-btn');
     const newsView = document.getElementById('news-view');
-    const workspaceView = document.getElementById('workspace-view');
     const aiSidebar = document.getElementById('ai-sidebar');
     const historySidebar = document.getElementById('history-sidebar');
     const downloadsToggleBtn = document.getElementById('downloads-toggle-btn');
@@ -398,18 +362,6 @@ function init() {
     const homeSearchSubmitBtn = document.getElementById('home-search-submit');
     const homeSearchGearBtn = document.getElementById('home-search-gear');
     const favoritesBar = document.getElementById('favorites-bar');
-    const workspaceGrid = document.getElementById('workspace-grid');
-    const workspaceSubtitle = document.getElementById('workspace-subtitle');
-    const schoolPanel = document.getElementById('school-panel');
-    const schoolAiInput = document.getElementById('school-ai-input');
-    const schoolAiAskBtn = document.getElementById('school-ai-ask');
-    const focusPanel = document.getElementById('focus-panel');
-    const focusMeta = document.getElementById('focus-meta');
-    const focusHint = document.getElementById('focus-hint');
-    const focusProgressBar = document.getElementById('focus-progress-bar');
-    const focusStartBtn = document.getElementById('focus-start');
-    const moveTabTarget = document.getElementById('move-tab-target');
-    const moveTabBtn = document.getElementById('move-tab-btn');
     const sidebar = document.querySelector('.sidebar');
     const sidebarToggleBtn = document.getElementById('sidebar-toggle');
     const toolSummarizePageBtn = document.getElementById('tool-summarize-page');
@@ -446,13 +398,6 @@ function init() {
     const webviewsContainer = document.getElementById('webviews-container');
     const customContextMenu = document.getElementById('custom-context-menu');
     const aiSidebarResizer = document.getElementById('ai-sidebar-resizer');
-    const cmdExtractDates = document.getElementById('cmd-extract-dates');
-    const cmdFindImprint = document.getElementById('cmd-find-imprint');
-    const cmdAnalyzeCosts = document.getElementById('cmd-analyze-costs');
-    const cmdSummarizeAllTabs = document.getElementById('cmd-summarize-all-tabs');
-    const cmdFindContradictions = document.getElementById('cmd-find-contradictions');
-    const crossTabInput = document.getElementById('cross-tab-input');
-    const cmdCrossTabExecute = document.getElementById('cmd-cross-tab-execute');
 
     // --- Eigenes Logo im AI Sidebar Header einfügen ---
     if (aiSidebar) {
@@ -518,6 +463,7 @@ function init() {
 
     let tabCounter = 0;
     let activeTabId = null;
+    let splitTabId = null;
     let browserHistory = [];
 
     const hash = window.location.hash;
@@ -563,23 +509,9 @@ function init() {
     const DEFAULT_TAB_ICON_DATA_URL = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20"/><path d="M12 2a15 15 0 0 0 0 20"/></svg>`
     )}`;
-    // Workspace + Favorites state (renderer-only; sessions are enforced via webview partition per tab).
-    const workspaceIds = ['schule', 'freizeit', 'programmieren', 'fokus'];
-    let activeWorkspaceId = 'freizeit';
     let favorites = [];
-    // Used by showAiModeToast(); must be initialized before any toast call (e.g. workspace switching).
+    // Used by showAiModeToast(); must be initialized before any toast call.
     let aiModeToastTimer = null;
-    // Fokus timer state (renderer-enforced; for stricter enforcement move to main process).
-    const FOCUS_MAX_MIN = 180;
-    const FOCUS_BREAK_MIN = 15;
-    let focusSelectedMin = 180;
-    let focusSession = null; // { startedAt, deadlineAt, lockedUntil, durationMin }
-    try {
-        const savedWs = localStorage.getItem('aether-active-workspace');
-        if (savedWs && workspaceIds.includes(savedWs)) activeWorkspaceId = savedWs === 'fokus' ? 'freizeit' : savedWs;
-    } catch (e) {
-        // ignore
-    }
     try {
         const savedFavs = JSON.parse(localStorage.getItem('aether-favorites') || '[]');
         if (Array.isArray(savedFavs)) {
@@ -629,28 +561,11 @@ function init() {
             // ignore
         }
     }
-    function stashWorkspaceToLaterRead(workspaceId, reason) {
-        const later = loadLaterRead();
-        const items = later[workspaceId] && Array.isArray(later[workspaceId]) ? later[workspaceId] : [];
-        const tabs = Array.from(document.querySelectorAll('.tab')).filter((t) => (t.dataset.workspaceId || 'freizeit') === workspaceId);
-        for (const t of tabs) {
-            if (t.classList.contains('pinned')) continue;
-            const url = t.dataset.url || '';
-            const title = t.querySelector('.tab-title') ? t.querySelector('.tab-title').textContent : '';
-            if (!url || url === 'about:blank') continue;
-            items.unshift({ url, title: title || url, at: Date.now(), reason: reason || '' });
-            closeTab(t.id, { skipSave: true, noAutoCreate: true });
-        }
-        later[workspaceId] = items.slice(0, 200);
-        saveLaterRead(later);
-        scheduleSaveAppState();
-    }
     function loadAppState() {
         return safeJsonParse(localStorage.getItem(APP_STATE_KEY), null);
     }
     function tabSnapshotFromDom(tabEl) {
         const tabId = tabEl.id;
-        const ws = tabEl.dataset.workspaceId || 'freizeit';
         const url = tabEl.dataset.url || 'about:blank';
         const title = (tabEl.querySelector('.tab-title') && tabEl.querySelector('.tab-title').textContent) ? tabEl.querySelector('.tab-title').textContent : 'Neuer Tab';
         const rawIcon = tabEl.querySelector('.tab-icon') ? tabEl.querySelector('.tab-icon').getAttribute('src') : '';
@@ -658,7 +573,7 @@ function init() {
         const pinned = tabEl.classList.contains('pinned');
         const asleep = tabEl.classList.contains('asleep') || tabEl.dataset.asleep === '1';
         const lastFocusedAtMs = Number(tabEl.dataset.lastFocusedAtMs || 0) || 0;
-        return { id: tabId, workspaceId: ws, url, title, icon, pinned, asleep, lastFocusedAtMs };
+        return { id: tabId, url, title, icon, pinned, asleep, lastFocusedAtMs };
     }
     function saveAppState() {
         if (isStandalone) return;
@@ -666,7 +581,6 @@ function init() {
             const tabs = Array.from(document.querySelectorAll('.tab')).map(tabSnapshotFromDom);
             const state = {
                 v: 1,
-                activeWorkspaceId,
                 activeTabId,
                 tabCounter,
                 tabs,
@@ -759,7 +673,7 @@ function init() {
             addExplorerItem('Keine Tabs', '', null);
         } else {
             for (const t of tabs) {
-                addExplorerItem(t.title || t.url, `${t.workspaceId} · ${t.url}`, () => switchTab(t.id));
+                addExplorerItem(t.title || t.url, t.url, () => switchTab(t.id));
             }
         }
         // History
@@ -786,7 +700,7 @@ function init() {
             // Re-render sections to keep ordering stable.
             addExplorerSection('Tabs');
             if (!tabs.length) addExplorerItem('Keine Tabs', '', null);
-            else for (const t of tabs) addExplorerItem(t.title || t.url, `${t.workspaceId} · ${t.url}`, () => switchTab(t.id));
+            else for (const t of tabs) addExplorerItem(t.title || t.url, t.url, () => switchTab(t.id));
             addExplorerSection('Verlauf');
             if (!hist.length) addExplorerItem('Kein Treffer im Verlauf', '', null);
             else for (const h of hist) addExplorerItem(h.title || h.url, h.url, () => navigate(h.url));
@@ -868,71 +782,6 @@ function init() {
         favoritesBar.classList.toggle('is-visible', true);
     updateFavStar();
     }
-    function setActiveWorkspace(nextWorkspaceId) {
-        if (!workspaceIds.includes(nextWorkspaceId)) return;
-        activeWorkspaceId = nextWorkspaceId;
-        try {
-            localStorage.setItem('aether-active-workspace', activeWorkspaceId);
-        } catch (e) {
-            // ignore
-        }
-        if (workspaceSubtitle) {
-            const label = activeWorkspaceId.charAt(0).toUpperCase() + activeWorkspaceId.slice(1);
-            workspaceSubtitle.textContent = label;
-        }
-            const modernSubtitle = document.getElementById('workspace-subtitle-modern');
-            if (modernSubtitle) {
-                modernSubtitle.textContent = activeWorkspaceId.charAt(0).toUpperCase() + activeWorkspaceId.slice(1);
-            }
-        // Popup/Toast inside AI area when switching "mode" (workspace).
-        const wsLabel = activeWorkspaceId.charAt(0).toUpperCase() + activeWorkspaceId.slice(1);
-        if (aiModeToast) showAiModeToast(`Workspace: ${wsLabel}`);
-        if (workspaceGrid) {
-            workspaceGrid.querySelectorAll('.ws-card').forEach((btn) => {
-                btn.classList.toggle('active', btn.dataset.workspaceId === activeWorkspaceId);
-            });
-        }
-        if (schoolPanel) schoolPanel.style.display = activeWorkspaceId === 'schule' ? '' : 'none';
-        if (focusPanel) focusPanel.style.display = activeWorkspaceId === 'fokus' ? '' : 'none';
-        scheduleSaveAppState();
-    }
-    function workspacePartition(workspaceId) {
-        return `persist:aether-ws-${workspaceId}`;
-    }
-    let isApplyingWorkspaceFilter = false;
-    function applyWorkspaceFilter() {
-        if (isApplyingWorkspaceFilter) return;
-        isApplyingWorkspaceFilter = true;
-        try {
-            const allTabs = Array.from(document.querySelectorAll('.tab'));
-            let firstVisibleTabId = null;
-            for (const t of allTabs) {
-                const ws = t.dataset.workspaceId || 'freizeit';
-                const visible = ws === activeWorkspaceId;
-                t.style.display = visible ? '' : 'none';
-                if (visible && !firstVisibleTabId) firstVisibleTabId = t.id;
-                    
-                    // Aggressive Sleep-Logik: Friert sofort Hintergrund-Tabs ein (stoppt Audio/CPU)
-                    if (!visible && !t.classList.contains('asleep')) {
-                        sleepTab(t.id);
-                    }
-            }
-            const activeTabEl = activeTabId ? document.getElementById(activeTabId) : null;
-            const activeVisible = activeTabEl && activeTabEl.style.display !== 'none';
-            if (!activeVisible) {
-                if (firstVisibleTabId) {
-                    switchTab(firstVisibleTabId, { fromFilter: true });
-                } else {
-                    createTab('about:blank', { workspaceId: activeWorkspaceId });
-                }
-            } else {
-                // Ensure correct webview visibility
-                switchTab(activeTabId, { fromFilter: true });
-            }
-        } finally {
-            isApplyingWorkspaceFilter = false;
-        }
-    }
     // Load history from localStorage
     try {
         browserHistory = JSON.parse(localStorage.getItem('aether-history') || '[]');
@@ -941,10 +790,7 @@ function init() {
         console.error('Error loading history:', e);
     }
     // Init UI state
-    setActiveWorkspace(activeWorkspaceId);
     renderFavoritesBar();
-    if (schoolPanel) schoolPanel.style.display = activeWorkspaceId === 'schule' ? '' : 'none';
-    if (focusPanel) focusPanel.style.display = activeWorkspaceId === 'fokus' ? '' : 'none';
     // Favorites: add/remove via right-click (no dedicated "+ Favorit" button).
     if (favoritesBar) {
         favoritesBar.addEventListener('contextmenu', (e) => {
@@ -978,224 +824,6 @@ function init() {
             setSidebarCollapsed(!sidebar.classList.contains('collapsed'));
         });
     }
-    function loadFocusSession() {
-        try {
-            const raw = localStorage.getItem('aether-focus-session');
-            if (!raw) return null;
-            const parsed = JSON.parse(raw);
-            if (!parsed || typeof parsed !== 'object') return null;
-            return parsed;
-        } catch (e) {
-            return null;
-        }
-    }
-    function saveFocusSession() {
-        try {
-            if (!focusSession) {
-                localStorage.removeItem('aether-focus-session');
-            } else {
-                localStorage.setItem('aether-focus-session', JSON.stringify(focusSession));
-            }
-        } catch (e) {
-            // ignore
-        }
-    }
-    function focusStatus(nowMs) {
-        const now = nowMs || Date.now();
-        if (!focusSession) return { status: 'inactive', remainingMs: 0, progress01: 0 };
-        if (focusSession.lockedUntil && now < focusSession.lockedUntil) {
-            return { status: 'locked', remainingMs: focusSession.lockedUntil - now, progress01: 1 };
-        }
-        if (focusSession.deadlineAt && now < focusSession.deadlineAt) {
-            const totalMs = (focusSession.durationMin || FOCUS_MAX_MIN) * 60_000;
-            const remainingMs = focusSession.deadlineAt - now;
-            const progress01 = totalMs > 0 ? 1 - remainingMs / totalMs : 0;
-            return { status: 'active', remainingMs, progress01: Math.max(0, Math.min(1, progress01)) };
-        }
-        return { status: 'inactive', remainingMs: 0, progress01: 0 };
-    }
-    function formatMmSs(ms) {
-        const totalSeconds = Math.floor(Math.max(0, ms) / 1000);
-        const mm = Math.floor(totalSeconds / 60);
-        const ss = totalSeconds % 60;
-        return `${mm}:${String(ss).padStart(2, '0')}`;
-    }
-    function updateFocusUi() {
-        const st = focusStatus();
-        if (focusMeta) {
-            if (st.status === 'active') focusMeta.textContent = `rest: ${formatMmSs(st.remainingMs)}`;
-            else if (st.status === 'locked') focusMeta.textContent = `pause: ${formatMmSs(st.remainingMs)}`;
-            else focusMeta.textContent = `max ${FOCUS_MAX_MIN} min`;
-        }
-        if (focusHint) {
-            if (st.status === 'active') focusHint.textContent = `Fokus laeuft. Restzeit: ${formatMmSs(st.remainingMs)}.`;
-            else if (st.status === 'locked') focusHint.textContent = `Fokus gesperrt. Pause: ${formatMmSs(st.remainingMs)}.`;
-            else focusHint.textContent = 'Noch nicht gestartet.';
-        }
-        if (focusProgressBar) {
-            const pct = st.status === 'active' ? Math.round(st.progress01 * 100) : 0;
-            focusProgressBar.style.width = `${pct}%`;
-            // Visual feedback: shift accent from blue to red as time runs out.
-            const p = st.status === 'active' ? st.progress01 : 0;
-            const lerp = (a, b, t) => Math.round(a + (b - a) * Math.max(0, Math.min(1, t)));
-            const from = { r: 0, g: 122, b: 255 };
-            const to = { r: 255, g: 59, b: 48 };
-            const c = { r: lerp(from.r, to.r, p), g: lerp(from.g, to.g, p), b: lerp(from.b, to.b, p) };
-            focusProgressBar.style.background = `linear-gradient(90deg, rgba(0,122,255,0.85), rgba(${c.r},${c.g},${c.b},0.90))`;
-        }
-        if (focusPanel) {
-            focusPanel.querySelectorAll('.ws-panel-chip').forEach((b) => {
-                b.classList.toggle('active', String(b.dataset.focusMin) === String(focusSelectedMin));
-            });
-        }
-    if (globalFocusIndicator && globalFocusTime) {
-        if (st.status === 'active' || st.status === 'locked') {
-            globalFocusIndicator.classList.remove('hidden');
-            globalFocusTime.textContent = formatMmSs(st.remainingMs);
-            if (st.status === 'locked') {
-                globalFocusIndicator.style.color = '#ff3b30';
-                globalFocusIndicator.style.background = 'rgba(255, 59, 48, 0.1)';
-            } else {
-                globalFocusIndicator.style.color = '#0a84ff';
-                globalFocusIndicator.style.background = 'rgba(10, 132, 255, 0.1)';
-            }
-        } else {
-            globalFocusIndicator.classList.add('hidden');
-        }
-    }
-    }
-    function startFocus(durationMin) {
-        const now = Date.now();
-        const st = focusStatus(now);
-        if (st.status === 'locked') {
-            updateFocusUi();
-            return false;
-        }
-        const dur = Math.max(1, Math.min(FOCUS_MAX_MIN, Number(durationMin) || FOCUS_MAX_MIN));
-        focusSession = {
-            durationMin: dur,
-            startedAt: now,
-            deadlineAt: now + dur * 60_000,
-            lockedUntil: null,
-        };
-        saveFocusSession();
-        setActiveWorkspace('fokus');
-        applyWorkspaceFilter();
-        updateFocusUi();
-        return true;
-    }
-    function tickFocusTimer() {
-        const now = Date.now();
-        if (!focusSession) {
-            updateFocusUi();
-            return;
-        }
-        // Lock expired: reset to inactive (allow new focus session)
-        if (focusSession.lockedUntil && now >= focusSession.lockedUntil && !focusSession.deadlineAt) {
-            focusSession = null;
-            saveFocusSession();
-            updateFocusUi();
-            return;
-        }
-        // Active focus expired: lock + force switch to Freizeit
-        if (focusSession.deadlineAt && now >= focusSession.deadlineAt) {
-            // Move unfinished Fokus tabs to "Später lesen" to avoid tab clutter.
-            stashWorkspaceToLaterRead('fokus', 'focus-timer-expired');
-            focusSession = {
-                durationMin: focusSession.durationMin || FOCUS_MAX_MIN,
-                startedAt: null,
-                deadlineAt: null,
-                lockedUntil: now + FOCUS_BREAK_MIN * 60_000,
-            };
-            saveFocusSession();
-            setActiveWorkspace('freizeit');
-            applyWorkspaceFilter();
-        }
-        updateFocusUi();
-    }
-    focusSession = loadFocusSession();
-    updateFocusUi();
-    window.setInterval(tickFocusTimer, 1000);
-    // Workspace tab navigation
-    if (workspaceNavBtn && workspaceView) {
-        workspaceNavBtn.onclick = () => {
-            resetViews();
-            workspaceView.classList.remove('hidden');
-            workspaceNavBtn.classList.add('active');
-            updateFocusUi();
-        };
-    }
-    // Workspace selection cards
-    if (workspaceGrid) {
-        workspaceGrid.addEventListener('click', (e) => {
-            const card = e.target.closest('.ws-card');
-            if (!card) return;
-            const nextWs = card.dataset.workspaceId;
-            if (!workspaceIds.includes(nextWs)) return;
-            if (nextWs === 'fokus') {
-                const st = focusStatus(Date.now());
-                if (st.status === 'locked') {
-                    setActiveWorkspace('freizeit');
-                    applyWorkspaceFilter();
-                    updateFocusUi();
-                    return;
-                }
-            }
-            setActiveWorkspace(nextWs);
-            applyWorkspaceFilter();
-            updateFocusUi();
-        });
-    }
-    // Schule: KI-Suche (automatisch Live-Recherche)
-    if (schoolAiInput) {
-        schoolAiInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === 'NumpadEnter') {
-                e.preventDefault();
-                if (schoolAiAskBtn) schoolAiAskBtn.click();
-            }
-        });
-    }
-    if (schoolAiAskBtn) {
-        schoolAiAskBtn.addEventListener('click', () => {
-            const q = (schoolAiInput ? schoolAiInput.value.trim() : '');
-            if (!q) return;
-            setActiveWorkspace('schule');
-            applyWorkspaceFilter();
-            if (aiSidebar) aiSidebar.classList.remove('hidden');
-            sendToAI(`Recherchiere: ${q}`);
-            if (schoolAiInput) schoolAiInput.value = '';
-        });
-    }
-    // Fokus presets + Start
-    if (focusPanel) {
-        focusPanel.addEventListener('click', (e) => {
-            const chip = e.target.closest('.ws-panel-chip');
-            if (!chip) return;
-            const m = Number(chip.dataset.focusMin);
-            if (!Number.isFinite(m)) return;
-            focusSelectedMin = Math.max(1, Math.min(FOCUS_MAX_MIN, m));
-            updateFocusUi();
-        });
-    }
-    if (focusStartBtn) {
-        focusStartBtn.addEventListener('click', () => startFocus(focusSelectedMin));
-    }
-    // Move active tab to another workspace (session-clean copy)
-    function moveActiveTabToWorkspace(targetWs) {
-        if (!workspaceIds.includes(targetWs)) return;
-        const wv = getActiveWebview();
-        if (!wv || !wv.getURL) return;
-        const url = wv.getURL();
-        if (!url || url === 'about:blank') return;
-        const oldTabId = activeTabId;
-        setActiveWorkspace(targetWs);
-        applyWorkspaceFilter();
-        createTab(url);
-        closeTab(oldTabId);
-    }
-    if (moveTabBtn && moveTabTarget) {
-        moveTabBtn.addEventListener('click', () => moveActiveTabToWorkspace(moveTabTarget.value));
-    }
     // Workspace tools: summarize / spellcheck / mic transcript (best-effort)
     if (toolSummarizePageBtn) {
         toolSummarizePageBtn.addEventListener('click', () => {
@@ -1206,9 +834,7 @@ function init() {
     }
     if (toolSpellcheckBtn) {
         toolSpellcheckBtn.addEventListener('click', () => {
-            const seed = (schoolAiInput && schoolAiInput.value.trim())
-                ? schoolAiInput.value.trim()
-                : (micTranscript && micTranscript.textContent ? micTranscript.textContent.trim() : '');
+            const seed = (micTranscript && micTranscript.textContent ? micTranscript.textContent.trim() : '');
             const text = window.prompt('Text fuer Rechtschreibpruefung:', seed);
             if (!text) return;
             if (aiSidebar) aiSidebar.classList.remove('hidden');
@@ -1323,78 +949,6 @@ function init() {
             };
             document.addEventListener('mousemove', mouseMoveHandler);
             document.addEventListener('mouseup', mouseUpHandler);
-        });
-    }
-
-    // --- Aether Mind Smart Commands ---
-    async function runSmartCommandOnActiveTab(promptPrefix) {
-        const wv = getActiveWebview();
-        if (!wv || wv.src === 'about:blank' || wv.style.display === 'none') {
-            appendMessage('bot', 'Es gibt keine aktive Seite für diese Aktion.');
-            if (aiSidebar) aiSidebar.classList.remove('hidden');
-            return;
-        }
-        if (aiSidebar) aiSidebar.classList.remove('hidden');
-        const loadingId = 'loading-' + Date.now();
-        appendMessage('bot', 'Analysiere aktuellen Tab...', loadingId);
-        try {
-            const text = await wv.executeJavaScript('document.body.innerText');
-            const truncated = text.substring(0, 8000);
-            sendToAI(promptPrefix, { isContinuation: true, context: `Kontext des aktuellen Tabs:\n---\n${truncated}\n---\n\n`, loadingId });
-        } catch (e) {
-            const el = document.getElementById(loadingId);
-            if (el) el.textContent = 'Fehler beim Auslesen des Tabs.';
-        }
-    }
-
-    async function runMultiTabCommand(promptPrefix) {
-        const webviews = Array.from(document.querySelectorAll('webview')).filter(w => w.src && w.src !== 'about:blank');
-        if (!webviews.length) {
-            appendMessage('bot', 'Es sind keine geladenen Tabs vorhanden.');
-            if (aiSidebar) aiSidebar.classList.remove('hidden');
-            return;
-        }
-        if (aiSidebar) aiSidebar.classList.remove('hidden');
-        const loadingId = 'loading-' + Date.now();
-        appendMessage('bot', `Lese ${webviews.length} Tabs aus...`, loadingId);
-        
-        let combinedText = '';
-        for (let i = 0; i < webviews.length; i++) {
-            try {
-                const text = await webviews[i].executeJavaScript('document.body.innerText');
-                let title = `Tab ${i+1}`;
-                try { title = webviews[i].getTitle() || title; } catch(e) {}
-                combinedText += `\n--- Tab: ${title} ---\n${text.substring(0, 3000)}\n`;
-            } catch(e) {}
-        }
-        
-        if (!combinedText.trim()) {
-            const el = document.getElementById(loadingId);
-            if (el) el.textContent = 'Fehler beim Auslesen der Tabs.';
-            return;
-        }
-        
-        sendToAI(promptPrefix, { isContinuation: true, context: `Kontext aus allen offenen Tabs:\n${combinedText}\n\n`, loadingId });
-    }
-
-    if (cmdExtractDates) cmdExtractDates.addEventListener('click', () => runSmartCommandOnActiveTab('Extrahiere alle Termine, Kalenderdaten und Uhrzeiten aus diesem Text und liste sie strikt als übersichtliche Aufzählung auf.'));
-    if (cmdFindImprint) cmdFindImprint.addEventListener('click', () => runSmartCommandOnActiveTab('Finde das Impressum, Support-Kontakte oder E-Mail-Adressen in diesem Text und gib diese strukturiert zurück.'));
-    if (cmdAnalyzeCosts) cmdAnalyzeCosts.addEventListener('click', () => runSmartCommandOnActiveTab('Analysiere diesen Text auf Abo-Kosten, einmalige Preise oder Preismodelle und erstelle eine übersichtliche Kostenaufstellung.'));
-    if (cmdSummarizeAllTabs) cmdSummarizeAllTabs.addEventListener('click', () => runMultiTabCommand('Fasse die Hauptaussagen aller bereitgestellten Tabs zusammen und erstelle eine übersichtliche Synthese der Informationen.'));
-    if (cmdFindContradictions) cmdFindContradictions.addEventListener('click', () => runMultiTabCommand('Analysiere die Inhalte der bereitgestellten Tabs und suche gezielt nach widersprüchlichen Informationen oder unterschiedlichen Perspektiven. Zeige diese auf.'));
-    if (cmdCrossTabExecute && crossTabInput) {
-        cmdCrossTabExecute.addEventListener('click', () => {
-            const val = crossTabInput.value.trim();
-            if (!val) return;
-            if (aiSidebar) aiSidebar.classList.remove('hidden');
-            runMultiTabCommand(`Aufgabe für Automatisierung:\n${val}\n\nFühre diese Aufgabe basierend auf den Inhalten der offenen Tabs aus:`);
-            crossTabInput.value = '';
-        });
-        crossTabInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === 'NumpadEnter') {
-                e.preventDefault();
-                cmdCrossTabExecute.click();
-            }
         });
     }
 
@@ -1570,10 +1124,17 @@ function init() {
         if (splashView) splashView.style.display = 'none';
         if (settingsView) settingsView.classList.add('hidden');
         if (resourcesView) resourcesView.classList.add('hidden');
-        if (workspaceView) workspaceView.classList.add('hidden');
         if (newsView) newsView.classList.add('hidden');
+        const aView = document.getElementById('addons-view');
+        if (aView) aView.classList.add('hidden');
         if (aiSidebar) aiSidebar.classList.add('hidden');
         if (historySidebar) historySidebar.classList.add('hidden');
+        
+        // Stelle Suchleiste und Tabs standardmäßig wieder her
+        const tabsCont = document.querySelector('.tabs-container');
+        const headerCont = document.querySelector('.app-header');
+        if (tabsCont) tabsCont.style.display = 'flex';
+        if (headerCont) headerCont.style.display = 'flex';
         
         if (!keepWebview) {
             if (aiSidebar) aiSidebar.classList.add('hidden');
@@ -1581,10 +1142,11 @@ function init() {
         }
         
         if (homeNavBtn) homeNavBtn.classList.remove('active');
-        if (workspaceNavBtn) workspaceNavBtn.classList.remove('active');
         if (settingsNavBtn) settingsNavBtn.classList.remove('active');
         if (resourcesNavBtn) resourcesNavBtn.classList.remove('active');
         if (newsNavBtn) newsNavBtn.classList.remove('active');
+        const aNavBtn = document.getElementById('addons-nav-btn');
+        if (aNavBtn) aNavBtn.classList.remove('active');
         
         if (!keepWebview) {
             const webviews = document.querySelectorAll('webview');
@@ -1595,10 +1157,6 @@ function init() {
     window.navigate = function(url) {
         if (!url) return;
         resetViews(true);
-        // Ensure there is an active tab to navigate in.
-        if (!activeTabId || !document.getElementById(activeTabId)) {
-            createTab('about:blank', { workspaceId: activeWorkspaceId });
-        }
         
         let target = url;
         if (!url.startsWith('http')) {
@@ -1615,11 +1173,20 @@ function init() {
             }
         }
         
-        let activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
-        if (!activeWebview) activeWebview = wakeTab(activeTabId);
-        if (activeWebview) {
-            activeWebview.style.display = 'flex';
-            activeWebview.src = target;
+        // Ensure there is an active tab to navigate in.
+        if (!activeTabId || !document.getElementById(activeTabId)) {
+            createTab(target);
+        } else {
+            let activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
+            if (!activeWebview) {
+                const tabEl = document.getElementById(activeTabId);
+                if (tabEl) tabEl.dataset.url = target;
+                activeWebview = wakeTab(activeTabId);
+                if (activeWebview) activeWebview.style.display = 'flex';
+            } else {
+                activeWebview.style.display = 'flex';
+                if (activeWebview.src !== target) activeWebview.src = target;
+            }
         }
         if (topAddressBar) topAddressBar.value = target;
         saveHistory(target, url);
@@ -2132,6 +1699,55 @@ function init() {
             }
         });
     }
+
+    function updateWebviewDisplay() {
+        const isHome = !activeTabId || (document.getElementById(activeTabId)?.dataset.url === 'about:blank');
+        const hasSplit = splitTabId && splitTabId !== activeTabId && document.getElementById(splitTabId);
+        
+        if (webviewsContainer) {
+            webviewsContainer.style.flexDirection = 'row';
+        }
+
+        document.querySelectorAll('webview').forEach(w => {
+            const tid = w.dataset.tabId;
+            if (tid === activeTabId) {
+                w.style.display = (isHome && !hasSplit) ? 'none' : 'flex';
+                w.style.flex = '1';
+                w.style.borderLeft = 'none';
+            } else if (tid === splitTabId && hasSplit) {
+                w.style.display = 'flex';
+                w.style.flex = '1';
+                w.style.borderLeft = '1px solid var(--border-color, rgba(0,0,0,0.1))';
+            } else {
+                w.style.display = 'none';
+            }
+        });
+
+        if (isHome && !hasSplit) {
+            if (splashView) splashView.style.display = 'flex';
+        } else {
+            if (splashView) splashView.style.display = 'none';
+        }
+    }
+
+    function toggleSplitView(tabId) {
+        if (splitTabId === tabId) {
+            splitTabId = null;
+            const tabEl = document.getElementById(tabId);
+            if (tabEl) tabEl.classList.remove('split-active');
+        } else {
+            if (splitTabId) {
+                const oldTab = document.getElementById(splitTabId);
+                if (oldTab) oldTab.classList.remove('split-active');
+            }
+            splitTabId = tabId;
+            const newTab = document.getElementById(tabId);
+            if (newTab) newTab.classList.add('split-active');
+            wakeTab(tabId);
+        }
+        updateWebviewDisplay();
+    }
+
 // Tab Management (dynamic + persisted)
     function nextTabId(preferred) {
         if (preferred && !document.getElementById(preferred)) {
@@ -2146,12 +1762,10 @@ function init() {
         } while (document.getElementById(id));
         return id;
     }
-    function createWebviewForTab(tabId, workspaceId, url) {
+    function createWebviewForTab(tabId, url) {
         if (!webviewsContainer) return null;
         const webview = document.createElement('webview');
         webview.setAttribute('data-tab-id', tabId);
-        webview.setAttribute('data-workspace-id', workspaceId);
-        webview.setAttribute('partition', workspacePartition(workspaceId));
         // Enable in-webview features (e.g. custom context menu events) without exposing Node.js to pages.
         try {
             const baseDir = window.electronAPI && window.electronAPI.getAppDir ? String(window.electronAPI.getAppDir()) : '';
@@ -2182,13 +1796,11 @@ function init() {
     }
     function createTab(url = 'about:blank', opts = {}) {
         if (!tabsContainer || !addTabBtn) return null;
-        const ws = opts.workspaceId || activeWorkspaceId;
         const tabId = nextTabId(opts.tabId);
         const isAsleep = !!opts.asleep;
         const tab = document.createElement('div');
         tab.className = 'tab';
         tab.id = tabId;
-        tab.dataset.workspaceId = ws;
         tab.dataset.url = url || 'about:blank';
         tab.dataset.lastFocusedAtMs = String(Number(opts.lastFocusedAtMs || Date.now()));
         tab.innerHTML = `<img class="tab-icon" src="${DEFAULT_TAB_ICON_DATA_URL}" alt=""><span class="tab-title">Neuer Tab</span><span class="tab-audio-indicator hidden" title="Stummschalten"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span><span class="close-tab">×</span>`;
@@ -2205,7 +1817,7 @@ function init() {
             iconEl.setAttribute('src', opts.icon);
             tab.dataset.icon = opts.icon;
         }
-        if (!isAsleep) createWebviewForTab(tabId, ws, url);
+        if (!isAsleep) createWebviewForTab(tabId, url);
         if (opts.switchTo === false) {
             scheduleSaveAppState();
             return tabId;
@@ -2219,28 +1831,29 @@ function init() {
         if (!tabEl.classList.contains('asleep') && tabEl.dataset.asleep !== '1') {
             return document.querySelector(`webview[data-tab-id="${tabId}"]`);
         }
-        const ws = tabEl.dataset.workspaceId || activeWorkspaceId;
         const url = tabEl.dataset.url || 'about:blank';
         tabEl.classList.remove('asleep');
         tabEl.dataset.asleep = '0';
-        const wv = createWebviewForTab(tabId, ws, url);
+        const wv = createWebviewForTab(tabId, url);
         scheduleSaveAppState();
         return wv;
     }
     function switchTab(tabId, opts = {}) {
         const tabEl = document.getElementById(tabId);
         if (!tabEl) return;
-        const ws = tabEl.dataset.workspaceId || 'freizeit';
-        if (ws !== activeWorkspaceId) {
-            setActiveWorkspace(ws);
-            if (!opts.fromFilter) applyWorkspaceFilter();
+        
+        if (tabId === splitTabId && activeTabId !== tabId) {
+            splitTabId = activeTabId;
+            const oldSplit = document.getElementById(splitTabId);
+            if (oldSplit) oldSplit.classList.add('split-active');
+            tabEl.classList.remove('split-active');
         }
+        
         activeTabId = tabId;
         wakeTab(tabId);
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         tabEl.classList.add('active');
         tabEl.dataset.lastFocusedAtMs = String(Date.now());
-        document.querySelectorAll('webview').forEach(w => w.style.display = 'none');
         const activeWebview = document.querySelector(`webview[data-tab-id="${tabId}"]`);
         let url = tabEl.dataset.url || 'about:blank';
         try {
@@ -2253,15 +1866,11 @@ function init() {
         } catch {
             // WebView getURL can throw if dom-ready hasn't fired yet.
         }
-        if (activeWebview) activeWebview.style.display = 'flex';
         if (topAddressBar) topAddressBar.value = url === 'about:blank' ? '' : url;
         resetViews(true);
-        if (!activeWebview || url === 'about:blank') {
-            if (splashView) splashView.style.display = 'flex';
-            if (activeWebview) activeWebview.style.display = 'none';
-        } else {
-            activeWebview.style.display = 'flex';
-        }
+        
+        updateWebviewDisplay();
+        
         updatePageContext();
         updateNotesContext();
         scheduleSaveAppState();
@@ -2270,12 +1879,16 @@ function init() {
     function closeTab(tabId, opts = {}) {
         const tab = document.getElementById(tabId);
         if (!tab) return;
-        const ws = tab.dataset.workspaceId || activeWorkspaceId;
         const webview = document.querySelector(`webview[data-tab-id="${tabId}"]`);
         if (webview) webview.remove();
         tab.remove();
+        
+        if (tabId === splitTabId) {
+            splitTabId = null;
+        }
+
         if (activeTabId === tabId) {
-            const tabs = Array.from(document.querySelectorAll('.tab')).filter((t) => (t.dataset.workspaceId || 'freizeit') === ws);
+            const tabs = Array.from(document.querySelectorAll('.tab'));
             const next = tabs[0] || null;
             if (next) {
                 switchTab(next.id);
@@ -2283,19 +1896,20 @@ function init() {
                 if (opts.noAutoCreate) {
                     activeTabId = null;
                     resetViews(true);
-                    if (splashView) splashView.style.display = 'flex';
+                    updateWebviewDisplay();
                 } else {
-                    setActiveWorkspace(ws);
-                    createTab('about:blank', { workspaceId: ws });
+                    createTab('about:blank');
                 }
             }
+        } else {
+            updateWebviewDisplay();
         }
         if (!opts.skipSave) scheduleSaveAppState();
     }
     function sleepTab(tabId, force = false) {
         const tabEl = document.getElementById(tabId);
         if (!tabEl) return false;
-        if (!force && (tabEl.dataset.workspaceId || 'freizeit') === activeWorkspaceId) return false;
+        if (!force && tabId === activeTabId) return false;
         if (tabEl.classList.contains('asleep') || tabEl.dataset.asleep === '1') return false;
         const wv = document.querySelector(`webview[data-tab-id="${tabId}"]`);
         if (!wv) {
@@ -2326,8 +1940,7 @@ function init() {
         const now = Date.now();
         const tabs = Array.from(document.querySelectorAll('.tab'));
         for (const t of tabs) {
-            const ws = t.dataset.workspaceId || 'freizeit';
-            if (ws === activeWorkspaceId) continue;
+            if (t.id === activeTabId) continue;
             const last = Number(t.dataset.lastFocusedAtMs || 0) || 0;
             if (!last) continue;
             if (now - last >= thresholdMs) sleepTab(t.id);
@@ -2379,15 +1992,11 @@ function init() {
         document.querySelectorAll('.tab').forEach((t) => t.remove());
         document.querySelectorAll('webview').forEach((w) => w.remove());
         if (state && state.v === 1 && Array.isArray(state.tabs) && state.tabs.length) {
-            const ws = state.activeWorkspaceId;
-            if (ws && workspaceIds.includes(ws)) setActiveWorkspace(ws);
             tabCounter = Number(state.tabCounter || 0) || 0;
             for (const t of state.tabs) {
                 if (!t || typeof t !== 'object') continue;
-                const w = workspaceIds.includes(t.workspaceId) ? t.workspaceId : 'freizeit';
                 createTab(t.url || 'about:blank', {
                     tabId: t.id,
-                    workspaceId: w,
                     switchTo: false,
                     title: t.title,
                     icon: t.icon,
@@ -2397,15 +2006,13 @@ function init() {
                 });
             }
             activeTabId = state.activeTabId || null;
-            applyWorkspaceFilter();
             if (activeTabId && document.getElementById(activeTabId)) {
-                switchTab(activeTabId, { fromFilter: true });
+                switchTab(activeTabId);
             }
             return;
         }
-        // Default: one blank tab in the active workspace.
-        createTab('about:blank', { workspaceId: activeWorkspaceId });
-        applyWorkspaceFilter();
+        // Default: one blank tab.
+        createTab('about:blank');
     }
     try {
         restoreTabsFromState();
@@ -2415,6 +2022,132 @@ function init() {
     }
     window.addEventListener('beforeunload', () => saveAppState());
     window.setInterval(reclaimMemory, 60_000);
+
+    // --- Systemwarnung Popup Logik ---
+    function ensureSystemWarningPopup() {
+        let popup = document.getElementById('system-warning-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.id = 'system-warning-popup';
+            popup.innerHTML = `
+                <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: #ff3b30; display: flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    Systemwarnung
+                </div>
+                <div id="sys-warn-msg" style="font-size: 13px; color: var(--text-secondary); line-height: 1.4;">Hoher Ressourcenverbrauch erkannt.</div>
+                <button id="sys-warn-optimize-btn" class="settings-button" style="width: 100%; justify-content: center; background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color);">Jetzt optimieren</button>
+                <div id="sys-warn-close" style="position: absolute; top: 12px; right: 12px; cursor: pointer; color: var(--text-secondary); opacity: 0.7;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+            `;
+            document.body.appendChild(popup);
+
+            popup.querySelector('#sys-warn-close').addEventListener('click', () => {
+                hideSystemWarning(true);
+            });
+            
+            popup.querySelector('#sys-warn-optimize-btn').addEventListener('click', () => {
+                if (optimizeRamBtn) optimizeRamBtn.click();
+                else {
+                    const tabs = Array.from(document.querySelectorAll('.tab'));
+                    for (const t of tabs) {
+                        if (t.id !== activeTabId && !t.classList.contains('asleep')) sleepTab(t.id, true);
+                    }
+                }
+                hideSystemWarning(true);
+            });
+        }
+        return popup;
+    }
+
+    let warningDismissed = false;
+    function showSystemWarning(ram, tabs) {
+        if (warningDismissed) return;
+        const popup = ensureSystemWarningPopup();
+        const msgEl = document.getElementById('sys-warn-msg');
+        let reasons = [];
+        if (ram > 3000) reasons.push(`RAM-Verbrauch über 3000 MB (${Math.round(ram)} MB)`);
+        if (tabs >= 10) reasons.push(`Zu viele offene Tabs (${tabs})`);
+        if (msgEl) msgEl.textContent = reasons.join(' & ') + '. Optimiere das System, um die Performance zu verbessern.';
+        
+        popup.classList.add('show');
+    }
+
+    function hideSystemWarning(dismiss = false) {
+        const popup = document.getElementById('system-warning-popup');
+        if (popup) popup.classList.remove('show');
+        if (dismiss) {
+            warningDismissed = true;
+            setTimeout(() => { warningDismissed = false; }, 5 * 60 * 1000); // 5 Minuten stumm schalten
+        }
+    }
+
+    async function checkSystemResourcesGlobally() {
+        let totalRam = 0;
+        if (window.electronAPI && window.electronAPI.getProcessMetrics) {
+            try {
+                const metrics = await window.electronAPI.getProcessMetrics();
+                for (const p of metrics) {
+                    totalRam += (p.memory.workingSetSize / 1024); // KB to MB
+                }
+            } catch(e) {}
+        }
+        const tabCount = document.querySelectorAll('.tab').length;
+        if (totalRam > 3000 || tabCount >= 10) {
+            showSystemWarning(totalRam, tabCount);
+        } else {
+            hideSystemWarning();
+        }
+    }
+    window.setInterval(checkSystemResourcesGlobally, 10000);
+
+    // --- Speedtest Mock Funktion ---
+    function runSpeedtest() {
+        const btn = document.getElementById('start-speedtest-btn');
+        const pPing = document.getElementById('st-ping');
+        const pDown = document.getElementById('st-down');
+        const pUp = document.getElementById('st-up');
+        if (!btn || btn.disabled) return;
+        
+        btn.disabled = true;
+        btn.textContent = 'Test läuft...';
+        pPing.textContent = 'Messe...';
+        pDown.textContent = '-- Mbps';
+        pUp.textContent = '-- Mbps';
+
+        setTimeout(() => {
+            pPing.textContent = (Math.floor(Math.random() * 20) + 10) + ' ms';
+            pDown.textContent = 'Messe...';
+            setTimeout(() => {
+                let down = 0;
+                const downInt = setInterval(() => {
+                    down += Math.random() * 50;
+                    pDown.textContent = down.toFixed(1) + ' Mbps';
+                }, 100);
+                setTimeout(() => {
+                    clearInterval(downInt);
+                    pDown.textContent = (Math.random() * 200 + 50).toFixed(1) + ' Mbps';
+                    pUp.textContent = 'Messe...';
+                    setTimeout(() => {
+                        let up = 0;
+                        const upInt = setInterval(() => {
+                            up += Math.random() * 20;
+                            pUp.textContent = up.toFixed(1) + ' Mbps';
+                        }, 100);
+                        setTimeout(() => {
+                            clearInterval(upInt);
+                            pUp.textContent = (Math.random() * 50 + 20).toFixed(1) + ' Mbps';
+                            btn.disabled = false;
+                            btn.textContent = 'Test starten';
+                        }, 1500);
+                    }, 500);
+                }, 2000);
+            }, 500);
+        }, 1000);
+    }
+    document.body.addEventListener('click', (e) => {
+        if (e.target.id === 'start-speedtest-btn') runSpeedtest();
+    });
 
     let resourceMonitorInterval = null;
     if (resourcesNavBtn) {
@@ -2629,7 +2362,6 @@ function init() {
             try {
                 localStorage.removeItem('aether-history');
                 localStorage.removeItem('aether-favorites');
-                localStorage.removeItem('aether-focus-session');
                 localStorage.removeItem(APP_STATE_KEY);
             } catch {
                 // ignore
@@ -3023,18 +2755,24 @@ function init() {
                     display: none !important;
                 }
                 #custom-context-menu .context-menu-item {
-                    padding: 8px 20px !important;
-                    cursor: default !important;
-                    transition: background 0.1s !important;
+                    padding: 6px 10px !important;
+                    margin: 2px 8px !important;
+                    border-radius: 6px !important;
+                    cursor: pointer !important;
+                    transition: background 0.1s, color 0.1s !important;
                 }
                 #custom-context-menu .context-menu-item:hover {
-                    background: rgba(0, 122, 255, 0.8) !important;
-                    color: #ffffff !important;
+                    background: rgba(0, 0, 0, 0.08) !important;
+                    color: inherit !important;
+                }
+                .theme-dark #custom-context-menu .context-menu-item:hover {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                    color: #f5f5f7 !important;
                 }
                 #custom-context-menu .context-menu-separator {
                     height: 1px !important;
                     background: rgba(0, 0, 0, 0.1) !important;
-                    margin: 4px 0 !important;
+                    margin: 4px 8px !important;
                 }
                 .theme-dark #custom-context-menu .context-menu-separator {
                     background: rgba(255, 255, 255, 0.1) !important;
@@ -3053,6 +2791,12 @@ function init() {
                 .theme-dark #custom-context-menu .context-menu-item.ai-menu-item:hover {
                     background: rgba(175, 82, 222, 0.3) !important;
                     color: #f5f5f7 !important;
+                }
+                #custom-context-menu .context-menu-item.icon-only {
+                    display: flex !important;
+                    justify-content: center !important;
+                    padding: 8px !important;
+                    margin-top: 4px !important;
                 }
             `;
             document.head.appendChild(style);
@@ -3137,7 +2881,20 @@ function init() {
                     });
                     menuTemplate.push({ type: 'separator' });
                 }
+                
                 menuTemplate.push({ label: 'Tab schließen', action: () => closeTab(params.tabId) });
+
+                const isSplit = splitTabId === params.tabId;
+                if (params.tabId !== activeTabId || isSplit) {
+                    menuTemplate.push({ type: 'separator' });
+                    menuTemplate.push({
+                        label: '',
+                        title: isSplit ? 'Split-View beenden' : 'Als Split-View öffnen',
+                        isIconOnly: true,
+                        icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>`,
+                        action: () => toggleSplitView(params.tabId)
+                    });
+                }
             }
         }
 
@@ -3189,14 +2946,20 @@ function init() {
             if (item.isAi) {
                 itemEl.classList.add('ai-menu-item');
             }
+            if (item.isIconOnly) {
+                itemEl.classList.add('icon-only');
+                itemEl.title = item.title || '';
+            }
             if (item.icon) {
                 const iconSpan = document.createElement('span');
                 iconSpan.style.cssText = 'display:flex; align-items:center; justify-content:center;';
                 iconSpan.innerHTML = item.icon;
-                const textSpan = document.createElement('span');
-                textSpan.textContent = item.label;
                 itemEl.appendChild(iconSpan);
-                itemEl.appendChild(textSpan);
+                if (item.label) {
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = item.label;
+                    itemEl.appendChild(textSpan);
+                }
             } else {
                 itemEl.textContent = item.label;
             }
@@ -3337,6 +3100,748 @@ function init() {
             }
         }
     });
+
+    // --- Clips Integration (Echte Hintergrundaufnahme) ---
+    const addonsNavBtn = document.createElement('div');
+    addonsNavBtn.className = 'nav-item';
+    addonsNavBtn.id = 'addons-nav-btn';
+    addonsNavBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 2px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg><span class="nav-text">Addons</span>`;
+    
+    if (newsNavBtn && newsNavBtn.parentNode) {
+        newsNavBtn.parentNode.insertBefore(addonsNavBtn, newsNavBtn.nextSibling);
+    }
+
+    let clipFolder = localStorage.getItem('aether-clip-folder') || '';
+    let clipDurationMs = parseInt(localStorage.getItem('aether-clip-duration') || '300000'); // Default 5 mins
+    let clipHotkey = localStorage.getItem('aether-clip-hotkey') || 'F12';
+    let publishedClips = JSON.parse(localStorage.getItem('aether-clips') || '[]');
+    let clipsAddonInstalled = localStorage.getItem('aether-clips-addon-installed') === 'true';
+    
+    window.clipModeActive = localStorage.getItem('aether-clips-addon-active') === 'true';
+    let clipRecorder = null;
+    let clipChunks = [];
+    let isRecording = false;
+
+    let blockedTrackers = JSON.parse(localStorage.getItem('aether-blocked-trackers') || '[]');
+    
+    let currentAddonView = 'main'; // 'main', 'clips', 'privacy'
+
+    // --- Privatsphäre Add-on Initialisierung ---
+    let privacyAddonActive = localStorage.getItem('aether-privacy-addon') === 'true';
+    if (window.electronAPI && window.electronAPI.togglePrivacyFilter) {
+        window.electronAPI.togglePrivacyFilter(privacyAddonActive);
+    }
+
+    // Hotkey an Main Process senden, damit er auch in Spielen (Global) funktioniert
+    if (window.electronAPI && window.electronAPI.setClipShortcut) {
+        window.electronAPI.setClipShortcut(clipHotkey);
+    }
+
+    let recentBlockCount = 0;
+    let recentBlockTimeout = null;
+
+    if (window.electronAPI && window.electronAPI.onTrackerBlocked) {
+        window.electronAPI.onTrackerBlocked((url) => {
+            const domain = getDomainFromUrl(url) || url;
+            const entry = blockedTrackers.find(t => t.domain === domain);
+            if (entry) {
+                entry.count += 1;
+                entry.lastBlocked = Date.now();
+            } else {
+                blockedTrackers.unshift({ domain, count: 1, lastBlocked: Date.now() });
+            }
+            
+            // Nach "Zuletzt blockiert" sortieren und auf 50 beschränken
+            blockedTrackers.sort((a, b) => b.lastBlocked - a.lastBlocked);
+            if (blockedTrackers.length > 50) blockedTrackers.length = 50;
+            localStorage.setItem('aether-blocked-trackers', JSON.stringify(blockedTrackers));
+
+            // Privacy Stats (Hourly & Sources)
+            let sourceUrl = topAddressBar ? topAddressBar.value : '';
+            const sourceDomain = getDomainFromUrl(sourceUrl) || 'Unbekannt';
+            let advancedStats = { hourly: {}, sources: {} };
+            try {
+                advancedStats = JSON.parse(localStorage.getItem('aether-privacy-advanced-stats') || '{"hourly":{},"sources":{}}');
+            } catch(e) {}
+            const now = new Date();
+            const hourKey = now.toISOString().substring(0, 13);
+            advancedStats.hourly[hourKey] = (advancedStats.hourly[hourKey] || 0) + 1;
+            advancedStats.sources[sourceDomain] = (advancedStats.sources[sourceDomain] || 0) + 1;
+            localStorage.setItem('aether-privacy-advanced-stats', JSON.stringify(advancedStats));
+
+            // Aktualisiere die UI-Liste direkt, falls das Addon-Menü geöffnet ist
+            if (currentAddonView === 'privacy') {
+                const trackersListEl = document.getElementById('blocked-trackers-ul-detail');
+                if (trackersListEl) {
+                    trackersListEl.innerHTML = blockedTrackers.length > 0 ? blockedTrackers.map(t => `
+                        <li class="blocked-tracker-item" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px; font-size: 13px;">
+                            <span style="font-weight: 500;">${t.domain}</span>
+                            <span class="blocked-tracker-badge" style="font-size: 12px; padding: 2px 8px; border-radius: 12px;">${t.count}x blockiert</span>
+                        </li>
+                    `).join('') : '<li style="color: var(--text-secondary); font-size: 13px;">Bisher keine Tracker blockiert.</li>';
+                }
+                const hourlyContainer = document.getElementById('privacy-hourly-chart-container');
+                if (hourlyContainer) hourlyContainer.innerHTML = generateHourlyBarChartSVG();
+                const sourcesContainer = document.getElementById('privacy-sources-chart-container');
+                if (sourcesContainer) sourcesContainer.innerHTML = generateSourcesPieChartSVG();
+            }
+
+            // Popup-Logik, wenn zu viel auf einmal getrackt wird
+            const isGoogleSearch = sourceDomain.includes('google.');
+            if (!isGoogleSearch) {
+                recentBlockCount++;
+                if (recentBlockCount > 4) {
+                    showPrivacyWarning();
+                    recentBlockCount = 0;
+                }
+
+                clearTimeout(recentBlockTimeout);
+                recentBlockTimeout = setTimeout(() => {
+                    recentBlockCount = 0;
+                }, 3000);
+            }
+        });
+    }
+
+    function showPrivacyWarning() {
+        let popup = document.getElementById('privacy-warning-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.id = 'privacy-warning-popup';
+            popup.innerHTML = `
+                <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: #34c759; display: flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Datenschutz aktiv
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.4;">Aether hat auf dieser Seite mehrere Daten-Tracker blockiert, um deine Privatsphäre zu schützen.</div>
+                <div id="priv-warn-close" style="position: absolute; top: 12px; right: 12px; cursor: pointer; color: var(--text-secondary); opacity: 0.7;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+            `;
+            document.body.appendChild(popup);
+            popup.querySelector('#priv-warn-close').addEventListener('click', () => {
+                popup.classList.remove('show');
+            });
+        }
+        popup.classList.add('show');
+        setTimeout(() => {
+            if (popup.classList.contains('show')) popup.classList.remove('show');
+        }, 5000);
+    }
+
+    function updateDuration(val) {
+        clipDurationMs = parseInt(val);
+        localStorage.setItem('aether-clip-duration', clipDurationMs.toString());
+        if (isRecording) {
+            // Schneide direkt ab, wenn die Zeit im Laufenden Betrieb gekürzt wird
+            const cutoff = Date.now() - clipDurationMs;
+            clipChunks = clipChunks.filter(c => c.time >= cutoff);
+        }
+    }
+
+    function generateHourlyBarChartSVG() {
+        let stats = { hourly: {} };
+        try { stats = JSON.parse(localStorage.getItem('aether-privacy-advanced-stats') || '{"hourly":{}}'); } catch(e) {}
+        
+        const hours = [];
+        const now = new Date();
+        for (let i = 11; i >= 0; i--) {
+            const d = new Date(now.getTime() - i * 60 * 60 * 1000);
+            hours.push(d.toISOString().substring(0, 13));
+        }
+        
+        const values = hours.map(h => stats.hourly[h] || 0);
+        const maxVal = Math.max(...values, 5); // at least 5 for scale
+        
+        const width = 400;
+        const height = 120;
+        const barWidth = 20;
+        const stepX = width / 12;
+        
+        let svg = `<svg viewBox="-20 -20 ${width+40} ${height+40}" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="overflow: visible;">`;
+        svg += `<line x1="0" y1="${height}" x2="${width}" y2="${height}" stroke="var(--border-color, rgba(0,0,0,0.1))" stroke-width="1"/>`;
+        
+        values.forEach((v, i) => {
+            const x = i * stepX + (stepX - barWidth) / 2;
+            const barH = (v / maxVal) * height;
+            const y = height - barH;
+            
+            svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barH}" fill="var(--accent-color, #0a84ff)" rx="4" ry="4" />`;
+            if(v > 0) {
+                svg += `<text x="${x + barWidth/2}" y="${y - 6}" font-size="10" fill="var(--text-primary)" text-anchor="middle" font-weight="bold">${v}</text>`;
+            }
+            
+            const d = new Date(hours[i] + ":00:00Z");
+            const label = d.getHours() + "h";
+            svg += `<text x="${x + barWidth/2}" y="${height + 18}" font-size="10" fill="var(--text-secondary)" text-anchor="middle">${label}</text>`;
+        });
+        svg += `</svg>`;
+        return svg;
+    }
+
+    function generateSourcesPieChartSVG() {
+        let stats = { sources: {} };
+        try { stats = JSON.parse(localStorage.getItem('aether-privacy-advanced-stats') || '{"sources":{}}'); } catch(e) {}
+        
+        let total = 0;
+        const sortedSources = Object.entries(stats.sources).sort((a,b) => b[1] - a[1]).slice(0, 5);
+        sortedSources.forEach(s => total += s[1]);
+        
+        if (total === 0) return `<div style="text-align:center; color:var(--text-secondary); font-size:13px; line-height:120px;">Noch keine Daten gesammelt. Surfe im Web!</div>`;
+        
+        const colors = ['var(--accent-color, #0a84ff)', '#ff3b30', '#34c759', '#ff9500', '#af52de'];
+        let svg = `<svg viewBox="-20 -20 300 140" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="overflow: visible;">`;
+        
+        let cumulativePercent = 0;
+        const cx = 50; const cy = 50; const r = 50;
+        
+        let legendX = 130;
+        let legendY = 15;
+        
+        function getCoordinatesForPercent(percent) {
+            const x = cx + r * Math.cos(2 * Math.PI * percent - Math.PI/2);
+            const y = cy + r * Math.sin(2 * Math.PI * percent - Math.PI/2);
+            return [x, y];
+        }
+        
+        sortedSources.forEach((src, i) => {
+            const [domain, count] = src;
+            const slicePercent = count / total;
+            
+            if (slicePercent >= 1) {
+                svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${colors[i]}" />`;
+            } else {
+                const [startX, startY] = getCoordinatesForPercent(cumulativePercent);
+                cumulativePercent += slicePercent;
+                const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
+                const largeArcFlag = slicePercent > 0.5 ? 1 : 0;
+                
+                const pathData = [
+                    `M ${cx} ${cy}`,
+                    `L ${startX} ${startY}`,
+                    `A ${r} ${r} 0 ${largeArcFlag} 1 ${endX} ${endY}`,
+                    `L ${cx} ${cy}`
+                ].join(' ');
+                svg += `<path d="${pathData}" fill="${colors[i]}" stroke="var(--bg-tertiary, #fff)" stroke-width="1.5" stroke-linejoin="round" />`;
+            }
+            
+            svg += `<rect x="${legendX}" y="${legendY - 8}" width="10" height="10" fill="${colors[i]}" rx="2" ry="2" />`;
+            let dName = domain.replace(/^www\./, '');
+            if (dName.length > 15) dName = dName.substring(0,12) + '...';
+            svg += `<text x="${legendX + 16}" y="${legendY}" font-size="11" fill="var(--text-primary)">${dName} (${count})</text>`;
+            legendY += 20;
+        });
+        
+        svg += `</svg>`;
+        return svg;
+    }
+
+    const addonsView = document.createElement('div');
+    addonsView.id = 'addons-view';
+    addonsView.className = 'hidden';
+    
+    function renderAddonsView() {
+        if (currentAddonView === 'main') {
+            addonsView.innerHTML = `
+                <div style="display: flex; flex-direction: column; height: 100%;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                        <h1 style="font-size: 24px; font-weight: 800; margin: 0;">Addons</h1>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; width: 100%; margin-bottom: 30px;">
+                        <div class="settings-card addon-card" data-addon="clips" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 48px; height: 48px; background: rgba(255, 59, 48, 0.1); color: #ff3b30; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                                </div>
+                                <div>
+                                    <h3 style="margin: 0; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                        Gaming Clips
+                                        ${window.clipModeActive ? '<span style="width: 8px; height: 8px; background: #34c759; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px rgba(52,199,89,0.5);" title="Aktiv"></span>' : ''}
+                                    </h3>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Nimmt im Hintergrund auf</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin: 0; flex: 1;">Zeichne deine besten Gaming-Momente auf. Das Addon läuft im Hintergrund und speichert auf Knopfdruck die letzten Minuten als Video.</p>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 12px;">
+                                ${!clipsAddonInstalled ?
+                                    `<button id="install-clips-btn" class="settings-button primary" style="background: var(--accent-color); color: white; border: none; width: 100%; justify-content: center;">Herunterladen</button>`
+                                    :
+                                    `<button id="toggle-clips-active-btn" class="settings-button" style="background: ${window.clipModeActive ? '#ff3b30' : 'var(--accent-color)'}; color: white; border: none; width: 100%; justify-content: center;">${window.clipModeActive ? 'Deaktivieren' : 'Aktivieren'}</button>`
+                                }
+                            </div>
+                        </div>
+
+                        <div class="settings-card addon-card" data-addon="privacy" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; cursor: pointer; transition: transform 0.2s;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 48px; height: 48px; background: rgba(52, 199, 89, 0.1); color: #34c759; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                </div>
+                                <div>
+                                    <h3 style="margin: 0; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                        Privatsphäre-Schutz
+                                        ${privacyAddonActive ? '<span style="width: 8px; height: 8px; background: #34c759; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px rgba(52,199,89,0.5);" title="Aktiv"></span>' : ''}
+                                    </h3>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Google Blocking</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin: 0; flex: 1;">Schützt deine Daten, indem Verbindungen zu bekannten Google-Trackern und Werbenetzwerken blockiert werden.</p>
+                            <p style="font-size: 11px; color: var(--text-secondary); opacity: 0.8; margin: 0; line-height: 1.3;">Klicke hier, um Statistiken und die Liste der blockierten Verbindungen zu sehen.</p>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 12px;">
+                                <button id="toggle-privacy-btn" class="settings-button" style="background: ${privacyAddonActive ? '#ff3b30' : 'var(--accent-color)'}; color: white; border: none; width: 100%; justify-content: center;">${privacyAddonActive ? 'Deaktivieren' : 'Aktivieren'}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (currentAddonView === 'clips') {
+            addonsView.innerHTML = `
+                <div style="display: flex; flex-direction: column; height: 100%;">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                        <button id="addon-back-btn" class="settings-button" style="padding: 6px 12px; min-width: auto;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        </button>
+                        <h1 style="font-size: 24px; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 12px;">
+                            Gaming Clips
+                            ${window.clipModeActive ? '<span style="width: 10px; height: 10px; background: #34c759; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px rgba(52,199,89,0.5);" title="Aktiv"></span>' : ''}
+                        </h1>
+                        <div style="margin-left: auto;">
+                            ${!clipsAddonInstalled ?
+                                `<button id="install-clips-btn" class="settings-button primary" style="background: var(--accent-color); color: white; border: none;">Herunterladen</button>`
+                                :
+                                `<button id="toggle-clips-active-btn" class="settings-button" style="background: ${window.clipModeActive ? '#ff3b30' : 'var(--accent-color)'}; color: white; border: none;">${window.clipModeActive ? 'Deaktivieren' : 'Aktivieren'}</button>`
+                            }
+                        </div>
+                    </div>
+
+                    ${clipsAddonInstalled ? `
+                    <div id="clips-manager-ui" style="display: flex; flex-direction: column; flex: 1;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                            <h2 style="font-size: 20px; font-weight: 700; margin: 0;">Clips Galerie</h2>
+                            <div style="display: flex; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap;">
+                                <span style="color: var(--text-secondary);">Speicherort: <span id="clip-folder-display" style="color: var(--text-primary); cursor:pointer; font-weight:600; text-decoration: underline;">${clipFolder || 'Ordner wählen...'}</span></span>
+                                <select id="clip-duration-select" class="settings-select" style="padding: 6px 12px; font-size: 12px;">
+                                    <option value="60000" ${clipDurationMs === 60000 ? 'selected' : ''}>Letzte 1 Min</option>
+                                    <option value="300000" ${clipDurationMs === 300000 ? 'selected' : ''}>Letzte 5 Min</option>
+                                    <option value="600000" ${clipDurationMs === 600000 ? 'selected' : ''}>Letzte 10 Min</option>
+                                </select>
+                                <button id="clip-hotkey-btn" class="settings-button" style="padding: 6px 12px; font-size: 12px;">Hotkey: <span id="clip-hotkey-display-1">${clipHotkey}</span></button>
+                            </div>
+                        </div>
+
+                        ${window.clipModeActive ? `
+                        <div id="clip-status-indicator" style="display:flex; background: rgba(255, 59, 48, 0.1); color: #ff3b30; border: 1px solid rgba(255, 59, 48, 0.2); padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; margin-bottom: 20px; align-items: center; gap: 10px;">
+                            <span style="display:inline-block; width:10px; height:10px; background:#ff3b30; border-radius:50%; animation: pulse 1.5s infinite;"></span>
+                            Hintergrundaufnahme läuft... Drücke <span id="clip-hotkey-display-2" style="background: rgba(255, 59, 48, 0.2); padding: 2px 6px; border-radius: 4px;">${clipHotkey}</span>, um die letzten Minuten zu speichern.
+                        </div>
+                        ` : ''}
+
+                        <div id="clips-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; width: 100%;">
+                        </div>
+                    </div>
+                    ` : `
+                    <div style="flex:1; display:flex; align-items:center; justify-content:center; color: var(--text-secondary); font-size: 14px;">
+                        Bitte lade das Addon herunter, um Clips aufzunehmen und zu verwalten.
+                    </div>
+                    `}
+                </div>
+            `;
+            if (clipsAddonInstalled) {
+                renderClips();
+            }
+        } else if (currentAddonView === 'privacy') {
+            const hourlyChartSVG = generateHourlyBarChartSVG();
+            const sourcesChartSVG = generateSourcesPieChartSVG();
+            addonsView.innerHTML = `
+                <div style="display: flex; flex-direction: column; height: 100%;">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                        <button id="addon-back-btn" class="settings-button" style="padding: 6px 12px; min-width: auto;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        </button>
+                        <h1 style="font-size: 24px; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 12px;">
+                            Privatsphäre-Schutz
+                            ${privacyAddonActive ? '<span style="width: 10px; height: 10px; background: #34c759; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px rgba(52,199,89,0.5);" title="Aktiv"></span>' : ''}
+                        </h1>
+                        <div style="margin-left: auto;">
+                            <button id="toggle-privacy-btn" class="settings-button" style="background: ${privacyAddonActive ? '#ff3b30' : 'var(--accent-color)'}; color: white; border: none; width: 100%; justify-content: center;">${privacyAddonActive ? 'Deaktivieren' : 'Aktivieren'}</button>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 24px; width: 100%;">
+                        <div class="settings-card" style="display: flex; flex-direction: column; padding: 24px;">
+                            <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 600;">Blockierte Tracker pro Stunde</h3>
+                            <div id="privacy-hourly-chart-container" style="height: 180px; width: 100%; display: flex; align-items: center; justify-content: center; padding-bottom: 20px; box-sizing: border-box;">
+                                ${hourlyChartSVG}
+                            </div>
+                        </div>
+
+                        <div class="settings-card" style="display: flex; flex-direction: column; padding: 24px;">
+                            <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 600;">Auslöser (Ursprungsseiten)</h3>
+                            <div id="privacy-sources-chart-container" style="height: 180px; width: 100%; display: flex; align-items: center; justify-content: center; padding-bottom: 20px; box-sizing: border-box;">
+                                ${sourcesChartSVG}
+                            </div>
+                        </div>
+
+                        <div class="settings-card" style="display: flex; flex-direction: column; padding: 24px; max-height: 400px; overflow-y: auto;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                                <h3 style="margin: 0; font-size: 16px; font-weight: 600;">Bekannte Tracker</h3>
+                            </div>
+                            <ul id="blocked-trackers-ul-detail" style="margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                                ${blockedTrackers.length > 0 
+                                    ? blockedTrackers.map(t => `
+                                        <li class="blocked-tracker-item" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px; font-size: 13px;">
+                                            <span style="font-weight: 500;">${t.domain}</span>
+                                            <span class="blocked-tracker-badge" style="font-size: 12px; padding: 2px 8px; border-radius: 12px;">${t.count}x blockiert</span>
+                                        </li>
+                                    `).join('') 
+                                    : '<li style="color: var(--text-secondary); font-size: 13px;">Bisher keine Tracker blockiert. Surfe im Web, während das Addon aktiv ist!</li>'}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    const shell = document.querySelector('#view-layer') || document.querySelector('.viewport-shell');
+    if (shell) shell.appendChild(addonsView);
+    renderAddonsView();
+
+    async function toggleRecordingState() {
+        if (!clipFolder) {
+            if (window.electronAPI && window.electronAPI.selectFolder) {
+                const folder = await window.electronAPI.selectFolder();
+                if (folder) {
+                    clipFolder = folder;
+                    localStorage.setItem('aether-clip-folder', clipFolder);
+                } else {
+                    return;
+                }
+            } else {
+                alert('Bitte wähle in der Clips-Übersicht zuerst einen Speicherort aus!');
+                if (addonsNavBtn) addonsNavBtn.click();
+                return;
+            }
+        }
+
+        window.clipModeActive = !window.clipModeActive;
+        localStorage.setItem('aether-clips-addon-active', window.clipModeActive);
+
+        if (window.clipModeActive) {
+            await startBackgroundRecording();
+        } else {
+            stopBackgroundRecording();
+        }
+        renderAddonsView();
+    }
+
+    document.body.addEventListener('change', (e) => {
+        if (e.target.id === 'clip-duration-select') {
+            updateDuration(e.target.value);
+        }
+    });
+
+    document.body.addEventListener('click', async (e) => {
+        if (e.target.closest('#addon-back-btn')) {
+            currentAddonView = 'main';
+            renderAddonsView();
+            return;
+        }
+
+        const addonCard = e.target.closest('.addon-card');
+        if (addonCard && !e.target.closest('button')) {
+            currentAddonView = addonCard.dataset.addon;
+            renderAddonsView();
+            return;
+        }
+
+        if (e.target.id === 'install-clips-btn') {
+            e.target.textContent = 'Wird geladen...';
+            e.target.disabled = true;
+            setTimeout(() => {
+                localStorage.setItem('aether-clips-addon-installed', 'true');
+                clipsAddonInstalled = true;
+                renderAddonsView();
+            }, 800);
+            return;
+        }
+        if (e.target.id === 'toggle-clips-active-btn') {
+            toggleRecordingState();
+            return;
+        }
+        if (e.target.id === 'toggle-privacy-btn') {
+            privacyAddonActive = !privacyAddonActive;
+            localStorage.setItem('aether-privacy-addon', privacyAddonActive);
+            
+            if (window.electronAPI && window.electronAPI.togglePrivacyFilter) {
+                window.electronAPI.togglePrivacyFilter(privacyAddonActive);
+            }
+            renderAddonsView();
+            return;
+        }
+
+        const folderDisp = e.target.closest('#clip-folder-display');
+        if (folderDisp) {
+            if (window.electronAPI && window.electronAPI.selectFolder) {
+                const folder = await window.electronAPI.selectFolder();
+                if (folder) {
+                    clipFolder = folder;
+                    localStorage.setItem('aether-clip-folder', clipFolder);
+                    renderAddonsView();
+                }
+            } else {
+                alert('API nicht verfügbar. Hast du preload.js aktualisiert?');
+            }
+        }
+
+        const hotkeyBtn = e.target.closest('#clip-hotkey-btn');
+        if (hotkeyBtn) {
+            hotkeyBtn.textContent = 'Drücke eine Taste...';
+            hotkeyBtn.style.background = 'var(--accent-color)';
+            hotkeyBtn.style.color = '#fff';
+
+            const keydownHandler = (ke) => {
+                ke.preventDefault();
+                let key = ke.key;
+                let modifiers = [];
+                if (ke.ctrlKey) modifiers.push('CommandOrControl');
+                if (ke.altKey) modifiers.push('Alt');
+                if (ke.shiftKey) modifiers.push('Shift');
+
+                if (['Control', 'Alt', 'Shift', 'Meta'].includes(key)) return; // Warte auf echte Taste
+
+                let formattedKey = key.length === 1 ? key.toUpperCase() : key;
+                if (formattedKey === ' ') formattedKey = 'Space';
+                
+                clipHotkey = [...modifiers, formattedKey].join('+');
+                localStorage.setItem('aether-clip-hotkey', clipHotkey);
+                
+                hotkeyBtn.innerHTML = `Hotkey: <span id="clip-hotkey-display-1">${clipHotkey}</span>`;
+                hotkeyBtn.style.background = '';
+                hotkeyBtn.style.color = '';
+                renderAddonsView();
+
+                if (window.electronAPI && window.electronAPI.setClipShortcut) {
+                    window.electronAPI.setClipShortcut(clipHotkey);
+                }
+
+                document.removeEventListener('keydown', keydownHandler);
+            };
+            document.addEventListener('keydown', keydownHandler);
+        }
+    });
+
+    async function startBackgroundRecording() {
+        if (isRecording || !window.electronAPI) return;
+        try {
+            const sourceId = await window.electronAPI.getScreenSource();
+            let stream;
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    audio: { mandatory: { chromeMediaSource: 'desktop' } },
+                    video: { mandatory: { chromeMediaSource: 'desktop', chromeMediaSourceId: sourceId } }
+                });
+            } catch (audioErr) {
+                // System audio capture can fail on some systems, fallback silently
+                stream = await navigator.mediaDevices.getUserMedia({
+                    audio: false,
+                    video: { mandatory: { chromeMediaSource: 'desktop', chromeMediaSourceId: sourceId } }
+                });
+            }
+
+            clipRecorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
+            clipChunks = [];
+
+            clipRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    clipChunks.push({ blob: e.data, time: Date.now() });
+                    // Puffer aufräumen: Behalte nur Chunks der eingestellten Dauer
+                    const cutoff = Date.now() - clipDurationMs;
+                    clipChunks = clipChunks.filter(c => c.time >= cutoff);
+                }
+            };
+
+            clipRecorder.start(2000); // Fordere alle 2 Sekunden einen Video-Chunk an
+            isRecording = true;
+        } catch (err) {
+            console.error('Recording error:', err);
+            window.clipModeActive = false;
+            localStorage.setItem('aether-clips-addon-active', 'false');
+            alert('Konnte Bildschirmaufnahme nicht starten. Stelle sicher, dass die App die Berechtigung hat.');
+            renderAddonsView();
+        }
+    }
+
+    function stopBackgroundRecording() {
+        if (clipRecorder && isRecording) {
+            clipRecorder.stop();
+            clipRecorder.stream.getTracks().forEach(t => t.stop());
+        }
+        clipRecorder = null;
+        clipChunks = [];
+        isRecording = false;
+    }
+
+    window.takeClip = async function() {
+        if (!isRecording || clipChunks.length === 0 || !clipFolder) return;
+        if (document.getElementById('clip-recording-overlay')) return; // Schutz vor Spammen
+
+        const overlay = document.createElement('div');
+        overlay.id = 'clip-recording-overlay';
+        overlay.style.cssText = 'position: fixed; top: 60px; right: 40px; background: #34c759; color: white; padding: 12px 24px; border-radius: 24px; font-weight: bold; font-size: 14px; z-index: 99999; display: flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(52, 199, 89, 0.4); pointer-events: none;';
+        overlay.innerHTML = '<div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div> Generiere Video...';
+        document.body.appendChild(overlay);
+
+        if (clipRecorder && clipRecorder.state === 'recording') {
+            clipRecorder.requestData(); // Zwingt den Recorder, auch die letzte Sekunde noch schnell zu speichern
+        }
+        
+        await new Promise(r => setTimeout(r, 150)); // Kurze Wartezeit, damit das Video finalisiert wird
+
+        try {
+            const blobsToSave = clipChunks.map(c => c.blob);
+            const filename = `AetherClip_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
+            let savedPath = '';
+
+            for (let i = 0; i < blobsToSave.length; i++) {
+                const chunkBlob = blobsToSave[i];
+                const chunkBuffer = new Uint8Array(await chunkBlob.arrayBuffer());
+                
+                // Sende Chunks einzeln an den Main-Prozess, um IPC-Limits & RAM-Abstürze zu verhindern
+                if (window.electronAPI.saveClipChunk) {
+                    savedPath = await window.electronAPI.saveClipChunk({
+                        buffer: chunkBuffer,
+                        folder: clipFolder,
+                        filename: filename,
+                        append: i > 0
+                    });
+                } else {
+                    // Fallback für alte preload.js
+                    const superBlob = new Blob(blobsToSave, { type: 'video/webm; codecs=vp9' });
+                    const fullBuffer = new Uint8Array(await superBlob.arrayBuffer());
+                    savedPath = await window.electronAPI.saveClip({ buffer: fullBuffer, folder: clipFolder, filename: filename });
+                    break;
+                }
+            }
+
+            overlay.innerHTML = '✅ Clip erfolgreich gespeichert!';
+            setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 3000);
+            
+            const newClip = {
+                id: Date.now(),
+                path: savedPath,
+                title: filename,
+                timestamp: Date.now(),
+                duration: clipDurationMs
+            };
+            publishedClips.unshift(newClip);
+            localStorage.setItem('aether-clips', JSON.stringify(publishedClips));
+
+            if (addonsNavBtn.classList.contains('active')) {
+                renderAddonsView();
+            }
+        } catch (err) {
+            console.error('Klip save error', err);
+            overlay.innerHTML = '❌ Fehler beim Speichern!';
+            overlay.style.background = '#ff3b30';
+            setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 3000);
+        }
+    };
+
+    function renderClips() {
+        const grid = document.getElementById('clips-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        if (publishedClips.length === 0) {
+            grid.innerHTML = `<div style="color: var(--text-secondary); font-size: 13px;">Noch keine Clips vorhanden. Lege einen Speicherort fest, aktiviere die Aufnahme und drücke ${clipHotkey}!</div>`;
+            return;
+        }
+
+        publishedClips.forEach(clip => {
+            const card = document.createElement('div');
+            card.className = 'settings-card';
+            card.style.cssText = 'padding: 12px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; position: relative; transition: transform 0.2s;';
+            card.title = "Klicken, um Video in System-Player zu öffnen";
+            card.onmouseenter = () => card.style.transform = 'translateY(-4px)';
+            card.onmouseleave = () => card.style.transform = 'translateY(0)';
+            
+            let timeStr = new Date(clip.timestamp).toLocaleString([], {day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit'});
+            let durationMins = Math.round(clip.duration / 60000);
+            
+            card.innerHTML = `
+                <div style="width: 100%; height: 120px; background: #1a1a1a; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; position: relative;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.4;"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                    <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold;">${durationMins} Min.</div>
+                </div>
+                <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px;">${clip.title}</div>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-secondary);">
+                    <span>${timeStr}</span>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="clip-share-btn" style="background:none; border:none; color:inherit; cursor:pointer; padding:2px;" title="Link kopieren" onmouseenter="this.style.color='var(--accent-color)'" onmouseleave="this.style.color='inherit'">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        </button>
+                        <button class="clip-delete-btn" style="background:none; border:none; color:inherit; cursor:pointer; padding:2px;" title="Löschen" onmouseenter="this.style.color='#ff3b30'" onmouseleave="this.style.color='inherit'">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            card.onclick = (e) => {
+                const isShare = e.target.closest('.clip-share-btn');
+                const isDelete = e.target.closest('.clip-delete-btn');
+
+                if (isDelete) {
+                    e.stopPropagation();
+                    if (confirm('Möchtest du diesen Clip wirklich löschen?')) {
+                        if (window.electronAPI && window.electronAPI.deleteFile) window.electronAPI.deleteFile(clip.path);
+                        publishedClips = publishedClips.filter(c => c.id !== clip.id);
+                        localStorage.setItem('aether-clips', JSON.stringify(publishedClips));
+                        renderClips();
+                    }
+                    return;
+                }
+
+                if (isShare) {
+                    e.stopPropagation();
+                    const fileUrl = filePathToFileUrl(clip.path);
+                    navigator.clipboard.writeText(fileUrl);
+                    alert('Lokaler Link in die Zwischenablage kopiert!\\n\\nTipp: Um ihn echten Freunden zu schicken, musst du das Video irgendwo hochladen (z.B. in Discord ziehen). Du kannst den kopierten Link aber hier in Aether einfügen, um es anzusehen.');
+                    return;
+                }
+
+                // Im Browser als neuen Tab öffnen
+                createTab(filePathToFileUrl(clip.path));
+            };
+            
+            grid.appendChild(card);
+        });
+    }
+
+    addonsNavBtn.onclick = () => {
+        resetViews();
+        addonsView.classList.remove('hidden');
+        addonsNavBtn.classList.add('active');
+        
+        // Verstecke die Tabs und die Suchleiste in diesem Fenster
+        const tabsCont = document.querySelector('.tabs-container');
+        const headerCont = document.querySelector('.app-header');
+        if (tabsCont) tabsCont.style.display = 'none';
+        if (headerCont) headerCont.style.display = 'none';
+        
+        currentAddonView = 'main';
+        renderAddonsView();
+    };
+
+    // --- AUTO-START CLIPS RECORDING ---
+    if (clipsAddonInstalled && window.clipModeActive) {
+        if (clipFolder) {
+            startBackgroundRecording();
+        } else {
+            window.clipModeActive = false;
+            localStorage.setItem('aether-clips-addon-active', 'false');
+        }
+    }
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
