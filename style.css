@@ -34,7 +34,7 @@ body {
 }
 .theme-dark .address-bar-capsule {
     background: #22222a;
-    border: 1px solid rgba(255,255,255,0.10);
+    border: none;
 }
 .theme-dark .sidebar .nav-item { color: #f2f2f6; }
 .theme-dark .favorite-pill,
@@ -42,7 +42,7 @@ body {
 .theme-dark .home-search-box,
 .theme-dark .viewport-shell {
     background: rgba(34,34,42,0.95);
-    border-color: rgba(255,255,255,0.10);
+    border: none;
 }
 .theme-dark #splash-view {
     background: #121212;
@@ -50,6 +50,7 @@ body {
 }
 .theme-dark .home-search-box {
     background: #1a1a1a;
+    border: none;
 }
 
 /* Globale Hilfsklasse für Sichtbarkeit */
@@ -326,6 +327,10 @@ input, textarea {
 
 .tab.pinned .tab-title, .tab.pinned .close-tab { display: none; }
 .tab.pinned .tab-icon { margin: 0; }
+
+.tab.dragging {
+    opacity: 0.5;
+}
 
 .tab-icon {
     width: 16px;
@@ -1582,6 +1587,9 @@ webview {
     gap: 10px;
     color: #1d1d1f;
     transition: background 0.2s, color 0.2s;
+}
+.theme-dark .context-menu-item {
+    color: #f2f2f6;
 }
 
 .context-menu-item:hover {

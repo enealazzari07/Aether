@@ -6,6 +6,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   minimizeWindow: () => ipcRenderer.send('minimize-app'),
   maximizeWindow: () => ipcRenderer.send('maximize-app'),
   closeWindow: () => ipcRenderer.send('close-app'),
+  createNewWindow: (url) => ipcRenderer.send('create-new-window', url),
+  onOpenInitialUrl: (callback) => ipcRenderer.on('open-initial-url', (_event, url) => callback(url)),
   showContextMenu: (type, params) => ipcRenderer.send('show-context-menu', type, params),
   onContextMenuAction: (callback) => ipcRenderer.on('context-menu-action', (event, ...args) => callback(...args)),
   onShowCustomContextMenu: (callback) => ipcRenderer.on('show-custom-context-menu', (_event, ...args) => callback(...args)),

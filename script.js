@@ -78,6 +78,9 @@ function init() {
                 background: rgba(26, 26, 26, 0.65) !important;
                 backdrop-filter: blur(16px) saturate(150%) !important;
                 -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+                background: var(--bg-primary) !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
                 border: none !important;
             }
             
@@ -90,7 +93,7 @@ function init() {
             .theme-dark input, .theme-dark select, .theme-dark textarea, .theme-dark .explorer-search-input, .theme-dark .address-bar-capsule, .theme-dark .ai-input-box {
                 background-color: var(--bg-tertiary) !important;
                 color: var(--text-primary) !important;
-                border: 1px solid var(--border-color) !important;
+                border: none !important;
             }
             .theme-dark input::placeholder, .theme-dark textarea::placeholder {
                 color: var(--text-secondary) !important;
@@ -111,7 +114,7 @@ function init() {
             /* Cards, Panels & Popups */
             .theme-dark .settings-card, .theme-dark .search-result-item, .theme-dark .history-item, .theme-dark .home-search-box, .theme-dark .ai-mode-popup, .theme-dark .address-suggestions {
                 background-color: var(--bg-tertiary) !important;
-                border-color: var(--border-color) !important;
+                border: none !important;
                 color: var(--text-primary) !important;
                 box-shadow: 0 6px 16px rgba(0,0,0,0.3) !important;
             }
@@ -137,6 +140,17 @@ function init() {
                 border-color: transparent !important;
                 border-bottom-right-radius: 4px !important;
             }
+            
+            /* AI Vorschläge und Willkommenstext */
+            .theme-dark .ai-suggestion-btn {
+                background: rgba(255, 255, 255, 0.05) !important;
+                color: var(--text-primary) !important;
+                border: none !important;
+            }
+            .theme-dark .ai-suggestion-btn:hover {
+                background: rgba(255, 255, 255, 0.1) !important;
+            }
+            .theme-dark .ai-welcome-text { color: var(--text-primary) !important; }
             
             /* Hover Effects */
             .theme-dark .nav-item:hover, .theme-dark .settings-button:hover, .theme-dark .favorite-pill:hover, .theme-dark .tab:hover, .theme-dark .search-result-item:hover, .theme-dark .history-item:hover, .theme-dark .ai-mode-option:hover, .theme-dark .win-btn:hover, .theme-dark .sidebar-toggle:hover, .theme-dark .history-toggle-btn:hover, .theme-dark .ai-toggle-btn:hover, .theme-dark .notes-toggle-btn:hover, .theme-dark .downloads-toggle-btn:hover, .theme-dark .browser-nav-btns svg:hover, .theme-dark .new-tab-btn:hover, .theme-dark .explorer-btn:hover, .theme-dark .suggestion-item:hover, .theme-dark .suggestion-item.selected {
@@ -175,6 +189,9 @@ function init() {
             
             /* Specific Text & Branding */
             .theme-dark .home-wordmark, .theme-dark .nav-text {
+                color: var(--text-primary) !important;
+            }
+            .theme-dark .favorite-pill .fav-title, .theme-dark .suggestion-item, .theme-dark .ai-mode-option, .theme-dark .context-menu-item {
                 color: var(--text-primary) !important;
             }
             .theme-dark .close-tab {
@@ -253,6 +270,10 @@ function init() {
                 flex: 1 !important;
                 min-width: 0 !important;
                 color: inherit !important;
+            }
+            .theme-dark .ai-input-box {
+                border: none !important;
+                background-color: var(--bg-tertiary) !important;
             }
             .ai-send-circle {
                 background: #e5e5ea !important;
@@ -1086,7 +1107,7 @@ function init() {
             'Diese Woche': [],
             'Älter': []
         };
-        browserHistory.slice(0, 100).forEach((item) => {
+        browserHistory.slice(0, 300).forEach((item) => {
             const groupName = getHistoryGroup(item.time || 0, now);
             groups[groupName].push(item);
         });
@@ -1115,7 +1136,7 @@ function init() {
         if (!url || url === 'about:blank') return;
         if (browserHistory.length > 0 && browserHistory[0].url === url) return;
         browserHistory.unshift({ url, title: title || url, time: Date.now() });
-        if (browserHistory.length > 100) browserHistory.pop();
+        if (browserHistory.length > 1000) browserHistory.pop();
         localStorage.setItem('aether-history', JSON.stringify(browserHistory));
         renderHistory();
     }
@@ -1775,10 +1796,11 @@ function init() {
             webview.setAttribute('preload', 'webview-preload.js');
         }
         webview.style.display = 'none';
-        webviewsContainer.appendChild(webview);
         
-        // Die URL (src) erst nach dem Einfügen in den DOM setzen, um ERR_ABORTED (-3) zu verhindern
-        webview.src = url || 'about:blank';
+        // Die URL über das Attribut setzen, BEVOR wir es in den DOM einhängen (verhindert ERR_ABORTED)
+        webview.setAttribute('src', url || 'about:blank');
+
+        webviewsContainer.appendChild(webview);
 
         webview.addEventListener('dom-ready', () => {
             // WebView methods can throw if the element was removed before dom-ready resolves.
@@ -1802,6 +1824,7 @@ function init() {
         tab.className = 'tab';
         tab.id = tabId;
         tab.dataset.url = url || 'about:blank';
+        tab.setAttribute('draggable', 'true');
         tab.dataset.lastFocusedAtMs = String(Number(opts.lastFocusedAtMs || Date.now()));
         tab.innerHTML = `<img class="tab-icon" src="${DEFAULT_TAB_ICON_DATA_URL}" alt=""><span class="tab-title">Neuer Tab</span><span class="tab-audio-indicator hidden" title="Stummschalten"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></span><span class="close-tab">×</span>`;
         if (opts.pinned) tab.classList.add('pinned');
@@ -1948,6 +1971,57 @@ function init() {
     }
     
     // --- Tab Container Event Delegation ---
+    let draggedTabId = null;
+    if (tabsContainer) {
+        tabsContainer.addEventListener('dragstart', (e) => {
+            const tab = e.target.closest('.tab');
+            if (tab) {
+                draggedTabId = tab.id;
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', tab.id);
+                setTimeout(() => tab.classList.add('dragging'), 0);
+            }
+        });
+
+        tabsContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const draggingTab = document.getElementById(draggedTabId);
+            if (!draggingTab) return;
+            
+            const draggableElements = [...tabsContainer.querySelectorAll('.tab:not(.dragging)')].filter(el => el.id !== draggedTabId);
+            const afterElement = draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = e.clientX - box.left - box.width / 2;
+                return (offset < 0 && offset > closest.offset) ? { offset, element: child } : closest;
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+
+            if (afterElement == null) tabsContainer.insertBefore(draggingTab, addTabBtn);
+            else tabsContainer.insertBefore(draggingTab, afterElement);
+        });
+
+        tabsContainer.addEventListener('dragend', (e) => {
+            const tab = document.getElementById(draggedTabId);
+            if (tab) tab.classList.remove('dragging');
+            
+            // Wurde es ausserhalb des Browserfensters abgeworfen?
+            const isOutside = e.clientX < 0 || e.clientY < 0 || e.clientX > window.innerWidth || e.clientY > window.innerHeight;
+            if (isOutside && draggedTabId) {
+                const dragUrl = tab ? (tab.dataset.url || 'about:blank') : 'about:blank';
+                if (window.electronAPI && window.electronAPI.createNewWindow) window.electronAPI.createNewWindow(dragUrl);
+                
+                // Wenn der letzte Tab rausgezogen wird -> aktuelles Fenster komplett schließen wie in Chrome
+                if (document.querySelectorAll('.tab').length === 1) {
+                    if (window.electronAPI && window.electronAPI.closeWindow) window.electronAPI.closeWindow();
+                } else {
+                    closeTab(draggedTabId, { skipSave: true });
+                }
+            }
+            draggedTabId = null;
+            scheduleSaveAppState();
+        });
+    }
+
     if (tabsContainer) {
         tabsContainer.addEventListener('contextmenu', (e) => {
             const tab = e.target.closest('.tab');
@@ -2019,6 +2093,17 @@ function init() {
     } catch (e) {
         console.error('restoreTabsFromState failed:', e);
         // Continue wiring events so UI doesn't go dead.
+    }
+
+    // Wenn das Fenster als neuer Tab geöffnet wurde (durch Rausziehen)
+    if (window.electronAPI && window.electronAPI.onOpenInitialUrl) {
+        window.electronAPI.onOpenInitialUrl((url) => {
+            setTimeout(() => {
+                const existingTabs = Array.from(document.querySelectorAll('.tab'));
+                existingTabs.forEach(t => closeTab(t.id, { skipSave: true, noAutoCreate: true }));
+                createTab(url);
+            }, 50);
+        });
     }
     window.addEventListener('beforeunload', () => saveAppState());
     window.setInterval(reclaimMemory, 60_000);
@@ -2296,8 +2381,25 @@ function init() {
             importBrowserBtn.disabled = true;
             try {
                 if (window.electronAPI && window.electronAPI.importBrowserData) {
-                    const count = await window.electronAPI.importBrowserData(browser);
-                    if (importStatus) { importStatus.textContent = `Erfolgreich! ${count} Passwörter sicher im Aether Vault verschlüsselt.`; importStatus.style.color = '#34c759'; }
+                    const data = await window.electronAPI.importBrowserData(browser);
+                    const passCount = data.passwordsCount || 0;
+                    const histItems = data.history || [];
+
+                    if (histItems.length > 0) {
+                        let existingUrls = new Set(browserHistory.map(h => h.url));
+                        histItems.forEach(item => {
+                            if (!existingUrls.has(item.url)) {
+                                browserHistory.push(item);
+                                existingUrls.add(item.url);
+                            }
+                        });
+                        browserHistory.sort((a, b) => b.time - a.time);
+                        if (browserHistory.length > 1000) browserHistory.length = 1000;
+                        localStorage.setItem('aether-history', JSON.stringify(browserHistory));
+                        renderHistory();
+                    }
+
+                    if (importStatus) { importStatus.textContent = `Erfolgreich! ${passCount} Passwörter und ${histItems.length} Verlaufseinträge importiert.`; importStatus.style.color = '#34c759'; }
                 } else {
                     if (importStatus) { importStatus.textContent = 'Fehler: API nicht verfügbar. Hast du preload.js aktualisiert?'; importStatus.style.color = '#ff3b30'; }
                 }
