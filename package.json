@@ -37,6 +37,14 @@
       "uninstallerIcon": "build/favicon.ico",
       "uninstallDisplayName": "Aether Browser",
       "artifactName": "Aether-Browser-Setup-${version}.${ext}"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.png",
+      "category": "public.app-category.utilities"
+    },
+    "dmg": {
+      "artifactName": "Aether-Browser-${version}-mac.${ext}"
     }
   },
   "devDependencies": {

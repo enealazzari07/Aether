@@ -4,7 +4,6 @@ productName: Aether Browser
 directories:
   buildResources: build
 
-icon: favicon.ico
 extraResources:
   - from: build/favicon.ico
     to: favicon.ico
@@ -16,12 +15,20 @@ extraMetadata:
 
 win:
   target: nsis
-  icon: favicon.ico
+  icon: build/favicon.ico
   signAndEditExecutable: false
 
 nsis:
   oneClick: true
   allowToChangeInstallationDirectory: false
+
+mac:
+  target: dmg
+  icon: build/icon.png
+  category: public.app-category.utilities
+
+dmg:
+  artifactName: Aether-Browser-${version}-mac.${ext}
 
 publish:
   provider: github

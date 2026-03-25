@@ -1,4 +1,4 @@
-name: Release (Windows)
+name: Release (Windows & macOS)
 
 on:
   push:
@@ -10,8 +10,31 @@ permissions:
   contents: write
 
 jobs:
-  build-and-publish:
+  build-and-publish-windows:
     runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build & Publish
+        run: npm run release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUILD_TAG: ${{ github.ref_name }}
+          BUILD_SHA: ${{ github.sha }}
+          BUILD_TIME: ${{ github.run_id }}
+
+  build-and-publish-mac:
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
